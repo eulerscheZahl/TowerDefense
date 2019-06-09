@@ -1,0 +1,16 @@
+gameloop
+read money:int lives:int
+read entityCount:int
+loop entityCount read type:word(10) entityId:int x:float y:float param0:float param1:int param3:int param4:int
+
+STATEMENT
+Survive the attack waves
+
+INPUT
+param0: for towers: damage, for attackers: hitPoints
+param1: for towers: range, for attackers: maximum movement speed
+param2: for towers: fire rate, for attackers: current movement speed
+param3: for towers: cooldown, for attackers: slow cooldown
+param4: for towers: -1, for attackers: money gain
+OUTPUT
+BUILD x y TOWER | UPGRADE id PROPERTY
