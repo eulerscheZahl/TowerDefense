@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Queue;
+import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import com.codingame.game.Player;
@@ -22,7 +23,7 @@ public class Board {
 	private BoardView view;
 	private List<List<Attacker>> futureAttackers = new ArrayList<>();
 
-	public Board(String s, List<Player> players) {
+	public Board(String s, List<Player> players, Random random) {
 		this.players = players;
 		for (int i = 0; i <= Referee.GAME_TURNS; i++)
 			futureAttackers.add(new ArrayList<>());
@@ -159,7 +160,10 @@ public class Board {
 				while (!Tower.TowerOrder[t2Index].equals(t2.getType()))
 					t2Index++;
 				if (t1Index == t2Index) {
-					return t1.getTile().getX() * height + t1.getTile().getY() - t2.getTile().getX() * height - t2.getTile().getY();
+					int result = t1.getTile().getX() * height + t1.getTile().getY() - t2.getTile().getX() * height - t2.getTile().getY();
+					if (t1.getOwner().getIndex() == 1)
+						result *= -1;
+					return result;
 				}
 				return t1Index - t2Index;
 			}
@@ -224,7 +228,17 @@ public class Board {
 
 	public List<String> getPlayerInput(Player player, boolean initialInput) {
 		List<String> input = new ArrayList<>();
-		// TODO initial input
+		if (initialInput) {
+			input.add(String.valueOf(player.getIndex()));
+			input.add(width + " " + height);
+			for (int y = 0; y < height; y++) {
+				StringBuilder sb = new StringBuilder();
+				for (int x = 0; x < width; x++) {
+					sb.append(grid[x][y].getMapChar());
+				}
+				input.add(sb.toString());
+			}
+		}
 
 		// player + opponent
 		input.add(player.getPlayerInput());

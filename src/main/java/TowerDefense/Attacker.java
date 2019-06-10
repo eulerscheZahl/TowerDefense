@@ -32,7 +32,6 @@ public class Attacker {
 	public int getSpeed() {
 		if (slowCountdown == 0)
 			return maxSpeed;
-		// TODO: depends on slow tower damage
 		return maxSpeed * 2 / 3;
 	}
 

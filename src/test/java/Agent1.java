@@ -5,11 +5,21 @@ public class Agent1 {
 	public static void main(String[] args) {
 		Locale.setDefault(new Locale("en", "US"));
 		Scanner scanner = new Scanner(System.in);
-
+		String initialInput = "";
+		int myId = scanner.nextInt();
+		initialInput += myId + "\n";
+		int width = scanner.nextInt();
+		int height = scanner.nextInt();
+		initialInput += width + " " + height + "\n";
+		scanner.nextLine();
+		for (int y = 0; y < height; y++) {
+			String line = scanner.nextLine();
+			initialInput += line + "\n";
+		}
 		while (true) {
 			int myMoney = scanner.nextInt();
 			int myLives = scanner.nextInt();
-			System.err.println(myMoney + " " + myLives);
+			System.err.println(initialInput + myMoney + " " + myLives);
 			int opponentMoney = scanner.nextInt();
 			int opponentLives = scanner.nextInt();
 			System.err.println(opponentMoney + " " + opponentLives);

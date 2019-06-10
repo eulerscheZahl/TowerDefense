@@ -34,6 +34,12 @@ public class Tile {
 		return !canyon;
 	}
 
+	public char getMapChar() {
+		if (canyon)
+			return '.';
+		return '#';
+	}
+
 	@Override
 	public String toString() {
 		return x + " " + y;

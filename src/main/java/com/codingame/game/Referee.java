@@ -28,9 +28,10 @@ public class Referee extends AbstractReferee {
 	@Override
 	public void init() {
 		Locale.setDefault(new Locale("en", "US"));
-		String input = MapGenerator.generateMap();
+		Random random = new Random(gameManager.getSeed());
+		String input = MapGenerator.generateMap(random);
 		gameManager.setMaxTurns(GAME_TURNS);
-		board = new Board(input, gameManager.getPlayers());
+		board = new Board(input, gameManager.getPlayers(), random);
 
 		BoardView view = new BoardView(board, graphicEntityModule);
 	}
@@ -38,7 +39,7 @@ public class Referee extends AbstractReferee {
 	@Override
 	public void gameTurn(int turn) {
 		for (Player player : gameManager.getActivePlayers()) {
-			for (String line : board.getPlayerInput(player, turn == 1))
+			for (String line : board.getPlayerInput(player, turn == 0))
 				player.sendInputLine(line);
 			player.execute();
 		}
