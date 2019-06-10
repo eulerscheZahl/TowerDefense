@@ -12,6 +12,7 @@ public class HealTowerView extends TowerView {
 	public HealTowerView(Tower tower, Group boardGroup, GraphicEntityModule graphics, TooltipModule tooltips) {
 		super(tower, boardGroup, graphics, tooltips);
 		towerSprite = Utils.createTowerSprite(graphics, "healTower.png", tower.getTile().getX(), tower.getTile().getY());
+		towerSprite.setTint(tower.getOwner().getColor());
 		attackSprite = graphics.createSprite().setImage("healTowerAttack.png").setAlpha(0);
 		attackLine = graphics.createLine();
 		attackLine.setX(BoardView.CELL_SIZE * tower.getTile().getX());

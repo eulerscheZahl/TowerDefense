@@ -39,6 +39,16 @@ public class BoardView {
 					Sprite canyon = Utils.createBoardSprite(graphics, "canyon.png", x, y);
                     tooltips.setTooltipText(canyon, "x: " + x + "\ny: " + y);
 					innerGroup.add(canyon);
+					if (x == 0) {
+						Sprite headquarter = Utils.createBoardSprite(graphics, "headquarter.png", x, y);
+						headquarter.setTint(board.getPlayer(0).getColor());
+						innerGroup.add(headquarter);
+					}
+					if (x == board.getWidth() - 1) {
+						Sprite headquarter = Utils.createBoardSprite(graphics, "headquarter.png", x, y);
+						headquarter.setTint(board.getPlayer(1).getColor());
+						innerGroup.add(headquarter);
+					}
 				}
 			}
 		}

@@ -21,7 +21,7 @@ public class HealTower extends Tower {
 	boolean doAttack(List<Attacker> attackers) {
 		Attacker target = null;
 		for (Attacker a : attackers) {
-			if (getOwner() != a.getEnemy() || !inRange(a) || !a.canHeal())
+			if (getOwner() != a.getOwner() || !inRange(a) || !a.canHeal())
 				continue;
 			if (target == null || a.getPathLength() < target.getPathLength())
 				target = a;

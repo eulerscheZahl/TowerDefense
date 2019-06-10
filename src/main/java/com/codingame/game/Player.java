@@ -6,8 +6,10 @@ import TowerDefense.Attacker;
 import TowerDefense.Tower;
 
 public class Player extends AbstractMultiplayerPlayer {
-	private int money = 350;
+	private int money = 750;
 	private int lives = 10;
+
+	private static int[] colors = { 0xff8080, 0x8080ff };
 
 	@Override
 	public int getExpectedOutputLines() {
@@ -30,6 +32,10 @@ public class Player extends AbstractMultiplayerPlayer {
 		return true;
 	}
 
+	public void spendMoney(int money) {
+		this.money -= money;
+	}
+
 	public String getPlayerInput() {
 		return money + " " + lives;
 	}
@@ -40,5 +46,9 @@ public class Player extends AbstractMultiplayerPlayer {
 
 	public boolean isDead() {
 		return lives <= 0;
+	}
+
+	public int getColor() {
+		return colors[getIndex()];
 	}
 }

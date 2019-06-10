@@ -40,11 +40,13 @@ public class Agent1 {
 			}
 
 			System.err.println("money: " + myMoney + "   lives: " + myLives);
-			if (myMoney >= 100) {
+			if (myMoney >= 500) {
 				if (myId == 0)
-					System.out.println("BUILD 2 3 GUNTOWER;BUILD 6 7 HEALTOWER;BUILD 5 3 GLUETOWER");
+					System.out.println("BUILD 2 3 GUNTOWER;BUILD 13 2 HEALTOWER;BUILD 5 3 GLUETOWER");
 				else
 					System.out.println("BUILD 12 2 GUNTOWER;BUILD 11 4 GUNTOWER;BUILD 12 4 GUNTOWER");
+			} else if (myMoney >= 200 && myId == 0) {
+				System.out.println("UPGRADE 0 DAMAGE");
 			} else
 				System.out.println("PASS");
 		}

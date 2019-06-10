@@ -21,7 +21,7 @@ public class FireTower extends Tower {
 	boolean doAttack(List<Attacker> attackers) {
 		boolean firing = false;
 		for (Attacker a : attackers) {
-			if (getOwner() == a.getEnemy() || !inRange(a))
+			if (getOwner() == a.getOwner() || !inRange(a))
 				continue;
 			a.dealDamage((int) getProperty(TowerProperty.DAMAGE));
 			firing = true;

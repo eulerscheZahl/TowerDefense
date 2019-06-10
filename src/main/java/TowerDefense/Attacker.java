@@ -15,15 +15,17 @@ public class Attacker {
 	private int maxSpeed;
 	private int slowCountdown;
 	private int money;
+	private Player owner;
 	private Player enemy;
 	private AttackerView view;
 	private static int idCounter;
 
-	public Attacker(List<SubTile> path, Player enemy) {
+	public Attacker(List<SubTile> path, Player owner, Player enemy) {
 		id = idCounter++;
 		if (enemy.getIndex() == 0)
 			Collections.reverse(path);
 		this.remainingPath = path;
+		this.owner = owner;
 		this.enemy = enemy;
 		maxSpeed = 10;
 		hitPoints = 10;
@@ -95,6 +97,10 @@ public class Attacker {
 			slowCountdown--;
 	}
 
+	public Player getOwner() {
+		return owner;
+	}
+
 	public Player getEnemy() {
 		return enemy;
 	}
@@ -103,7 +109,7 @@ public class Attacker {
 		StringBuilder sb = new StringBuilder();
 		sb.append("ATTACKER ");
 		sb.append(id).append(" ");
-		sb.append(1 - enemy.getIndex()).append(" ");
+		sb.append(owner.getIndex()).append(" ");
 		sb.append(getLocation().toString()).append(" ");
 		sb.append(hitPoints).append(" ");
 		sb.append(maxSpeed).append(" ");

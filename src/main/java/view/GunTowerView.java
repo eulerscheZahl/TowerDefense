@@ -12,6 +12,7 @@ public class GunTowerView extends TowerView {
 	public GunTowerView(Tower tower, Group boardGroup, GraphicEntityModule graphics, TooltipModule tooltips) {
 		super(tower, boardGroup, graphics, tooltips);
 		towerSprite = Utils.createTowerSprite(graphics, "gunTower.png", tower.getTile().getX(), tower.getTile().getY());
+		towerSprite.setTint(tower.getOwner().getColor());
 		attackSprite = graphics.createSprite().setImage("gunTowerAttack.png").setAlpha(0);
 		attackLine = graphics.createLine();
 		attackLine.setX(BoardView.CELL_SIZE * tower.getTile().getX());
