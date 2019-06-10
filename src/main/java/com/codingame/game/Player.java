@@ -9,6 +9,8 @@ public class Player extends AbstractMultiplayerPlayer {
 	private int money = 350;
 	private int lives = 10;
 
+	private static int[] colors = { 0xff8080, 0x8080ff };
+
 	@Override
 	public int getExpectedOutputLines() {
 		return 1;
@@ -40,5 +42,9 @@ public class Player extends AbstractMultiplayerPlayer {
 
 	public boolean isDead() {
 		return lives <= 0;
+	}
+
+	public int getColor() {
+		return colors[getIndex()];
 	}
 }

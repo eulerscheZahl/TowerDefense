@@ -1,11 +1,17 @@
 package TowerDefense;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Queue;
+import java.util.Random;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
 import com.codingame.game.Player;
 import com.codingame.game.Referee;
-import view.BoardView;
 
-import java.util.*;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import view.BoardView;
 
 public class Board {
 	private Tile[][] grid;
@@ -54,8 +60,8 @@ public class Board {
 
 		for (int turn : new int[] { 1, 3, 5, 7, 9, 10 }) {
 			List<SubTile> path = selectPath(paths);
-			futureAttackers.get(turn).add(new Attacker(new ArrayList<SubTile>(path), players.get(0)));
-			futureAttackers.get(turn).add(new Attacker(new ArrayList<SubTile>(path), players.get(1)));
+			futureAttackers.get(turn).add(new Attacker(new ArrayList<SubTile>(path), players.get(1), players.get(0)));
+			futureAttackers.get(turn).add(new Attacker(new ArrayList<SubTile>(path), players.get(0), players.get(1)));
 		}
 	}
 
@@ -189,58 +195,58 @@ public class Board {
 		return attackers;
 	}
 
-    public void cacheBuild(Player player, int x, int y, String type) {
-        for (BuildAction buildAction : buildActions) {
-            if (buildAction.getX() == x && buildAction.getY() == y) {
-                // TODO add error message for build conflict
-                if (isCloserTo(player, x, y)) {
-                    buildAction.setPlayer(player);
-                    buildAction.setType(type);
-                }
-                return;
-            }
-        }
+	public void cacheBuild(Player player, int x, int y, String type) {
+		for (BuildAction buildAction : buildActions) {
+			if (buildAction.getX() == x && buildAction.getY() == y) {
+				// TODO add error message for build conflict
+				if (isCloserTo(player, x, y)) {
+					buildAction.setPlayer(player);
+					buildAction.setType(type);
+				}
+				return;
+			}
+		}
 
-        buildActions.add(new BuildAction(player, x, y, type));
-    }
+		buildActions.add(new BuildAction(player, x, y, type));
+	}
 
-    private boolean isCloserTo(Player player, int x, int y) {
-        // if width is even
-        if (width % 2 == 0) {
-            if (player.getIndex() == 0) {
-                return x < width / 2;
-            } else {
-                return x >= width / 2;
-            }
-        }
-        // if width is odd
-        else {
-            if (player.getIndex() == 0) {
-                if (x < width / 2) {
-                    return true;
-                } else if (x == width / 2) {
-                    return y < height / 2;
-                } else {
-                    return false;
-                }
-            } else {
-                if (x > width / 2) {
-                    return true;
-                } else if (x == width / 2) {
-                    return y >= height / 2;
-                } else {
-                    return false;
-                }
-            }
-        }
-    }
+	private boolean isCloserTo(Player player, int x, int y) {
+		// if width is even
+		if (width % 2 == 0) {
+			if (player.getIndex() == 0) {
+				return x < width / 2;
+			} else {
+				return x >= width / 2;
+			}
+		}
+		// if width is odd
+		else {
+			if (player.getIndex() == 0) {
+				if (x < width / 2) {
+					return true;
+				} else if (x == width / 2) {
+					return y < height / 2;
+				} else {
+					return false;
+				}
+			} else {
+				if (x > width / 2) {
+					return true;
+				} else if (x == width / 2) {
+					return y >= height / 2;
+				} else {
+					return false;
+				}
+			}
+		}
+	}
 
-    public void executeBuilds() {
-        for (BuildAction buildAction : buildActions) {
-            build(buildAction.getPlayer(), buildAction.getX(), buildAction.getY(), buildAction.getType());
-        }
-        buildActions.clear();
-    }
+	public void executeBuilds() {
+		for (BuildAction buildAction : buildActions) {
+			build(buildAction.getPlayer(), buildAction.getX(), buildAction.getY(), buildAction.getType());
+		}
+		buildActions.clear();
+	}
 
 	private void build(Player player, int x, int y, String type) {
 		Tower tower = null;

@@ -19,6 +19,7 @@ public class AttackerView {
 		this.graphics = graphics;
 		attacker.setView(this);
 		sprite = Utils.createAttackerSprite(graphics, "attacker.png", attacker.getLocation().getX(), attacker.getLocation().getY());
+		sprite.setTint(attacker.getOwner().getColor());
 	}
 
 	public void move(ArrayList<SubTile> steps) {

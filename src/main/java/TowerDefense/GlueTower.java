@@ -21,7 +21,7 @@ public class GlueTower extends Tower {
 	boolean doAttack(List<Attacker> attackers) {
 		Attacker target = null;
 		for (Attacker a : attackers) {
-			if (getOwner() == a.getEnemy() || !inRange(a))
+			if (getOwner() == a.getOwner() || !inRange(a))
 				continue;
 			if (target == null || a.getPathLength() < target.getPathLength())
 				target = a;

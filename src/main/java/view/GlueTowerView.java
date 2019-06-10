@@ -11,6 +11,7 @@ public class GlueTowerView extends TowerView {
 	public GlueTowerView(Tower tower, Group boardGroup, GraphicEntityModule graphics) {
 		super(tower, boardGroup, graphics);
 		towerSprite = Utils.createTowerSprite(graphics, "glueTower.png", tower.getTile().getX(), tower.getTile().getY());
+		towerSprite.setTint(tower.getOwner().getColor());
 		attackSprite = graphics.createSprite().setImage("glueTowerAttack.png").setAlpha(0);
 		attackLine = graphics.createLine();
 		attackLine.setX(BoardView.CELL_SIZE * tower.getTile().getX());
