@@ -1,24 +1,27 @@
 package view;
 
-import java.util.ArrayList;
-
+import TowerDefense.Attacker;
+import TowerDefense.SubTile;
 import com.codingame.gameengine.module.entities.GraphicEntityModule;
 import com.codingame.gameengine.module.entities.Group;
 import com.codingame.gameengine.module.entities.Sprite;
+import com.codingame.gameengine.module.tooltip.TooltipModule;
 
-import TowerDefense.Attacker;
-import TowerDefense.SubTile;
+import java.util.ArrayList;
 
 public class AttackerView {
 	private Attacker attacker;
 	private Sprite sprite;
 	private GraphicEntityModule graphics;
+	private TooltipModule tooltips;
 
-	public AttackerView(Attacker attacker, Group boardGroup, GraphicEntityModule graphics) {
+	public AttackerView(Attacker attacker, Group boardGroup, GraphicEntityModule graphics, TooltipModule tooltips) {
 		this.attacker = attacker;
 		this.graphics = graphics;
+		this.tooltips = tooltips;
 		attacker.setView(this);
 		sprite = Utils.createAttackerSprite(graphics, "attacker.png", attacker.getLocation().getX(), attacker.getLocation().getY());
+		tooltips.setTooltipText(sprite, attacker.getTooltipString());
 	}
 
 	public void move(ArrayList<SubTile> steps) {
@@ -42,6 +45,7 @@ public class AttackerView {
 		SubTile last = steps.get(steps.size() - 1);
 		sprite.setX((int) (BoardView.CELL_SIZE * last.getX()));
 		sprite.setY((int) (BoardView.CELL_SIZE * last.getY()));
+        tooltips.setTooltipText(sprite, attacker.getTooltipString());
 	}
 
 	public void kill() {

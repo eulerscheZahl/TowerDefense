@@ -1,12 +1,11 @@
 package TowerDefense;
 
+import com.codingame.game.Player;
+import view.AttackerView;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import com.codingame.game.Player;
-
-import view.AttackerView;
 
 public class Attacker {
 	private List<SubTile> remainingPath;
@@ -114,4 +113,17 @@ public class Attacker {
 
 		return sb.toString();
 	}
+
+	public String getTooltipString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("x: ").append(getLocation().getX()).append("\ny: ").append(getLocation().getY());
+        sb.append("\nid: ").append(id);
+        sb.append("\nowner: ").append(1 - enemy.getIndex());
+        sb.append("\nhp: ").append(hitPoints);
+        sb.append("\nspeed: ").append(getSpeed());
+        sb.append("\nslowdown: ").append(slowCountdown).append(" rounds");
+        sb.append("\nbounty: ").append(money);
+
+        return sb.toString();
+    }
 }

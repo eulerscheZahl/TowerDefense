@@ -1,12 +1,12 @@
 package TowerDefense;
 
-import java.util.List;
-
 import com.codingame.gameengine.module.entities.GraphicEntityModule;
 import com.codingame.gameengine.module.entities.Group;
-
+import com.codingame.gameengine.module.tooltip.TooltipModule;
 import view.GlueTowerView;
 import view.TowerView;
+
+import java.util.List;
 
 public class GlueTower extends Tower {
 	public GlueTower(Tile tile) {
@@ -35,7 +35,7 @@ public class GlueTower extends Tower {
 	}
 
 	@Override
-	public TowerView createView(Group boardGroup, GraphicEntityModule graphics) {
-		return new GlueTowerView(this, boardGroup, graphics);
+	public TowerView createView(Group boardGroup, GraphicEntityModule graphics, TooltipModule tooltipModule) {
+		return new GlueTowerView(this, boardGroup, graphics, tooltipModule);
 	}
 }

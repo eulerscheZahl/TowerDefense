@@ -1,12 +1,12 @@
 package TowerDefense;
 
-import java.util.List;
-
 import com.codingame.gameengine.module.entities.GraphicEntityModule;
 import com.codingame.gameengine.module.entities.Group;
-
+import com.codingame.gameengine.module.tooltip.TooltipModule;
 import view.FireTowerView;
 import view.TowerView;
+
+import java.util.List;
 
 public class FireTower extends Tower {
 	public FireTower(Tile tile) {
@@ -30,7 +30,7 @@ public class FireTower extends Tower {
 	}
 
 	@Override
-	public TowerView createView(Group boardGroup, GraphicEntityModule graphics) {
-		return new FireTowerView(this, boardGroup, graphics);
+	public TowerView createView(Group boardGroup, GraphicEntityModule graphics, TooltipModule tooltipModule) {
+		return new FireTowerView(this, boardGroup, graphics, tooltipModule);
 	}
 }
