@@ -5,11 +5,12 @@ import com.codingame.gameengine.module.entities.Group;
 
 import TowerDefense.Attacker;
 import TowerDefense.Tower;
+import com.codingame.gameengine.module.tooltip.TooltipModule;
 
 public class HealTowerView extends TowerView {
 
-	public HealTowerView(Tower tower, Group boardGroup, GraphicEntityModule graphics) {
-		super(tower, boardGroup, graphics);
+	public HealTowerView(Tower tower, Group boardGroup, GraphicEntityModule graphics, TooltipModule tooltips) {
+		super(tower, boardGroup, graphics, tooltips);
 		towerSprite = Utils.createTowerSprite(graphics, "healTower.png", tower.getTile().getX(), tower.getTile().getY());
 		towerSprite.setTint(tower.getOwner().getColor());
 		attackSprite = graphics.createSprite().setImage("healTowerAttack.png").setAlpha(0);
@@ -18,6 +19,7 @@ public class HealTowerView extends TowerView {
 		attackLine.setY(BoardView.CELL_SIZE * tower.getTile().getY());
 		attackLine.setLineColor(0x80ff80).setAlpha(0);
 		attackLine.setLineWidth(5);
+        tooltips.setTooltipText(towerSprite, tower.getTooltipString());
 	}
 
 	public void attack(Attacker a) {

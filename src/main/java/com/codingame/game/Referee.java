@@ -7,6 +7,7 @@ import com.codingame.gameengine.core.AbstractPlayer.TimeoutException;
 import com.codingame.gameengine.core.AbstractReferee;
 import com.codingame.gameengine.core.MultiplayerGameManager;
 import com.codingame.gameengine.module.entities.GraphicEntityModule;
+import com.codingame.gameengine.module.tooltip.TooltipModule;
 import com.google.inject.Inject;
 
 import TowerDefense.Board;
@@ -22,6 +23,8 @@ public class Referee extends AbstractReferee {
 	private MultiplayerGameManager<Player> gameManager;
 	@Inject
 	private GraphicEntityModule graphicEntityModule;
+    @Inject
+    private TooltipModule tooltipModule;
 
 	private Board board;
 
@@ -33,7 +36,7 @@ public class Referee extends AbstractReferee {
 		gameManager.setMaxTurns(GAME_TURNS);
 		board = new Board(input, gameManager.getPlayers(), random);
 
-		BoardView view = new BoardView(board, graphicEntityModule);
+		BoardView view = new BoardView(board, graphicEntityModule, tooltipModule);
 	}
 
 	@Override
