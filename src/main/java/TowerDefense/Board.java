@@ -18,11 +18,12 @@ public class Board {
 	private List<Tower> towers = new ArrayList<>();
 	private int width;
 	private int height;
-	private Player player;
+	private List<Player> players;
 	private BoardView view;
 	private List<List<Attacker>> futureAttackers = new ArrayList<>();
 
-	public Board(String s) {
+	public Board(String s, List<Player> players) {
+		this.players = players;
 		for (int i = 0; i <= Referee.GAME_TURNS; i++)
 			futureAttackers.add(new ArrayList<>());
 
@@ -55,12 +56,11 @@ public class Board {
 			findPaths(grid, width, height, target, paths);
 		}
 
-		futureAttackers.get(1).add(new Attacker(selectPath(paths)));
-		futureAttackers.get(3).add(new Attacker(selectPath(paths)));
-		futureAttackers.get(5).add(new Attacker(selectPath(paths)));
-		futureAttackers.get(7).add(new Attacker(selectPath(paths)));
-		futureAttackers.get(9).add(new Attacker(selectPath(paths)));
-		futureAttackers.get(10).add(new Attacker(selectPath(paths)));
+		for (int turn : new int[] { 1, 3, 5, 7, 9, 10 }) {
+			List<SubTile> path = selectPath(paths);
+			futureAttackers.get(turn).add(new Attacker(new ArrayList<SubTile>(path), players.get(0)));
+			futureAttackers.get(turn).add(new Attacker(new ArrayList<SubTile>(path), players.get(1)));
+		}
 	}
 
 	private List<SubTile> selectPath(List<List<SubTile>> paths) {
@@ -171,7 +171,7 @@ public class Board {
 				Attacker a = attackers.get(i);
 				if (a.isDead()) {
 					attackers.remove(i);
-					player.kill(a);
+					t.getOwner().kill(a);
 				}
 			}
 		}
@@ -181,7 +181,7 @@ public class Board {
 			if (a.hasSucceeded()) {
 				attackers.remove(i);
 				a.kill();
-				player.loseLife();
+				a.getEnemy().loseLife();
 			}
 		}
 	}
@@ -190,11 +190,7 @@ public class Board {
 		return attackers;
 	}
 
-	public void setPlayer(Player player) {
-		this.player = player;
-	}
-
-	public void build(int x, int y, String type) {
+	public void build(Player player, int x, int y, String type) {
 		Tower tower = null;
 		switch (type) {
 		case "GUNTOWER":
@@ -226,9 +222,18 @@ public class Board {
 		}
 	}
 
-	public List<String> getPlayerInput() {
+	public List<String> getPlayerInput(Player player, boolean initialInput) {
 		List<String> input = new ArrayList<>();
+		// TODO initial input
+
+		// player + opponent
 		input.add(player.getPlayerInput());
+		if (players.get(0) == player)
+			input.add(players.get(1).getPlayerInput());
+		else
+			input.add(players.get(0).getPlayerInput());
+
+		// towers, attackers
 		input.add(String.valueOf(towers.size() + attackers.size()));
 		for (Tower t : towers)
 			input.add(t.getPlayerInput());

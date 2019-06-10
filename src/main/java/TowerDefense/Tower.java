@@ -19,6 +19,7 @@ public abstract class Tower {
 	protected int cost;
 	private final int[] upgradeCosts = { 0, 100, 200, 500 };
 	private TowerView view;
+	private Player owner;
 	public static final String[] TowerOrder = { "FIRETOWER", "GUNTOWER", "GLUETOWER" };
 
 	static int idCounter = 0;
@@ -62,6 +63,14 @@ public abstract class Tower {
 
 	public TowerView getView() {
 		return view;
+	}
+
+	public Player getOwner() {
+		return owner;
+	}
+
+	public void setOwner(Player owner) {
+		this.owner = owner;
 	}
 
 	public void attack(List<Attacker> attackers) {

@@ -1,7 +1,10 @@
 package TowerDefense;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import com.codingame.game.Player;
 
 import view.AttackerView;
 
@@ -12,11 +15,14 @@ public class Attacker {
 	private int maxSpeed;
 	private int slowCountdown;
 	private int money;
+	private Player enemy;
 	private AttackerView view;
 	private static int idCounter;
 
-	public Attacker(List<SubTile> path) {
+	public Attacker(List<SubTile> path, Player enemy) {
 		id = idCounter++;
+		if (enemy.getIndex() == 0)
+			Collections.reverse(path);
 		this.remainingPath = path;
 		maxSpeed = 10;
 		hitPoints = 10;
@@ -26,6 +32,7 @@ public class Attacker {
 	public int getSpeed() {
 		if (slowCountdown == 0)
 			return maxSpeed;
+		// TODO: depends on slow tower damage
 		return maxSpeed * 2 / 3;
 	}
 
@@ -77,6 +84,10 @@ public class Attacker {
 		view.move(steps);
 		if (slowCountdown > 0)
 			slowCountdown--;
+	}
+
+	public Player getEnemy() {
+		return enemy;
 	}
 
 	public String getPlayerInput() {

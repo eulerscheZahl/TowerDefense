@@ -1,10 +1,10 @@
-import com.codingame.gameengine.runner.SoloGameRunner;
+import com.codingame.gameengine.runner.MultiplayerGameRunner;
 
 public class SkeletonMain {
 	public static void main(String[] args) {
-		SoloGameRunner gameRunner = new SoloGameRunner();
-		gameRunner.setTestCase("test1.json");
-		gameRunner.setAgent(Agent1.class);
+		MultiplayerGameRunner gameRunner = new MultiplayerGameRunner();
+		gameRunner.addAgent(Agent1.class);
+		gameRunner.addAgent(Agent1.class);
 
 		// Another way to add a player
 		// gameRunner.addAgent("python3 /home/user/player.py");

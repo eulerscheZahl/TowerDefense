@@ -7,9 +7,12 @@ public class Agent1 {
 		Scanner scanner = new Scanner(System.in);
 
 		while (true) {
-			int money = scanner.nextInt();
-			int lives = scanner.nextInt();
-			System.err.println(money + " " + lives);
+			int myMoney = scanner.nextInt();
+			int myLives = scanner.nextInt();
+			System.err.println(myMoney + " " + myLives);
+			int opponentMoney = scanner.nextInt();
+			int opponentLives = scanner.nextInt();
+			System.err.println(opponentMoney + " " + opponentLives);
 			int entityCount = scanner.nextInt();
 			System.err.println(entityCount);
 			for (int i = 0; i < entityCount; i++) {
@@ -25,8 +28,8 @@ public class Agent1 {
 				System.err.println(type + " " + entityId + " " + x + " " + y + " " + param0 + " " + param1 + " " + param2 + " " + param3 + " " + param4);
 			}
 
-			System.err.println("money: " + money + "   lives: " + lives);
-			if (money >= 100)
+			System.err.println("money: " + myMoney + "   lives: " + myLives);
+			if (myMoney >= 100)
 				System.out.println("BUILD 2 3 GUNTOWER;BUILD 4 3 FIRETOWER;BUILD 5 3 GLUETOWER");
 			else
 				System.out.println("PASS");

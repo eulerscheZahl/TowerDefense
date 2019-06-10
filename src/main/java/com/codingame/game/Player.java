@@ -1,11 +1,11 @@
 package com.codingame.game;
 
-import com.codingame.gameengine.core.AbstractSoloPlayer;
+import com.codingame.gameengine.core.AbstractMultiplayerPlayer;
 
 import TowerDefense.Attacker;
 import TowerDefense.Tower;
 
-public class Player extends AbstractSoloPlayer {
+public class Player extends AbstractMultiplayerPlayer {
 	private int money = 350;
 	private int lives = 10;
 
@@ -26,6 +26,7 @@ public class Player extends AbstractSoloPlayer {
 		if (money < tower.getCost())
 			return false;
 		money -= tower.getCost();
+		tower.setOwner(this);
 		return true;
 	}
 
