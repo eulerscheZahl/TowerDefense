@@ -1,17 +1,16 @@
 package com.codingame.game;
 
-import java.util.Locale;
-import java.util.Random;
-
+import TowerDefense.Board;
+import TowerDefense.MapGenerator;
 import com.codingame.gameengine.core.AbstractPlayer.TimeoutException;
 import com.codingame.gameengine.core.AbstractReferee;
 import com.codingame.gameengine.core.MultiplayerGameManager;
 import com.codingame.gameengine.module.entities.GraphicEntityModule;
 import com.google.inject.Inject;
-
-import TowerDefense.Board;
-import TowerDefense.MapGenerator;
 import view.BoardView;
+
+import java.util.Locale;
+import java.util.Random;
 
 public class Referee extends AbstractReferee {
 	public static final int FRAME_DURATION = 500;
@@ -58,13 +57,14 @@ public class Referee extends AbstractReferee {
 						int x = Integer.parseInt(parts[1]);
 						int y = Integer.parseInt(parts[2]);
 						String type = parts[3];
-						board.build(player, x, y, type);
+                        board.cacheBuild(player, x, y, type);
 					}
 				}
 			} catch (TimeoutException e) {
 				//player.deactivate(String.format("$%d timeout!", player.getIndex()));
 			}
 		}
+		board.executeBuilds();
 		board.moveAttackers(turn);
 		board.fireTowers();
 	}

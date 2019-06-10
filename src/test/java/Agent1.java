@@ -30,7 +30,7 @@ public class Agent1 {
 
 			System.err.println("money: " + myMoney + "   lives: " + myLives);
 			if (myMoney >= 100)
-				System.out.println("BUILD 2 3 GUNTOWER;BUILD 4 3 FIRETOWER;BUILD 5 3 GLUETOWER");
+				System.out.println("BUILD 2 3 GUNTOWER;BUILD 12 2 FIRETOWER;BUILD 5 3 GLUETOWER");
 			else
 				System.out.println("PASS");
 		}

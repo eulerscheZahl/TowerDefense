@@ -1,16 +1,11 @@
 package TowerDefense;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
-
 import com.codingame.game.Player;
 import com.codingame.game.Referee;
-
 import view.BoardView;
+
+import java.util.*;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Board {
 	private Tile[][] grid;
@@ -21,6 +16,8 @@ public class Board {
 	private List<Player> players;
 	private BoardView view;
 	private List<List<Attacker>> futureAttackers = new ArrayList<>();
+	private List<BuildAction> buildActions = new ArrayList<>();
+
 
 	public Board(String s, List<Player> players) {
 		this.players = players;
@@ -190,37 +187,63 @@ public class Board {
 		return attackers;
 	}
 
-	public void build(Player player, int x, int y, String type) {
-		Tower tower = null;
-		switch (type) {
-		case "GUNTOWER":
-			tower = new GunTower(grid[x][y]);
-			break;
-		case "FIRETOWER":
-			tower = new FireTower(grid[x][y]);
-			break;
-		case "GLUETOWER":
-			tower = new GlueTower(grid[x][y]);
-			break;
-		default:
-			// TODO error for invalid type
-			break;
-		}
-		if (!tower.getTile().canBuild()) {
-			// TODO: error message
-			return;
-		}
-		for (Tower t : towers) {
-			if (t.getTile() == tower.getTile()) {
-				// TODO: error message
-				return;
-			}
-		}
-		if (player.buy(tower)) {
-			towers.add(tower);
-			view.addTower(tower);
-		}
-	}
+	public void cacheBuild(Player player, int x, int y, String type) {
+        for (BuildAction buildAction : buildActions) {
+            if (buildAction.getX() == x && buildAction.getY() == y
+                    && isCloserTo(player, x)) {
+                // TODO add error message for build conflict
+                buildAction.setPlayer(player);
+                buildAction.setType(type);
+                return;
+            }
+        }
+
+        buildActions.add(new BuildAction(player, x, y, type));
+    }
+
+    private boolean isCloserTo(Player player, int x) {
+	    if (player.getIndex() == 0) return x < width / 2;
+        else return x >= width / 2;
+    }
+
+    public void executeBuilds() {
+        for (BuildAction buildAction : buildActions) {
+            build(buildAction.getPlayer(), buildAction.getX(), buildAction.getY(), buildAction.getType());
+        }
+        buildActions.clear();
+    }
+
+    private void build(Player player, int x, int y, String type) {
+        Tower tower = null;
+        switch (type) {
+            case "GUNTOWER":
+                tower = new GunTower(grid[x][y]);
+                break;
+            case "FIRETOWER":
+                tower = new FireTower(grid[x][y]);
+                break;
+            case "GLUETOWER":
+                tower = new GlueTower(grid[x][y]);
+                break;
+            default:
+                // TODO error for invalid type
+                break;
+        }
+        if (!tower.getTile().canBuild()) {
+            // TODO: error message
+            return;
+        }
+        for (Tower t : towers) {
+            if (t.getTile() == tower.getTile()) {
+                // TODO: error message
+                return;
+            }
+        }
+        if (player.buy(tower)) {
+            towers.add(tower);
+            view.addTower(tower);
+        }
+    }
 
 	public List<String> getPlayerInput(Player player, boolean initialInput) {
 		List<String> input = new ArrayList<>();
