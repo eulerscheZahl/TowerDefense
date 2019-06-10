@@ -9,9 +9,7 @@ import TowerDefense.Tower;
 public class FireTowerView extends TowerView {
 
 	public FireTowerView(Tower tower, Group boardGroup, GraphicEntityModule graphics) {
-		this.tower = tower;
-		this.graphics = graphics;
-		tower.setView(this);
+		super(tower, boardGroup, graphics);
 		towerSprite = Utils.createTowerSprite(graphics, "fireTower.png", tower.getTile().getX(), tower.getTile().getY());
 		attackSprite = graphics.createSprite().setImage("fireTower.png").setAlpha(0).setScale(3);
 		attackSprite.setX(BoardView.CELL_SIZE * tower.getTile().getX() - BoardView.CELL_SIZE);

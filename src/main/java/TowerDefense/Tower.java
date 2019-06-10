@@ -20,7 +20,7 @@ public abstract class Tower {
 	private final int[] upgradeCosts = { 0, 100, 200, 500 };
 	private TowerView view;
 	private Player owner;
-	public static final String[] TowerOrder = { "FIRETOWER", "GUNTOWER", "GLUETOWER" };
+	public static final String[] TowerOrder = { "HEALTOWER", "FIRETOWER", "GUNTOWER", "GLUETOWER" };
 
 	static int idCounter = 0;
 
@@ -98,6 +98,7 @@ public abstract class Tower {
 		StringBuilder sb = new StringBuilder();
 		sb.append(type).append(" ");
 		sb.append(id).append(" ");
+		sb.append(owner.getIndex()).append(" ");
 		sb.append(tile.toString()).append(" ");
 		for (TowerProperty p : TowerProperty.values()) {
 			sb.append(new DecimalFormat("0.#").format(getProperty(p))).append(" ");

@@ -6,16 +6,16 @@ import com.codingame.gameengine.module.entities.Group;
 import TowerDefense.Attacker;
 import TowerDefense.Tower;
 
-public class GlueTowerView extends TowerView {
+public class HealTowerView extends TowerView {
 
-	public GlueTowerView(Tower tower, Group boardGroup, GraphicEntityModule graphics) {
+	public HealTowerView(Tower tower, Group boardGroup, GraphicEntityModule graphics) {
 		super(tower, boardGroup, graphics);
-		towerSprite = Utils.createTowerSprite(graphics, "glueTower.png", tower.getTile().getX(), tower.getTile().getY());
-		attackSprite = graphics.createSprite().setImage("glueTowerAttack.png").setAlpha(0);
+		towerSprite = Utils.createTowerSprite(graphics, "healTower.png", tower.getTile().getX(), tower.getTile().getY());
+		attackSprite = graphics.createSprite().setImage("healTowerAttack.png").setAlpha(0);
 		attackLine = graphics.createLine();
 		attackLine.setX(BoardView.CELL_SIZE * tower.getTile().getX());
 		attackLine.setY(BoardView.CELL_SIZE * tower.getTile().getY());
-		attackLine.setLineColor(0xff0000).setAlpha(0);
+		attackLine.setLineColor(0x80ff80).setAlpha(0);
 		attackLine.setLineWidth(5);
 	}
 

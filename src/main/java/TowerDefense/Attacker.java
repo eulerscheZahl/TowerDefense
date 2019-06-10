@@ -11,6 +11,7 @@ import view.AttackerView;
 public class Attacker {
 	private List<SubTile> remainingPath;
 	private int id;
+	private int maxHealth;
 	private int hitPoints;
 	private int maxSpeed;
 	private int slowCountdown;
@@ -24,8 +25,10 @@ public class Attacker {
 		if (enemy.getIndex() == 0)
 			Collections.reverse(path);
 		this.remainingPath = path;
+		this.enemy = enemy;
 		maxSpeed = 10;
 		hitPoints = 10;
+		maxHealth = hitPoints;
 		money = 15;
 	}
 
@@ -49,6 +52,14 @@ public class Attacker {
 
 	public void kill() {
 		dealDamage(hitPoints);
+	}
+
+	public boolean canHeal() {
+		return hitPoints < maxHealth;
+	}
+
+	public void heal(int health) {
+		hitPoints = Math.max(hitPoints, maxHealth);
 	}
 
 	public void dealDamage(int damage) {
@@ -93,6 +104,7 @@ public class Attacker {
 		StringBuilder sb = new StringBuilder();
 		sb.append("ATTACKER ");
 		sb.append(id).append(" ");
+		sb.append(1 - enemy.getIndex()).append(" ");
 		sb.append(getLocation().toString()).append(" ");
 		sb.append(hitPoints).append(" ");
 		sb.append(maxSpeed).append(" ");

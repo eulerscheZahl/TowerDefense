@@ -1,6 +1,7 @@
 package view;
 
 import com.codingame.gameengine.module.entities.GraphicEntityModule;
+import com.codingame.gameengine.module.entities.Group;
 import com.codingame.gameengine.module.entities.Line;
 import com.codingame.gameengine.module.entities.Sprite;
 
@@ -13,6 +14,12 @@ public abstract class TowerView {
 	protected Sprite attackSprite;
 	protected Line attackLine;
 	protected GraphicEntityModule graphics;
+
+	public TowerView(Tower tower, Group boardGroup, GraphicEntityModule graphics) {
+		this.tower = tower;
+		this.graphics = graphics;
+		tower.setView(this);
+	}
 
 	public abstract void attack(Attacker a);
 }

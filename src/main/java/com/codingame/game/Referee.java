@@ -15,7 +15,7 @@ import view.BoardView;
 
 public class Referee extends AbstractReferee {
 	public static final int FRAME_DURATION = 500;
-	public static final int GAME_TURNS = 20;
+	public static final int GAME_TURNS = 50;
 	public static final Random random = new Random();
 
 	@Inject

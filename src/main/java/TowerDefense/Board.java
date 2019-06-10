@@ -206,6 +206,9 @@ public class Board {
 		case "GLUETOWER":
 			tower = new GlueTower(grid[x][y]);
 			break;
+		case "HEALTOWER":
+			tower = new HealTower(grid[x][y]);
+			break;
 		default:
 			// TODO error for invalid type
 			break;
