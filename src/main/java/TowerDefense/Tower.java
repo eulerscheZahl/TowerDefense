@@ -32,11 +32,19 @@ public abstract class Tower {
 		this.properties = new double[TowerProperty.values().length][];
 	}
 
-	public boolean canUpgrade(TowerProperty property, Player player) {
+	public boolean canUpgrade(TowerProperty property) {
 		int upgradeState = upgradeStates[property.ordinal()];
 		double[] values = properties[property.ordinal()];
 		int upgradeCost = upgradeCosts[upgradeState];
-		return values.length > upgradeState + 1 && player.getMoney() >= upgradeCost;
+		return values.length > upgradeState + 1 && owner.getMoney() >= upgradeCost;
+	}
+
+	public void upgrade(TowerProperty property) {
+		int upgradeState = upgradeStates[property.ordinal()];
+		int upgradeCost = upgradeCosts[upgradeState];
+		upgradeState++;
+		owner.spendMoney(upgradeCost);
+		upgradeStates[property.ordinal()]++;
 	}
 
 	public double getProperty(TowerProperty property) {

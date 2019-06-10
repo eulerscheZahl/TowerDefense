@@ -61,6 +61,13 @@ public class Referee extends AbstractReferee {
 						String type = parts[3];
 						board.cacheBuild(player, x, y, type);
 					}
+					if (parts[0].equals("UPGRADE")) {
+						if (parts.length != 3)
+							continue; // TODO
+						int id = Integer.parseInt(parts[1]);
+						String type = parts[2];
+						board.upgrade(player, id, type); // upgrade before build => can't build and upgrade in the same turn
+					}
 				}
 			} catch (TimeoutException e) {
 				//player.deactivate(String.format("$%d timeout!", player.getIndex()));

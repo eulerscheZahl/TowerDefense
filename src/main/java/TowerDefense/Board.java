@@ -287,6 +287,24 @@ public class Board {
 		}
 	}
 
+	public void upgrade(Player player, int id, String type) {
+		Tower tower = towers.stream().filter((t) -> t.getId() == id).findFirst().orElse(null);
+		if (tower == null)
+			return; // TODO
+		if (tower.getOwner() != player)
+			return; // TODO
+		TowerProperty toUpgrade = TowerProperty.DAMAGE;
+		if (type.equals("RANGE"))
+			toUpgrade = TowerProperty.RANGE;
+		else if (type.equals("SPEED"))
+			toUpgrade = TowerProperty.SPEED;
+		else if (!type.equals("DAMAGE"))
+			return; // TODO
+		if (!tower.canUpgrade(toUpgrade))
+			return; // TODO
+		tower.upgrade(toUpgrade);
+	}
+
 	public List<String> getPlayerInput(Player player, boolean initialInput) {
 		List<String> input = new ArrayList<>();
 		if (initialInput) {
