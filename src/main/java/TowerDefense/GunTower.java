@@ -21,7 +21,7 @@ public class GunTower extends Tower {
 	boolean doAttack(List<Attacker> attackers) {
 		Attacker target = null;
 		for (Attacker a : attackers) {
-			if (!inRange(a))
+			if (getOwner() == a.getEnemy() || !inRange(a))
 				continue;
 			if (target == null || a.getPathLength() < target.getPathLength())
 				target = a;
