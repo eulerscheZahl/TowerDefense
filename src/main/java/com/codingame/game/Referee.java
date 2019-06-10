@@ -1,20 +1,21 @@
 package com.codingame.game;
 
-import TowerDefense.Board;
-import TowerDefense.MapGenerator;
+import java.util.Locale;
+import java.util.Random;
+
 import com.codingame.gameengine.core.AbstractPlayer.TimeoutException;
 import com.codingame.gameengine.core.AbstractReferee;
 import com.codingame.gameengine.core.MultiplayerGameManager;
 import com.codingame.gameengine.module.entities.GraphicEntityModule;
 import com.google.inject.Inject;
-import view.BoardView;
 
-import java.util.Locale;
-import java.util.Random;
+import TowerDefense.Board;
+import TowerDefense.MapGenerator;
+import view.BoardView;
 
 public class Referee extends AbstractReferee {
 	public static final int FRAME_DURATION = 500;
-	public static final int GAME_TURNS = 50;
+	public static final int GAME_TURNS = 100;
 	public static final Random random = new Random();
 
 	@Inject

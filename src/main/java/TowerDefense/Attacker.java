@@ -23,7 +23,7 @@ public class Attacker {
 
 	public Attacker(List<SubTile> path, Player owner, Player enemy) {
 		id = idCounter++;
-		if (enemy.getIndex() == 1)
+		if (enemy.getIndex() == 0)
 			Collections.reverse(path);
 		this.remainingPath = path;
 		this.owner = owner;

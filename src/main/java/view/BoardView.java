@@ -21,7 +21,6 @@ public class BoardView {
 		this.graphics = graphics;
 
 		boardGroup = graphics.createGroup();
-		//boardGroup.setScale(1080.0 / (board.getHeight() * CELL_SIZE));
 		BufferedGroup gridGroup = graphics.createBufferedGroup();
 		boardGroup.add(gridGroup);
 		Group innerGroup = graphics.createGroup();
@@ -35,6 +34,16 @@ public class BoardView {
 				} else if (board.getGrid()[x][y].canEnter()) {
 					Sprite canyon = Utils.createBoardSprite(graphics, "canyon.png", x, y);
 					innerGroup.add(canyon);
+					if (x == 0) {
+						Sprite headquarter = Utils.createBoardSprite(graphics, "headquarter.png", x, y);
+						headquarter.setTint(board.getPlayer(0).getColor());
+						innerGroup.add(headquarter);
+					}
+					if (x == board.getWidth() - 1) {
+						Sprite headquarter = Utils.createBoardSprite(graphics, "headquarter.png", x, y);
+						headquarter.setTint(board.getPlayer(1).getColor());
+						innerGroup.add(headquarter);
+					}
 				}
 			}
 		}

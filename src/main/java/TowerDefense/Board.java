@@ -136,6 +136,10 @@ public class Board {
 		return grid;
 	}
 
+	public Player getPlayer(int index) {
+		return players.get(index);
+	}
+
 	public void setView(BoardView view) {
 		this.view = view;
 	}
