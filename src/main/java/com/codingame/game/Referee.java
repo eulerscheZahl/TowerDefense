@@ -12,6 +12,7 @@ import com.google.inject.Inject;
 
 import TowerDefense.Board;
 import TowerDefense.MapGenerator;
+import TowerDefense.Tile;
 import view.BoardView;
 
 public class Referee extends AbstractReferee {
@@ -23,8 +24,8 @@ public class Referee extends AbstractReferee {
 	private MultiplayerGameManager<Player> gameManager;
 	@Inject
 	private GraphicEntityModule graphicEntityModule;
-    @Inject
-    private TooltipModule tooltipModule;
+	@Inject
+	private TooltipModule tooltipModule;
 
 	private Board board;
 
@@ -32,9 +33,9 @@ public class Referee extends AbstractReferee {
 	public void init() {
 		Locale.setDefault(new Locale("en", "US"));
 		Random random = new Random(gameManager.getSeed());
-		String input = MapGenerator.generateMap(random);
+		Tile[][] grid = MapGenerator.generateMap(random);
 		gameManager.setMaxTurns(GAME_TURNS);
-		board = new Board(input, gameManager.getPlayers(), random);
+		board = new Board(grid, gameManager.getPlayers(), random);
 
 		BoardView view = new BoardView(board, graphicEntityModule, tooltipModule);
 	}

@@ -8,10 +8,10 @@ public class Tile {
 	private boolean canyon;
 	private Tile[] neighbors = new Tile[4];
 
-	public Tile(int x, int y, char c) {
+	public Tile(int x, int y, boolean canyon) {
 		this.x = x;
 		this.y = y;
-		this.canyon = c == '.';
+		this.canyon = canyon;
 	}
 
 	public int getX() {
@@ -38,6 +38,14 @@ public class Tile {
 		if (canyon)
 			return '.';
 		return '#';
+	}
+
+	public boolean isCanyon() {
+		return canyon;
+	}
+
+	public void setCanyon(boolean canyon) {
+		this.canyon = canyon;
 	}
 
 	@Override

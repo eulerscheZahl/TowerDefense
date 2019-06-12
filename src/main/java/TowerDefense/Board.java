@@ -24,27 +24,14 @@ public class Board {
 	private List<List<Attacker>> futureAttackers = new ArrayList<>();
 	private List<BuildAction> buildActions = new ArrayList<>();
 
-	public Board(String s, List<Player> players, Random random) {
+	public Board(Tile[][] tiles, List<Player> players, Random random) {
 		this.players = players;
 		for (int i = 0; i <= Referee.GAME_TURNS; i++)
 			futureAttackers.add(new ArrayList<>());
 
-		String[] parts = s.split(" ");
-		width = parts[0].length();
-		height = parts.length;
-		grid = new Tile[width][height];
-
-		for (int y = 0; y < parts.length; y++) {
-			for (int x = 0; x < parts[0].length(); x++) {
-				grid[x][y] = new Tile(x, y, parts[y].charAt(x));
-			}
-		}
-
-		for (int y = 0; y < parts.length; y++) {
-			for (int x = 0; x < parts[0].length(); x++) {
-				grid[x][y].initNeighbors(grid);
-			}
-		}
+		grid = tiles;
+		width = tiles.length;
+		height = tiles[0].length;
 
 		List<Tile> targets = new ArrayList<>();
 		for (int y = 0; y < height; y++) {
@@ -60,9 +47,20 @@ public class Board {
 
 		for (int turn : new int[] { 1, 3, 5, 7, 9, 10 }) {
 			List<SubTile> path = selectPath(paths);
-			futureAttackers.get(turn).add(new Attacker(new ArrayList<SubTile>(path), players.get(1), players.get(0)));
-			futureAttackers.get(turn).add(new Attacker(new ArrayList<SubTile>(path), players.get(0), players.get(1)));
+			List<SubTile> mirror = new ArrayList<SubTile>(path);
+			Collections.reverse(mirror);
+			//mirrorPath(path);
+			futureAttackers.get(turn).add(new Attacker(path, players.get(1), players.get(0)));
+			futureAttackers.get(turn).add(new Attacker(mirror, players.get(0), players.get(1)));
 		}
+	}
+
+	private List<SubTile> mirrorPath(List<SubTile> path) {
+		List<SubTile> result = new ArrayList<SubTile>();
+		for (SubTile s : path) {
+			result.add(s.mirror(grid, width, height));
+		}
+		return result;
 	}
 
 	private List<SubTile> selectPath(List<List<SubTile>> paths) {
@@ -101,8 +99,8 @@ public class Board {
 		currentPath.add(currentTile);
 		if (currentTile.getX() == 0) {
 			ArrayList<Tile> path = new ArrayList<>(currentPath);
-			path.add(0, new Tile(path.get(0).getX() + 1, path.get(0).getY(), '.'));
-			path.add(new Tile(currentTile.getX() - 1, currentTile.getY(), '.'));
+			path.add(0, new Tile(path.get(0).getX() + 1, path.get(0).getY(), true));
+			path.add(new Tile(currentTile.getX() - 1, currentTile.getY(), true));
 			ArrayList<SubTile> result = new ArrayList<>();
 			for (int i = 1; i < path.size(); i++) {
 				Tile t1 = path.get(i - 1);
