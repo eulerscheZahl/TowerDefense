@@ -47,9 +47,7 @@ public class Board {
 
 		for (int turn : new int[] { 1, 3, 5, 7, 9, 10 }) {
 			List<SubTile> path = selectPath(paths);
-			List<SubTile> mirror = new ArrayList<SubTile>(path);
-			Collections.reverse(mirror);
-			//mirrorPath(path);
+			List<SubTile> mirror = mirrorPath(path);
 			futureAttackers.get(turn).add(new Attacker(path, players.get(1), players.get(0)));
 			futureAttackers.get(turn).add(new Attacker(mirror, players.get(0), players.get(1)));
 		}

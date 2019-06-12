@@ -25,9 +25,9 @@ public class SubTile {
 	}
 
 	public SubTile mirror(Tile[][] grid, int width, int height) {
-		Tile t = new Tile(width - 1 - tile.getX(), height - 1 - tile.getY(), true);
-		//return new SubTile(new Tile(0, 0, true), SUBTILE_SIZE * (width - t.getX()) - subX, SUBTILE_SIZE * (height - t.getY()) - subY);
-		return new SubTile(t, SUBTILE_SIZE - 1 - subX, SUBTILE_SIZE - 1 - subY);
+		Tile t = new Tile(width - 2 - tile.getX(), height - 2 - tile.getY(), true);
+		SubTile result = new SubTile(t, SUBTILE_SIZE - subX, SUBTILE_SIZE - subY);
+		return result;
 	}
 
 	@Override
