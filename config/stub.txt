@@ -4,17 +4,13 @@ loop height read line:string(20)
 gameloop
 read myMoney:int myLives:int
 read opponentMoney:int opponentLives:int
-read entityCount:int
-loop entityCount read type:word(10) entityId:int owner:int x:float y:float param0:float param1:int param3:int param4:int
+read towerCount:int
+loop towerCount read type:word(10) towerId:int owner:int x:int y:int damage:int range:int reload:int coolDown:int
+read attackerCount:int
+loop attackerCount read attackerId:int owner:int x:float y:float hitPoints:int maxHitPoints:int currentSpeed:float maxSpeed:float slowTime:int bounty:int
 
 STATEMENT
 Survive the attack waves
 
-INPUT
-param0: for towers: damage, for attackers: hitPoints
-param1: for towers: range, for attackers: maximum movement speed
-param2: for towers: fire rate, for attackers: current movement speed
-param3: for towers: cooldown, for attackers: slow cooldown
-param4: for towers: -1, for attackers: money gain
 OUTPUT
 BUILD x y TOWER | UPGRADE id PROPERTY

@@ -6,8 +6,8 @@ public class Agent1 {
 		Locale.setDefault(new Locale("en", "US"));
 		Scanner scanner = new Scanner(System.in);
 		String initialInput = "";
-		int myId = scanner.nextInt();
-		initialInput += myId + "\n";
+		int playerId = scanner.nextInt();
+		initialInput += playerId + "\n";
 		int width = scanner.nextInt();
 		int height = scanner.nextInt();
 		initialInput += width + " " + height + "\n";
@@ -23,29 +23,43 @@ public class Agent1 {
 			int opponentMoney = scanner.nextInt();
 			int opponentLives = scanner.nextInt();
 			System.err.println(opponentMoney + " " + opponentLives);
-			int entityCount = scanner.nextInt();
-			System.err.println(entityCount);
-			for (int i = 0; i < entityCount; i++) {
+			int towerCount = scanner.nextInt();
+			System.err.println(towerCount);
+			for (int i = 0; i < towerCount; i++) {
 				String type = scanner.next();
-				int entityId = scanner.nextInt();
+				int towerId = scanner.nextInt();
+				int owner = scanner.nextInt();
+				int x = scanner.nextInt();
+				int y = scanner.nextInt();
+				int damage = scanner.nextInt();
+				int range = scanner.nextInt();
+				int reload = scanner.nextInt();
+				int coolDown = scanner.nextInt();
+				System.err.println(type + " " + towerId + " " + owner + " " + x + " " + y + " " + damage + " " + range + " " + reload + " " + coolDown);
+			}
+			int attackerCount = scanner.nextInt();
+			System.err.println(attackerCount);
+			for (int i = 0; i < attackerCount; i++) {
+				int attackerId = scanner.nextInt();
 				int owner = scanner.nextInt();
 				double x = scanner.nextDouble();
 				double y = scanner.nextDouble();
-				double param0 = scanner.nextDouble();
-				int param1 = scanner.nextInt();
-				int param2 = scanner.nextInt();
-				int param3 = scanner.nextInt();
-				int param4 = scanner.nextInt();
-				System.err.println(type + " " + entityId + " " + owner + " " + x + " " + y + " " + param0 + " " + param1 + " " + param2 + " " + param3 + " " + param4);
+				int hitPoints = scanner.nextInt();
+				int maxHitPoints = scanner.nextInt();
+				double currentSpeed = scanner.nextDouble();
+				double maxSpeed = scanner.nextDouble();
+				int slowTime = scanner.nextInt();
+				int bounty = scanner.nextInt();
+				System.err.println(attackerId + " " + owner + " " + x + " " + y + " " + hitPoints + " " + maxHitPoints + " " + currentSpeed + " " + maxSpeed + " " + slowTime + " " + bounty);
 			}
 
 			System.err.println("money: " + myMoney + "   lives: " + myLives);
 			if (myMoney >= 500) {
-				if (myId == 0)
+				if (playerId == 0)
 					System.out.println("BUILD 2 3 GUNTOWER;BUILD 13 2 HEALTOWER;BUILD 5 3 GLUETOWER");
 				else
 					System.out.println("BUILD 12 2 GUNTOWER;BUILD 11 4 GUNTOWER;BUILD 12 4 GUNTOWER");
-			} else if (myMoney >= 200 && myId == 0) {
+			} else if (myMoney >= 200 && playerId == 0) {
 				System.out.println("UPGRADE 0 DAMAGE");
 			} else
 				System.out.println("PASS");

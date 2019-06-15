@@ -1,13 +1,14 @@
 package TowerDefense;
 
+import java.text.DecimalFormat;
+import java.util.List;
+
 import com.codingame.game.Player;
 import com.codingame.gameengine.module.entities.GraphicEntityModule;
 import com.codingame.gameengine.module.entities.Group;
 import com.codingame.gameengine.module.tooltip.TooltipModule;
-import view.TowerView;
 
-import java.text.DecimalFormat;
-import java.util.List;
+import view.TowerView;
 
 public abstract class Tower {
 	private int id;
@@ -87,7 +88,7 @@ public abstract class Tower {
 			return;
 		}
 		if (doAttack(attackers)) {
-			cooldown = (int) getProperty(TowerProperty.SPEED);
+			cooldown = (int) getProperty(TowerProperty.RELOAD);
 		}
 	}
 
@@ -111,24 +112,22 @@ public abstract class Tower {
 		for (TowerProperty p : TowerProperty.values()) {
 			sb.append(new DecimalFormat("0.#").format(getProperty(p))).append(" ");
 		}
-		sb.append(cooldown).append(" ");
-		sb.append(-1);
+		sb.append(cooldown);
 		return sb.toString();
 	}
 
-
-    public String getTooltipString(){
-        StringBuilder sb = new StringBuilder();
-        sb.append("x: ").append(tile.getX()).append("\ny: ").append(tile.getY());
-        sb.append("\ntype: ").append(type);
-        sb.append("\nid: ").append(id);
-        sb.append("\nowner: ").append(owner.getIndex());
-        for (TowerProperty p : TowerProperty.values()) {
-            sb.append("\n").append(p).append(": ").append(new DecimalFormat("0.#").format(getProperty(p)));
-        }
-        sb.append("\ncooldown: ").append(cooldown);
-        return sb.toString();
-    }
+	public String getTooltipString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("x: ").append(tile.getX()).append("\ny: ").append(tile.getY());
+		sb.append("\ntype: ").append(type);
+		sb.append("\nid: ").append(id);
+		sb.append("\nowner: ").append(owner.getIndex());
+		for (TowerProperty p : TowerProperty.values()) {
+			sb.append("\n").append(p).append(": ").append(new DecimalFormat("0.#").format(getProperty(p)));
+		}
+		sb.append("\ncooldown: ").append(cooldown);
+		return sb.toString();
+	}
 
 	public abstract TowerView createView(Group boardGroup, GraphicEntityModule graphics, TooltipModule tooltipModule);
 

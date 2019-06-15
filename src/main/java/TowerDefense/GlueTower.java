@@ -13,7 +13,7 @@ public class GlueTower extends Tower {
 		super("GLUETOWER", tile);
 		properties[TowerProperty.DAMAGE.ordinal()] = new double[] { 3, 5, 7, 9 }; // duration of slowdown effect
 		properties[TowerProperty.RANGE.ordinal()] = new double[] { 2, 3, 4, 5 };
-		properties[TowerProperty.SPEED.ordinal()] = new double[] { 6, 5, 4, 3 };
+		properties[TowerProperty.RELOAD.ordinal()] = new double[] { 6, 5, 4, 3 };
 		cost = 100;
 	}
 

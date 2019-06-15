@@ -293,7 +293,7 @@ public class Board {
 		if (type.equals("RANGE"))
 			toUpgrade = TowerProperty.RANGE;
 		else if (type.equals("SPEED"))
-			toUpgrade = TowerProperty.SPEED;
+			toUpgrade = TowerProperty.RELOAD;
 		else if (!type.equals("DAMAGE"))
 			return; // TODO
 		if (!tower.canUpgrade(toUpgrade))
@@ -323,9 +323,10 @@ public class Board {
 			input.add(players.get(0).getPlayerInput());
 
 		// towers, attackers
-		input.add(String.valueOf(towers.size() + attackers.size()));
+		input.add(String.valueOf(towers.size()));
 		for (Tower t : towers)
 			input.add(t.getPlayerInput());
+		input.add(String.valueOf(attackers.size()));
 		for (Attacker a : attackers)
 			input.add(a.getPlayerInput());
 		return input;

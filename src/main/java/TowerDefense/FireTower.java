@@ -13,7 +13,7 @@ public class FireTower extends Tower {
 		super("FIRETOWER", tile);
 		properties[TowerProperty.DAMAGE.ordinal()] = new double[] { 3, 5, 7, 9 };
 		properties[TowerProperty.RANGE.ordinal()] = new double[] { 1, 1.5, 1.8, 2 };
-		properties[TowerProperty.SPEED.ordinal()] = new double[] { 6, 5, 4, 3 };
+		properties[TowerProperty.RELOAD.ordinal()] = new double[] { 6, 5, 4, 3 };
 		cost = 100;
 	}
 

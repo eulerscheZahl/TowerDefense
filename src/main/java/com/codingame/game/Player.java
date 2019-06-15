@@ -21,7 +21,7 @@ public class Player extends AbstractMultiplayerPlayer {
 	}
 
 	public void kill(Attacker a) {
-		this.money += a.getMoney();
+		this.money += a.getBounty();
 	}
 
 	public boolean buy(Tower tower) {

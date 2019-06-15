@@ -14,7 +14,7 @@ public class Attacker {
 	private int hitPoints;
 	private int maxSpeed;
 	private int slowCountdown;
-	private int money;
+	private int bounty;
 	private Player owner;
 	private Player enemy;
 	private AttackerView view;
@@ -28,7 +28,7 @@ public class Attacker {
 		maxSpeed = 10;
 		hitPoints = 10;
 		maxHealth = hitPoints;
-		money = 15;
+		bounty = 15;
 	}
 
 	public int getSpeed() {
@@ -37,8 +37,8 @@ public class Attacker {
 		return maxSpeed * 2 / 3;
 	}
 
-	public int getMoney() {
-		return money;
+	public int getBounty() {
+		return bounty;
 	}
 
 	public int getPathLength() {
@@ -105,15 +105,15 @@ public class Attacker {
 
 	public String getPlayerInput() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("ATTACKER ");
 		sb.append(id).append(" ");
 		sb.append(owner.getIndex()).append(" ");
 		sb.append(getLocation().toString()).append(" ");
 		sb.append(hitPoints).append(" ");
-		sb.append(maxSpeed).append(" ");
+		sb.append(maxHealth).append(" ");
 		sb.append(getSpeed()).append(" ");
+		sb.append(maxSpeed).append(" ");
 		sb.append(slowCountdown).append(" ");
-		sb.append(money);
+		sb.append(bounty);
 
 		return sb.toString();
 	}
@@ -126,7 +126,7 @@ public class Attacker {
 		sb.append("\nhp: ").append(hitPoints);
 		sb.append("\nspeed: ").append(getSpeed());
 		sb.append("\nslowdown: ").append(slowCountdown).append(" rounds");
-		sb.append("\nbounty: ").append(money);
+		sb.append("\nbounty: ").append(bounty);
 
 		return sb.toString();
 	}
