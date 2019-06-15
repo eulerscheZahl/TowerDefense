@@ -4,10 +4,10 @@ public class SkeletonMain {
 	public static void main(String[] args) {
 		MultiplayerGameRunner gameRunner = new MultiplayerGameRunner();
 		gameRunner.addAgent(Agent1.class);
-		gameRunner.addAgent(Agent1.class);
+		//gameRunner.addAgent(Agent1.class);
 
 		// Another way to add a player
-		// gameRunner.addAgent("python3 /home/user/player.py");
+		gameRunner.addAgent("mono /home/eulerschezahl/Dokumente/Programmieren/challenges/CodinGame/TowerDefense/bin/Debug/TowerDefense.exe");
 
 		gameRunner.start();
 	}
