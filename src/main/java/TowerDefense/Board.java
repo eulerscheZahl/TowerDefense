@@ -45,7 +45,7 @@ public class Board {
 			findPaths(grid, width, height, target, paths);
 		}
 
-		for (int turn : new int[] { 1, 3, 5, 7, 9, 10 }) {
+		for (int turn = 1; turn < Referee.GAME_TURNS; turn += 2) {
 			List<SubTile> path = selectPath(paths);
 			List<SubTile> mirror = mirrorPath(path);
 			futureAttackers.get(turn).add(new Attacker(path, players.get(1), players.get(0)));

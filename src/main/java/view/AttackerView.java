@@ -1,15 +1,18 @@
 package view;
 
-import TowerDefense.Attacker;
-import TowerDefense.SubTile;
+import java.util.ArrayList;
+
 import com.codingame.gameengine.module.entities.GraphicEntityModule;
 import com.codingame.gameengine.module.entities.Group;
 import com.codingame.gameengine.module.entities.Sprite;
 import com.codingame.gameengine.module.tooltip.TooltipModule;
 
-import java.util.ArrayList;
+import TowerDefense.Attacker;
+import TowerDefense.SubTile;
 
 public class AttackerView {
+	private static ArrayList<Sprite> spriteCache = new ArrayList<>();
+
 	private Attacker attacker;
 	private Sprite sprite;
 	private GraphicEntityModule graphics;
@@ -20,7 +23,18 @@ public class AttackerView {
 		this.graphics = graphics;
 		this.tooltips = tooltips;
 		attacker.setView(this);
-		sprite = Utils.createAttackerSprite(graphics, "attacker.png", attacker.getLocation().getX(), attacker.getLocation().getY());
+		for (Sprite s : spriteCache) {
+			if (s.getTint() == attacker.getOwner().getColor()) {
+				sprite = s;
+				SubTile t = attacker.getLocation();
+				sprite.setAlpha(1).setX((int) (BoardView.CELL_SIZE * t.getX())).setY((int) (BoardView.CELL_SIZE * t.getY()));
+				graphics.commitEntityState(0, sprite);
+				spriteCache.remove(s);
+				break;
+			}
+		}
+		if (sprite == null)
+			sprite = Utils.createAttackerSprite(graphics, "attacker.png", attacker.getLocation().getX(), attacker.getLocation().getY());
 		tooltips.setTooltipText(sprite, attacker.getTooltipString());
 		sprite.setTint(attacker.getOwner().getColor());
 	}
@@ -46,10 +60,11 @@ public class AttackerView {
 		SubTile last = steps.get(steps.size() - 1);
 		sprite.setX((int) (BoardView.CELL_SIZE * last.getX()));
 		sprite.setY((int) (BoardView.CELL_SIZE * last.getY()));
-        tooltips.setTooltipText(sprite, attacker.getTooltipString());
+		tooltips.setTooltipText(sprite, attacker.getTooltipString());
 	}
 
 	public void kill() {
 		sprite.setAlpha(0);
+		//spriteCache.add(sprite);
 	}
 }

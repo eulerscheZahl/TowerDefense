@@ -1,19 +1,20 @@
 package TowerDefense;
 
+import java.util.List;
+
 import com.codingame.gameengine.module.entities.GraphicEntityModule;
 import com.codingame.gameengine.module.entities.Group;
 import com.codingame.gameengine.module.tooltip.TooltipModule;
+
 import view.GunTowerView;
 import view.TowerView;
-
-import java.util.List;
 
 public class GunTower extends Tower {
 	public GunTower(Tile tile) {
 		super("GUNTOWER", tile);
-		properties[TowerProperty.DAMAGE.ordinal()] = new double[] { 3, 5, 7, 9 };
+		properties[TowerProperty.DAMAGE.ordinal()] = new double[] { 5, 7, 9, 11 };
 		properties[TowerProperty.RANGE.ordinal()] = new double[] { 3, 4, 5, 6 };
-		properties[TowerProperty.RELOAD.ordinal()] = new double[] { 6, 5, 4, 3 };
+		properties[TowerProperty.RELOAD.ordinal()] = new double[] { 5, 4, 3, 2 };
 		cost = 100;
 	}
 

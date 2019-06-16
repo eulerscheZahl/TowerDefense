@@ -8,7 +8,7 @@ public class SkeletonMain {
 
 		// Another way to add a player
 		gameRunner.addAgent("mono /home/eulerschezahl/Dokumente/Programmieren/challenges/CodinGame/TowerDefense/bin/Debug/TowerDefense.exe");
-
+		gameRunner.setSeed(7129279169689094050L);
 		gameRunner.start();
 	}
 }

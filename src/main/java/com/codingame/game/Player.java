@@ -6,7 +6,7 @@ import TowerDefense.Attacker;
 import TowerDefense.Tower;
 
 public class Player extends AbstractMultiplayerPlayer {
-	private int money = 750;
+	private int money = 550;
 	private int lives = 10;
 
 	private static int[] colors = { 0xff8080, 0x8080ff };
