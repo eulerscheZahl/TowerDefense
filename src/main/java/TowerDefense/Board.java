@@ -48,8 +48,8 @@ public class Board {
 		for (int turn = 1; turn < Referee.GAME_TURNS; turn += 2) {
 			List<SubTile> path = selectPath(paths);
 			List<SubTile> mirror = mirrorPath(path);
-			futureAttackers.get(turn).add(new Attacker(path, players.get(1), players.get(0)));
-			futureAttackers.get(turn).add(new Attacker(mirror, players.get(0), players.get(1)));
+			futureAttackers.get(turn).add(new Attacker(path, turn, players.get(1), players.get(0)));
+			futureAttackers.get(turn).add(new Attacker(mirror, turn, players.get(0), players.get(1)));
 		}
 	}
 
@@ -195,15 +195,16 @@ public class Board {
 		return attackers;
 	}
 
-	public void cacheBuild(Player player, int x, int y, String type) {
+	public void cacheBuild(Player player, int x, int y, String type) throws InvalidActionException {
 		for (BuildAction buildAction : buildActions) {
 			if (buildAction.getX() == x && buildAction.getY() == y) {
-				// TODO add error message for build conflict
 				if (isCloserTo(player, x, y)) {
 					buildAction.setPlayer(player);
 					buildAction.setType(type);
+					buildActions.add(new BuildAction(player, x, y, type));
 				}
-				return;
+
+				throw new InvalidActionException("Tile (" + x + "/" + y + ") already occupied", false, players.get(1 - player.getIndex()));
 			}
 		}
 
@@ -241,16 +242,18 @@ public class Board {
 		}
 	}
 
-	public void executeBuilds() {
-		for (BuildAction buildAction : buildActions) {
-			build(buildAction.getPlayer(), buildAction.getX(), buildAction.getY(), buildAction.getType());
-		}
-		buildActions.clear();
+	public boolean executeBuilds() throws InvalidActionException {
+		if (buildActions.size() == 0)
+			return false;
+		BuildAction buildAction = buildActions.get(0);
+		buildActions.remove(buildAction);
+		build(buildAction.getPlayer(), buildAction.getX(), buildAction.getY(), buildAction.getType());
+		return true;
 	}
 
-	private void build(Player player, int x, int y, String type) {
+	private void build(Player player, int x, int y, String type) throws InvalidActionException {
 		Tower tower = null;
-		switch (type) {
+		switch (type.toUpperCase()) {
 		case "GUNTOWER":
 			tower = new GunTower(grid[x][y]);
 			break;
@@ -264,40 +267,36 @@ public class Board {
 			tower = new HealTower(grid[x][y]);
 			break;
 		default:
-			// TODO error for invalid type
-			break;
+			throw new InvalidActionException("tower type " + type + " unknown", true, player);
 		}
 		if (!tower.getTile().canBuild()) {
-			// TODO: error message
-			return;
-		}
-		for (Tower t : towers) {
-			if (t.getTile() == tower.getTile()) {
-				// TODO: error message
-				return;
-			}
+			tower.undoBuild();
+			throw new InvalidActionException("Tile (" + x + "/" + y + ") is not a canyon", false, player);
 		}
 		if (player.buy(tower)) {
 			towers.add(tower);
 			view.addTower(tower);
+		} else {
+			tower.undoBuild();
+			throw new InvalidActionException("not enough money to build a " + type, false, player);
 		}
 	}
 
-	public void upgrade(Player player, int id, String type) {
+	public void upgrade(Player player, int id, String type) throws InvalidActionException {
 		Tower tower = towers.stream().filter((t) -> t.getId() == id).findFirst().orElse(null);
 		if (tower == null)
-			return; // TODO
+			throw new InvalidActionException("Tower " + id + " not found", true, player);
 		if (tower.getOwner() != player)
-			return; // TODO
+			throw new InvalidActionException("Tower " + id + " belongs to the opponent", false, player);
 		TowerProperty toUpgrade = TowerProperty.DAMAGE;
 		if (type.equals("RANGE"))
 			toUpgrade = TowerProperty.RANGE;
 		else if (type.equals("SPEED"))
 			toUpgrade = TowerProperty.RELOAD;
 		else if (!type.equals("DAMAGE"))
-			return; // TODO
+			throw new InvalidActionException("Upgrade attribute " + type + " unknown", true, player);
 		if (!tower.canUpgrade(toUpgrade))
-			return; // TODO
+			throw new InvalidActionException("can't upgrade " + type + " of tower " + id, false, player);
 		tower.upgrade(toUpgrade);
 	}
 
@@ -324,8 +323,11 @@ public class Board {
 
 		// towers, attackers
 		input.add(String.valueOf(towers.size()));
+		Comparator<Tower> compareById = (Tower t1, Tower t2) -> t1.getId() - t2.getId();
+		Collections.sort(towers, compareById);
 		for (Tower t : towers)
 			input.add(t.getPlayerInput());
+
 		input.add(String.valueOf(attackers.size()));
 		for (Attacker a : attackers)
 			input.add(a.getPlayerInput());

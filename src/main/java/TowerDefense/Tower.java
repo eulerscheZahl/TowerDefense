@@ -135,4 +135,8 @@ public abstract class Tower {
 		this.view = view;
 	}
 
+	public void undoBuild() {
+		idCounter--;
+	}
+
 }
