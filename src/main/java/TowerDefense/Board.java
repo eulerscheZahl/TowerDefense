@@ -201,7 +201,6 @@ public class Board {
 				if (isCloserTo(player, x, y)) {
 					buildAction.setPlayer(player);
 					buildAction.setType(type);
-					buildActions.add(new BuildAction(player, x, y, type));
 				}
 
 				throw new InvalidActionException("Tile (" + x + "/" + y + ") already occupied", false, players.get(1 - player.getIndex()));
