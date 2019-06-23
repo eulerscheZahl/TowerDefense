@@ -203,7 +203,7 @@ public class Board {
 					buildAction.setType(type);
 				}
 
-				throw new InvalidActionException("Tile (" + x + "/" + y + ") already occupied", false, players.get(1 - player.getIndex()));
+				throw new InvalidActionException("Tile (" + x + "/" + y + ") already occupied", false, players.get(1 - buildAction.getPlayer().getIndex()));
 			}
 		}
 
