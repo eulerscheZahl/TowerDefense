@@ -2,10 +2,10 @@ package view;
 
 import com.codingame.gameengine.module.entities.GraphicEntityModule;
 import com.codingame.gameengine.module.entities.Group;
+import com.codingame.gameengine.module.tooltip.TooltipModule;
 
 import TowerDefense.Attacker;
 import TowerDefense.Tower;
-import com.codingame.gameengine.module.tooltip.TooltipModule;
 
 public class HealTowerView extends TowerView {
 
@@ -19,7 +19,7 @@ public class HealTowerView extends TowerView {
 		attackLine.setY(BoardView.CELL_SIZE * tower.getTile().getY());
 		attackLine.setLineColor(0x80ff80).setAlpha(0);
 		attackLine.setLineWidth(5);
-        tooltips.setTooltipText(towerSprite, tower.getTooltipString());
+		tooltips.setTooltipText(towerSprite, getTooltipString());
 	}
 
 	public void attack(Attacker a) {

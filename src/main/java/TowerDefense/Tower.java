@@ -18,7 +18,7 @@ public abstract class Tower {
 	protected double[][] properties;
 	private int cooldown;
 	protected int cost;
-	private final int[] upgradeCosts = { 0, 100, 200, 500 };
+	private final int[] upgradeCosts = { 50, 100, 150, 0 };
 	private TowerView view;
 	private Player owner;
 	public static final String[] TowerOrder = { "HEALTOWER", "FIRETOWER", "GUNTOWER", "GLUETOWER" };
@@ -74,6 +74,10 @@ public abstract class Tower {
 		return view;
 	}
 
+	public int getCooldown() {
+		return cooldown;
+	}
+
 	public Player getOwner() {
 		return owner;
 	}
@@ -113,19 +117,6 @@ public abstract class Tower {
 			sb.append(new DecimalFormat("0.#").format(getProperty(p))).append(" ");
 		}
 		sb.append(cooldown);
-		return sb.toString();
-	}
-
-	public String getTooltipString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("x: ").append(tile.getX()).append("\ny: ").append(tile.getY());
-		sb.append("\ntype: ").append(type);
-		sb.append("\nid: ").append(id);
-		sb.append("\nowner: ").append(owner.getIndex());
-		for (TowerProperty p : TowerProperty.values()) {
-			sb.append("\n").append(p).append(": ").append(new DecimalFormat("0.#").format(getProperty(p)));
-		}
-		sb.append("\ncooldown: ").append(cooldown);
 		return sb.toString();
 	}
 

@@ -12,7 +12,7 @@ import view.TowerView;
 public class GunTower extends Tower {
 	public GunTower(Tile tile) {
 		super("GUNTOWER", tile);
-		properties[TowerProperty.DAMAGE.ordinal()] = new double[] { 5, 7, 9, 11 };
+		properties[TowerProperty.DAMAGE.ordinal()] = new double[] { 5, 8, 15, 30 };
 		properties[TowerProperty.RANGE.ordinal()] = new double[] { 3, 4, 5, 6 };
 		properties[TowerProperty.RELOAD.ordinal()] = new double[] { 5, 4, 3, 2 };
 		cost = 100;

@@ -48,8 +48,20 @@ public class Board {
 		for (int turn = 1; turn < Referee.GAME_TURNS; turn += 2) {
 			List<SubTile> path = selectPath(paths);
 			List<SubTile> mirror = mirrorPath(path);
-			futureAttackers.get(turn).add(new Attacker(path, turn, players.get(1), players.get(0)));
-			futureAttackers.get(turn).add(new Attacker(mirror, turn, players.get(0), players.get(1)));
+			futureAttackers.get(turn).add(new Attacker(path, 10 + 3 * turn / 100, 10, players.get(1), players.get(0)));
+			futureAttackers.get(turn).add(new Attacker(mirror, 10 + 3 * turn / 100, 10, players.get(0), players.get(1)));
+		}
+		for (int turn = 2; turn < Referee.GAME_TURNS; turn += 3) {
+			List<SubTile> path = selectPath(paths);
+			List<SubTile> mirror = mirrorPath(path);
+			futureAttackers.get(turn).add(new Attacker(path, 10, 12, players.get(1), players.get(0)));
+			futureAttackers.get(turn).add(new Attacker(mirror, 10, 12, players.get(0), players.get(1)));
+		}
+		for (int turn = 12; turn < Referee.GAME_TURNS; turn += 5) {
+			List<SubTile> path = selectPath(paths);
+			List<SubTile> mirror = mirrorPath(path);
+			futureAttackers.get(turn).add(new Attacker(path, 16 + 5 * turn / 100, 5, players.get(1), players.get(0)));
+			futureAttackers.get(turn).add(new Attacker(mirror, 16 + 5 * turn / 100, 5, players.get(0), players.get(1)));
 		}
 	}
 

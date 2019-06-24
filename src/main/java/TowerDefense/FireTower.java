@@ -1,19 +1,20 @@
 package TowerDefense;
 
+import java.util.List;
+
 import com.codingame.gameengine.module.entities.GraphicEntityModule;
 import com.codingame.gameengine.module.entities.Group;
 import com.codingame.gameengine.module.tooltip.TooltipModule;
+
 import view.FireTowerView;
 import view.TowerView;
-
-import java.util.List;
 
 public class FireTower extends Tower {
 	public FireTower(Tile tile) {
 		super("FIRETOWER", tile);
-		properties[TowerProperty.DAMAGE.ordinal()] = new double[] { 3, 5, 7, 9 };
-		properties[TowerProperty.RANGE.ordinal()] = new double[] { 1, 1.5, 1.8, 2 };
-		properties[TowerProperty.RELOAD.ordinal()] = new double[] { 6, 5, 4, 3 };
+		properties[TowerProperty.DAMAGE.ordinal()] = new double[] { 2, 3, 5, 7 };
+		properties[TowerProperty.RANGE.ordinal()] = new double[] { 1.5, 2, 2.5, 3 };
+		properties[TowerProperty.RELOAD.ordinal()] = new double[] { 8, 7, 6, 5 };
 		cost = 100;
 	}
 

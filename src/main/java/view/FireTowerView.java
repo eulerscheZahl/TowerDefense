@@ -2,10 +2,10 @@ package view;
 
 import com.codingame.gameengine.module.entities.GraphicEntityModule;
 import com.codingame.gameengine.module.entities.Group;
+import com.codingame.gameengine.module.tooltip.TooltipModule;
 
 import TowerDefense.Attacker;
 import TowerDefense.Tower;
-import com.codingame.gameengine.module.tooltip.TooltipModule;
 
 public class FireTowerView extends TowerView {
 
@@ -16,7 +16,7 @@ public class FireTowerView extends TowerView {
 		attackSprite = graphics.createSprite().setImage("fireTower.png").setAlpha(0).setScale(3);
 		attackSprite.setX(BoardView.CELL_SIZE * tower.getTile().getX() - BoardView.CELL_SIZE);
 		attackSprite.setY(BoardView.CELL_SIZE * tower.getTile().getY() - BoardView.CELL_SIZE);
-        tooltips.setTooltipText(towerSprite, tower.getTooltipString());
+		tooltips.setTooltipText(towerSprite, getTooltipString());
 	}
 
 	public void attack(Attacker a) {
