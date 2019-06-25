@@ -28,17 +28,33 @@ public class Attacker {
 		maxSpeed = speed;
 		hitPoints = hp;
 		maxHealth = hitPoints;
-		bounty = hitPoints + 5;
+		bounty = hitPoints + 10;
+	}
+
+	public int getId() {
+		return id;
 	}
 
 	public int getSpeed() {
 		if (slowCountdown == 0)
 			return maxSpeed;
-		return maxSpeed * 2 / 3;
+		return maxSpeed * 1 / 3;
+	}
+
+	public boolean isSlow() {
+		return slowCountdown > 0;
 	}
 
 	public int getBounty() {
 		return bounty;
+	}
+
+	public int getHitPoints() {
+		return hitPoints;
+	}
+
+	public int getSlowCountdown() {
+		return slowCountdown;
 	}
 
 	public int getPathLength() {
@@ -114,19 +130,6 @@ public class Attacker {
 		sb.append(maxSpeed).append(" ");
 		sb.append(slowCountdown).append(" ");
 		sb.append(bounty);
-
-		return sb.toString();
-	}
-
-	public String getTooltipString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("x: ").append(getLocation().getX()).append("\ny: ").append(getLocation().getY());
-		sb.append("\nid: ").append(id);
-		sb.append("\nowner: ").append(1 - enemy.getIndex());
-		sb.append("\nhp: ").append(hitPoints);
-		sb.append("\nspeed: ").append(getSpeed());
-		sb.append("\nslowdown: ").append(slowCountdown).append(" rounds");
-		sb.append("\nbounty: ").append(bounty);
 
 		return sb.toString();
 	}

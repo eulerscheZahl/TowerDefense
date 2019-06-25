@@ -1,20 +1,21 @@
 package TowerDefense;
 
+import java.util.List;
+
 import com.codingame.gameengine.module.entities.GraphicEntityModule;
 import com.codingame.gameengine.module.entities.Group;
 import com.codingame.gameengine.module.tooltip.TooltipModule;
+
 import view.HealTowerView;
 import view.TowerView;
-
-import java.util.List;
 
 public class HealTower extends Tower {
 	public HealTower(Tile tile) {
 		super("HEALTOWER", tile);
-		properties[TowerProperty.DAMAGE.ordinal()] = new double[] { 3, 5, 7, 9 };
-		properties[TowerProperty.RANGE.ordinal()] = new double[] { 3, 4, 5, 6 };
-		properties[TowerProperty.RELOAD.ordinal()] = new double[] { 6, 5, 4, 3 };
-		cost = 100;
+		properties[TowerProperty.DAMAGE.ordinal()] = Constants.HEALTOWER_DAMAGE;
+		properties[TowerProperty.RANGE.ordinal()] = Constants.HEALTOWER_RANGE;
+		properties[TowerProperty.RELOAD.ordinal()] = Constants.HEALTOWER_RELOAD;
+		cost = Constants.HEALTOWER_COST;
 	}
 
 	@Override

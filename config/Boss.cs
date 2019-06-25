@@ -38,7 +38,7 @@ class Player
 				int x = int.Parse (inputs [3]);
 				int y = int.Parse (inputs [4]);
 				int damage = int.Parse (inputs [5]);
-				int range = int.Parse (inputs [6]);
+				double range = double.Parse (inputs [6]);
 				int reload = int.Parse (inputs [7]);
 				int coolDown = int.Parse (inputs [8]);
 				grid [x, y].Tower = true;
@@ -48,12 +48,12 @@ class Player
 				inputs = Console.ReadLine ().Split (' ');
 				int attackerId = int.Parse (inputs [0]);
 				int owner = int.Parse (inputs [1]);
-				float x = float.Parse (inputs [2]);
-				float y = float.Parse (inputs [3]);
+				double x = double.Parse (inputs [2]);
+				double y = double.Parse (inputs [3]);
 				int hitPoints = int.Parse (inputs [4]);
 				int maxHitPoints = int.Parse (inputs [5]);
-				float currentSpeed = float.Parse (inputs [6]);
-				float maxSpeed = float.Parse (inputs [7]);
+				double currentSpeed = double.Parse (inputs [6]);
+				double maxSpeed = double.Parse (inputs [7]);
 				int slowTime = int.Parse (inputs [8]);
 				int bounty = int.Parse (inputs [9]);
 			}

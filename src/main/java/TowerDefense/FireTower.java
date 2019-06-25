@@ -12,10 +12,10 @@ import view.TowerView;
 public class FireTower extends Tower {
 	public FireTower(Tile tile) {
 		super("FIRETOWER", tile);
-		properties[TowerProperty.DAMAGE.ordinal()] = new double[] { 2, 3, 5, 7 };
-		properties[TowerProperty.RANGE.ordinal()] = new double[] { 1.5, 2, 2.5, 3 };
-		properties[TowerProperty.RELOAD.ordinal()] = new double[] { 8, 7, 6, 5 };
-		cost = 100;
+		properties[TowerProperty.DAMAGE.ordinal()] = Constants.FIRETOWER_DAMAGE;
+		properties[TowerProperty.RANGE.ordinal()] = Constants.FIRETOWER_RANGE;
+		properties[TowerProperty.RELOAD.ordinal()] = Constants.FIRETOWER_RELOAD;
+		cost = Constants.FIRETOWER_COST;
 	}
 
 	@Override

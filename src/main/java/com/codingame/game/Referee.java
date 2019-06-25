@@ -11,6 +11,7 @@ import com.codingame.gameengine.module.tooltip.TooltipModule;
 import com.google.inject.Inject;
 
 import TowerDefense.Board;
+import TowerDefense.Constants;
 import TowerDefense.InvalidActionException;
 import TowerDefense.MapGenerator;
 import TowerDefense.Tile;
@@ -18,7 +19,6 @@ import view.BoardView;
 
 public class Referee extends AbstractReferee {
 	public static final int FRAME_DURATION = 500;
-	public static final int GAME_TURNS = 100;
 	public static final Random random = new Random();
 
 	@Inject
@@ -35,7 +35,7 @@ public class Referee extends AbstractReferee {
 		Locale.setDefault(new Locale("en", "US"));
 		Random random = new Random(gameManager.getSeed());
 		Tile[][] grid = MapGenerator.generateMap(random);
-		gameManager.setMaxTurns(GAME_TURNS);
+		gameManager.setMaxTurns(Constants.TURN_COUNT);
 		board = new Board(grid, gameManager.getPlayers(), random);
 
 		BoardView view = new BoardView(board, graphicEntityModule, tooltipModule);

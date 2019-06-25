@@ -26,7 +26,7 @@ public class Board {
 
 	public Board(Tile[][] tiles, List<Player> players, Random random) {
 		this.players = players;
-		for (int i = 0; i <= Referee.GAME_TURNS; i++)
+		for (int i = 0; i <= Constants.TURN_COUNT; i++)
 			futureAttackers.add(new ArrayList<>());
 
 		grid = tiles;
@@ -45,23 +45,15 @@ public class Board {
 			findPaths(grid, width, height, target, paths);
 		}
 
-		for (int turn = 1; turn < Referee.GAME_TURNS; turn += 2) {
-			List<SubTile> path = selectPath(paths);
-			List<SubTile> mirror = mirrorPath(path);
-			futureAttackers.get(turn).add(new Attacker(path, 10 + 3 * turn / 100, 10, players.get(1), players.get(0)));
-			futureAttackers.get(turn).add(new Attacker(mirror, 10 + 3 * turn / 100, 10, players.get(0), players.get(1)));
-		}
-		for (int turn = 2; turn < Referee.GAME_TURNS; turn += 3) {
-			List<SubTile> path = selectPath(paths);
-			List<SubTile> mirror = mirrorPath(path);
-			futureAttackers.get(turn).add(new Attacker(path, 10, 12, players.get(1), players.get(0)));
-			futureAttackers.get(turn).add(new Attacker(mirror, 10, 12, players.get(0), players.get(1)));
-		}
-		for (int turn = 12; turn < Referee.GAME_TURNS; turn += 5) {
-			List<SubTile> path = selectPath(paths);
-			List<SubTile> mirror = mirrorPath(path);
-			futureAttackers.get(turn).add(new Attacker(path, 16 + 5 * turn / 100, 5, players.get(1), players.get(0)));
-			futureAttackers.get(turn).add(new Attacker(mirror, 16 + 5 * turn / 100, 5, players.get(0), players.get(1)));
+		for (int spawnType = 0; spawnType < Constants.SPWAN_START.length; spawnType++) {
+			for (int turn = Constants.SPWAN_START[spawnType]; turn < Constants.TURN_COUNT; turn += Constants.SPAWN_STEP[spawnType]) {
+				List<SubTile> path = selectPath(paths);
+				List<SubTile> mirror = mirrorPath(path);
+				int speed = Constants.SPAWN_SPEED[spawnType];
+				int hp = Constants.SPAWN_BASE_HP[spawnType] + Constants.SPAWN_INCREASE_HP[spawnType] * turn / 100;
+				futureAttackers.get(turn).add(new Attacker(path, hp, speed, players.get(1), players.get(0)));
+				futureAttackers.get(turn).add(new Attacker(mirror, hp, speed, players.get(0), players.get(1)));
+			}
 		}
 	}
 

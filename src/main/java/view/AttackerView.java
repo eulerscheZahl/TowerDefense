@@ -35,7 +35,7 @@ public class AttackerView {
 		}
 		if (sprite == null)
 			sprite = Utils.createAttackerSprite(graphics, "attacker.png", attacker.getLocation().getX(), attacker.getLocation().getY());
-		tooltips.setTooltipText(sprite, attacker.getTooltipString());
+		//tooltips.setTooltipText(sprite, getTooltipString());
 		sprite.setTint(attacker.getOwner().getColor());
 	}
 
@@ -60,7 +60,20 @@ public class AttackerView {
 		SubTile last = steps.get(steps.size() - 1);
 		sprite.setX((int) (BoardView.CELL_SIZE * last.getX()));
 		sprite.setY((int) (BoardView.CELL_SIZE * last.getY()));
-		tooltips.setTooltipText(sprite, attacker.getTooltipString());
+		//tooltips.setTooltipText(sprite, getTooltipString());
+	}
+
+	public String getTooltipString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("x: ").append(attacker.getLocation().getX()).append("\ny: ").append(attacker.getLocation().getY());
+		sb.append("\nid: ").append(attacker.getId());
+		sb.append("\nowner: ").append(attacker.getOwner().getIndex());
+		sb.append("\nhp: ").append(attacker.getHitPoints());
+		sb.append("\nspeed: ").append(attacker.getSpeed());
+		sb.append("\nslowdown: ").append(attacker.getSlowCountdown()).append(" rounds");
+		sb.append("\nbounty: ").append(attacker.getBounty());
+
+		return sb.toString();
 	}
 
 	public void kill() {

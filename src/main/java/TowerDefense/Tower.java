@@ -43,7 +43,6 @@ public abstract class Tower {
 	public void upgrade(TowerProperty property) {
 		int upgradeState = upgradeStates[property.ordinal()];
 		int upgradeCost = upgradeCosts[upgradeState];
-		upgradeState++;
 		owner.spendMoney(upgradeCost);
 		upgradeStates[property.ordinal()]++;
 	}

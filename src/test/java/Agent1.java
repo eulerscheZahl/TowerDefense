@@ -32,7 +32,7 @@ public class Agent1 {
 				int x = scanner.nextInt();
 				int y = scanner.nextInt();
 				int damage = scanner.nextInt();
-				int range = scanner.nextInt();
+				double range = scanner.nextDouble();
 				int reload = scanner.nextInt();
 				int coolDown = scanner.nextInt();
 				System.err.println(type + " " + towerId + " " + owner + " " + x + " " + y + " " + damage + " " + range + " " + reload + " " + coolDown);
