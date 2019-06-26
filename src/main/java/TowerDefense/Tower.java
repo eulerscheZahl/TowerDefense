@@ -18,7 +18,6 @@ public abstract class Tower {
 	protected double[][] properties;
 	private int cooldown;
 	protected int cost;
-	private final int[] upgradeCosts = { 50, 100, 150, 0 };
 	private TowerView view;
 	private Player owner;
 	public static final String[] TowerOrder = { "HEALTOWER", "FIRETOWER", "GUNTOWER", "GLUETOWER" };
@@ -36,13 +35,13 @@ public abstract class Tower {
 	public boolean canUpgrade(TowerProperty property) {
 		int upgradeState = upgradeStates[property.ordinal()];
 		double[] values = properties[property.ordinal()];
-		int upgradeCost = upgradeCosts[upgradeState];
+		int upgradeCost = Constants.TOWER_UPGRADE_COSTS[upgradeState];
 		return values.length > upgradeState + 1 && owner.getMoney() >= upgradeCost;
 	}
 
 	public void upgrade(TowerProperty property) {
 		int upgradeState = upgradeStates[property.ordinal()];
-		int upgradeCost = upgradeCosts[upgradeState];
+		int upgradeCost = Constants.TOWER_UPGRADE_COSTS[upgradeState];
 		owner.spendMoney(upgradeCost);
 		upgradeStates[property.ordinal()]++;
 	}

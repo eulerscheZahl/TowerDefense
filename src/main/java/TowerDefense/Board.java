@@ -274,7 +274,7 @@ public class Board {
 		}
 		if (!tower.getTile().canBuild()) {
 			tower.undoBuild();
-			throw new InvalidActionException("Tile (" + x + "/" + y + ") is not a canyon", false, player);
+			throw new InvalidActionException("Tile (" + x + "/" + y + ") is a canyon", false, player);
 		}
 		if (player.buy(tower)) {
 			towers.add(tower);
@@ -286,6 +286,7 @@ public class Board {
 	}
 
 	public void upgrade(Player player, int id, String type) throws InvalidActionException {
+		type = type.toUpperCase();
 		Tower tower = towers.stream().filter((t) -> t.getId() == id).findFirst().orElse(null);
 		if (tower == null)
 			throw new InvalidActionException("Tower " + id + " not found", true, player);
@@ -294,7 +295,7 @@ public class Board {
 		TowerProperty toUpgrade = TowerProperty.DAMAGE;
 		if (type.equals("RANGE"))
 			toUpgrade = TowerProperty.RANGE;
-		else if (type.equals("SPEED"))
+		else if (type.equals("RELOAD"))
 			toUpgrade = TowerProperty.RELOAD;
 		else if (!type.equals("DAMAGE"))
 			throw new InvalidActionException("Upgrade attribute " + type + " unknown", true, player);

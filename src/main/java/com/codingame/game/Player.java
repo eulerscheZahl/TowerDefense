@@ -44,6 +44,12 @@ public class Player extends AbstractMultiplayerPlayer {
 		lives--;
 	}
 
+	public int getScorePoints() {
+		if (isDead())
+			return 0;
+		return 100 * lives + money;
+	}
+
 	public boolean isDead() {
 		return lives <= 0;
 	}

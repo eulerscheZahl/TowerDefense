@@ -1,6 +1,8 @@
 package TowerDefense;
 
 public class Constants {
+	public static final int MAP_WIDTH = 19; // keep the dimensions odd for best map generation results
+	public static final int MAP_HEIGHT = 11;
 	public static final int TURN_COUNT = 200;
 
 	public static final int GUNTOWER_COST = 100;
@@ -19,6 +21,7 @@ public class Constants {
 	public static final double[] HEALTOWER_DAMAGE = new double[] { 5, 8, 15, 30 };
 	public static final double[] HEALTOWER_RANGE = new double[] { 3, 4, 5, 6 };
 	public static final double[] HEALTOWER_RELOAD = new double[] { 5, 4, 3, 2 };
+	public static final int[] TOWER_UPGRADE_COSTS = new int[] { 50, 100, 150, 0 };
 
 	public static final int[] SPWAN_START = { 1, 12, 22 };
 	public static final int[] SPAWN_STEP = { 2, 3, 5 };

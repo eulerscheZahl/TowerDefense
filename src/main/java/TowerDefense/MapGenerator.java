@@ -11,7 +11,7 @@ public class MapGenerator {
 
 	public static Tile[][] generateMap(Random random) {
 		MapGenerator.random = random;
-		BoardDraft draft = BoardDraft.GeneratePath(19, 11, 2);
+		BoardDraft draft = BoardDraft.GeneratePath(Constants.MAP_WIDTH, Constants.MAP_HEIGHT, 2);
 		return draft.grid;
 	}
 

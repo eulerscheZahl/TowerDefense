@@ -98,7 +98,15 @@ public class Referee extends AbstractReferee {
 				}
 			}
 		}
-		board.moveAttackers(turn);
 		board.fireTowers();
+		board.moveAttackers(turn);
+
+		for (Player player : gameManager.getActivePlayers()) {
+			player.setScore(player.getScorePoints());
+			if (player.isDead())
+				player.deactivate(player.getNicknameToken() + ": no lives left");
+		}
+		if (gameManager.getActivePlayers().size() < 2)
+			gameManager.endGame();
 	}
 }
