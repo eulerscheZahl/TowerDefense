@@ -39,6 +39,9 @@ public class Referee extends AbstractReferee {
 		board = new Board(grid, gameManager.getPlayers(), random);
 
 		BoardView view = new BoardView(board, graphicEntityModule, tooltipModule);
+		for (Player player : gameManager.getPlayers()) {
+			player.initView(graphicEntityModule);
+		}
 	}
 
 	@Override
@@ -57,6 +60,7 @@ public class Referee extends AbstractReferee {
 						String[] parts = action.trim().split(" ");
 						if (parts.length == 0)
 							continue;
+						parts[0] = parts[0].toUpperCase();
 						if (parts[0].equals("PASS"))
 							continue;
 						if (parts[0].equals("BUILD")) {
@@ -66,13 +70,14 @@ public class Referee extends AbstractReferee {
 							int y = Integer.parseInt(parts[2]);
 							String type = parts[3];
 							board.cacheBuild(player, x, y, type);
-						}
-						if (parts[0].equals("UPGRADE")) {
+						} else if (parts[0].equals("UPGRADE")) {
 							if (parts.length != 3)
 								throw new InvalidActionException("wrong amount of arguments for UPGRADE", true, player);
 							int id = Integer.parseInt(parts[1]);
 							String type = parts[2];
 							board.upgrade(player, id, type); // upgrade before build => can't build and upgrade in the same turn
+						} else if (parts[0].equals("MSG")) {
+							player.setMessage(action.substring(4));
 						}
 					} catch (InvalidActionException ex) {
 						if (ex.isGameBreaking()) {
@@ -102,6 +107,7 @@ public class Referee extends AbstractReferee {
 		board.moveAttackers(turn);
 
 		for (Player player : gameManager.getActivePlayers()) {
+			player.updateView();
 			player.setScore(player.getScorePoints());
 			if (player.isDead())
 				player.deactivate(player.getNicknameToken() + ": no lives left");

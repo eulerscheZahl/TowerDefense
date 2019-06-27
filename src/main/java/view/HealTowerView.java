@@ -19,6 +19,7 @@ public class HealTowerView extends TowerView {
 		attackLine.setY(BoardView.CELL_SIZE * tower.getTile().getY());
 		attackLine.setLineColor(0x80ff80).setAlpha(0);
 		attackLine.setLineWidth(5);
+		boardGroup.add(towerSprite, attackSprite, attackLine);
 		tooltips.setTooltipText(towerSprite, getTooltipString());
 	}
 

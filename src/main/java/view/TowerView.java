@@ -19,12 +19,14 @@ public abstract class TowerView {
 	protected Line attackLine;
 	protected GraphicEntityModule graphics;
 	protected TooltipModule tooltipModule;
+	protected Group boardGroup;
 
 	public TowerView(Tower tower, Group boardGroup, GraphicEntityModule graphics, TooltipModule tooltips) {
 		this.tower = tower;
 		this.graphics = graphics;
 		tower.setView(this);
 		this.tooltipModule = tooltips;
+		this.boardGroup = boardGroup;
 	}
 
 	public String getTooltipString() {

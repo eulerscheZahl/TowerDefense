@@ -51,8 +51,8 @@ public class Board {
 				List<SubTile> mirror = mirrorPath(path);
 				int speed = Constants.SPAWN_SPEED[spawnType];
 				int hp = Constants.SPAWN_BASE_HP[spawnType] + Constants.SPAWN_INCREASE_HP[spawnType] * turn / 100;
-				futureAttackers.get(turn).add(new Attacker(path, hp, speed, players.get(1), players.get(0)));
-				futureAttackers.get(turn).add(new Attacker(mirror, hp, speed, players.get(0), players.get(1)));
+				futureAttackers.get(turn).add(new Attacker(mirror, hp, speed, players.get(1), players.get(0)));
+				futureAttackers.get(turn).add(new Attacker(path, hp, speed, players.get(0), players.get(1)));
 			}
 		}
 	}

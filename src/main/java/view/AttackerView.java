@@ -33,8 +33,10 @@ public class AttackerView {
 				break;
 			}
 		}
-		if (sprite == null)
+		if (sprite == null) {
 			sprite = Utils.createAttackerSprite(graphics, "attacker.png", attacker.getLocation().getX(), attacker.getLocation().getY());
+			boardGroup.add(sprite);
+		}
 		//tooltips.setTooltipText(sprite, getTooltipString());
 		sprite.setTint(attacker.getOwner().getColor());
 	}

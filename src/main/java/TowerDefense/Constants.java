@@ -1,8 +1,8 @@
 package TowerDefense;
 
 public class Constants {
-	public static final int MAP_WIDTH = 19; // keep the dimensions odd for best map generation results
-	public static final int MAP_HEIGHT = 11;
+	public static final int MAP_WIDTH = 17; // keep the dimensions odd for best map generation results
+	public static final int MAP_HEIGHT = 17;
 	public static final int TURN_COUNT = 200;
 
 	public static final int GUNTOWER_COST = 100;
