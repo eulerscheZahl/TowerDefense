@@ -45,8 +45,8 @@ public class Board {
 			findPaths(grid, width, height, target, paths);
 		}
 
-		for (int spawnType = 0; spawnType < Constants.SPWAN_START.length; spawnType++) {
-			for (int turn = Constants.SPWAN_START[spawnType]; turn < Constants.TURN_COUNT; turn += Constants.SPAWN_STEP[spawnType]) {
+		for (int spawnType = 0; spawnType < Constants.SPAWN_START.length; spawnType++) {
+			for (int turn = Constants.SPAWN_START[spawnType]; turn < Constants.TURN_COUNT; turn += Constants.SPAWN_STEP[spawnType]) {
 				List<SubTile> path = selectPath(paths);
 				List<SubTile> mirror = mirrorPath(path);
 				int speed = Constants.SPAWN_SPEED[spawnType];

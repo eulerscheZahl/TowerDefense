@@ -90,7 +90,7 @@ public abstract class Tower {
 			return;
 		}
 		if (doAttack(attackers)) {
-			cooldown = (int) getProperty(TowerProperty.RELOAD);
+			cooldown = (int) getProperty(TowerProperty.RELOAD) - 1;
 		}
 	}
 

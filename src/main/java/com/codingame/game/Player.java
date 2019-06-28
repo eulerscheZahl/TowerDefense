@@ -4,12 +4,13 @@ import com.codingame.gameengine.core.AbstractMultiplayerPlayer;
 import com.codingame.gameengine.module.entities.GraphicEntityModule;
 
 import TowerDefense.Attacker;
+import TowerDefense.Constants;
 import TowerDefense.Tower;
 import view.PlayerView;
 
 public class Player extends AbstractMultiplayerPlayer {
-	private int money = 550;
-	private int lives = 10;
+	private int money = Constants.PLAYER_MONEY;
+	private int lives = Constants.PLAYER_LIVES;
 	private PlayerView view;
 	private String message = "";
 

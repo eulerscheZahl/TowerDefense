@@ -17,9 +17,9 @@
       <span>Rules</span>
     </h1>
     <div>
-      <div class="statement-rules-content">The game is played on a map of size <const>17</const>x<const>17</const>, the origin being at the top left corner. The map contains a canyon going from the right side of the map to the left. Attackers will spawn on both ends, approaching towards the other side. <br>
+      <div class="statement-rules-content">The game is played on a map of size [[MAP_WIDTH]]x[[MAP_HEIGHT]], the origin being at the top left corner. The map contains a canyon going from the right side of the map to the left. Attackers will spawn on both ends, approaching towards the other side. <br>
 	  Your task is to stop the opponent attackers from reaching your side and to support your own attackers. <br>
-	  Each player stats with <const>550</const> money and has <const>10</const> lives, losing one for each attacker reaching his base.
+	  Each player stats with [[PLAYER_MONEY]] money and has [[PLAYER_LIVES]] lives, losing one for each attacker reaching his base.
 	  <br>
 	  
 	  <h3>Attackers</h3>
@@ -44,17 +44,17 @@
 	  The heal tower does not shoot at opponent attackers. Instead it will heal the attackers of the own team, making it harder for the opponent to kill them.
 	  
 	  <h4>Upgrading towers</h4>
-	  It is possible to make towers stronger by increasing the damage and range as well as reducing the reload time. Each of these can be upgraded independently up to three times. The upgrade costs for the first, second and third level are <const>50</const>, <const>100</const> and <const>150</const>.
+	  It is possible to make towers stronger by increasing the damage and range as well as reducing the reload time. Each of these can be upgraded independently up to three times. The upgrade costs for the first, second and third level are [[TOWER_UPGRADE_COSTS_0]], [[TOWER_UPGRADE_COSTS_1]] and [[TOWER_UPGRADE_COSTS_2]].
 	  
 	  <h4>Tower strengths</h4>
 	  The tower strengths are as follows:
 	  <table>
-	  <tr><th></th><th colspan="3">Gun tower (cost: <const>100</const>)</th><th colspan="3">Fire tower (cost: <const>100</const>)</th><th colspan="3">Glue tower (cost: <const>70</const>)</th><th colspan="3">Heal tower (cost: <const>100</const>)</th></tr>
+	  <tr><th></th><th colspan="3">Gun tower (cost: [[GUNTOWER_COST]])</th><th colspan="3">Fire tower (cost: [[FIRETOWER_COST]])</th><th colspan="3">Glue tower (cost: [[GLUETOWER_COST]])</th><th colspan="3">Heal tower (cost: [[HEALTOWER_COST]])</th></tr>
 	  <tr><th></th><th>damage</th><th>range</th><th>reload</th><th>damage</th><th>range</th><th>reload</th><th>damage</th><th>range</th><th>reload</th><th>damage</th><th>range</th><th>reload</th></tr>
-	  <tr><td>Initial</td><td><const>5</const></td><td><const>3</const></td><td><const>5</const></td><td><const>2</const></td><td><const>1.5</const></td><td><const>8</const></td><td><const>8</const></td><td><const>3</const></td><td><const>4</const></td><td><const>5</const></td><td><const>3</const></td><td><const>5</const></td></tr>
-	  <tr><td>Upgrade 1</td><td><const>8</const></td><td><const>4</const></td><td><const>4</const></td><td><const>3</const></td><td><const>2</const></td><td><const>7</const></td><td><const>15</const></td><td><const>4</const></td><td><const>3</const></td><td><const>8</const></td><td><const>4</const></td><td><const>4</const></td></tr>
-	  <tr><td>Upgrade 2</td><td><const>15</const></td><td><const>5</const></td><td><const>3</const></td><td><const>5</const></td><td><const>2.3</const></td><td><const>6</const></td><td><const>25</const></td><td><const>5</const></td><td><const>2</const></td><td><const>15</const></td><td><const>5</const></td><td><const>3</const></td></tr>
-	  <tr><td>Upgrade 3</td><td><const>30</const></td><td><const>6</const></td><td><const>2</const></td><td><const>7</const></td><td><const>2.5</const></td><td><const>5</const></td><td><const>40</const></td><td><const>6</const></td><td><const>1</const></td><td><const>30</const></td><td><const>6</const></td><td><const>2</const></td></tr>
+	  <tr><td>Initial</td><td>[[GUNTOWER_DAMAGE_0]]</td><td>[[GUNTOWER_RANGE_0]]</td><td>[[GUNTOWER_RELOAD_0]]</td><td>[[FIRETOWER_DAMAGE_0]]</td><td>[[FIRETOWER_RANGE_0]]</td><td>[[FIRETOWER_RELOAD_0]]</td><td>[[GLUETOWER_DAMAGE_0]]</td><td>[[GLUETOWER_RANGE_0]]</td><td>[[GLUETOWER_RELOAD_0]]</td><td>[[HEALTOWER_DAMAGE_0]]</td><td>[[HEALTOWER_RANGE_0]]</td><td>[[HEALTOWER_RELOAD_0]]</td></tr>
+	  <tr><td>Upgrade 1</td><td>[[GUNTOWER_DAMAGE_1]]</td><td>[[GUNTOWER_RANGE_1]]</td><td>[[GUNTOWER_RELOAD_1]]</td><td>[[FIRETOWER_DAMAGE_1]]</td><td>[[FIRETOWER_RANGE_1]]</td><td>[[FIRETOWER_RELOAD_1]]</td><td>[[GLUETOWER_DAMAGE_1]]</td><td>[[GLUETOWER_RANGE_1]]</td><td>[[GLUETOWER_RELOAD_1]]</td><td>[[HEALTOWER_DAMAGE_1]]</td><td>[[HEALTOWER_RANGE_1]]</td><td>[[HEALTOWER_RELOAD_1]]</td></tr>
+	  <tr><td>Upgrade 2</td><td>[[GUNTOWER_DAMAGE_2]]</td><td>[[GUNTOWER_RANGE_2]]</td><td>[[GUNTOWER_RELOAD_2]]</td><td>[[FIRETOWER_DAMAGE_2]]</td><td>[[FIRETOWER_RANGE_2]]</td><td>[[FIRETOWER_RELOAD_2]]</td><td>[[GLUETOWER_DAMAGE_2]]</td><td>[[GLUETOWER_RANGE_2]]</td><td>[[GLUETOWER_RELOAD_2]]</td><td>[[HEALTOWER_DAMAGE_2]]</td><td>[[HEALTOWER_RANGE_2]]</td><td>[[HEALTOWER_RELOAD_2]]</td></tr>
+	  <tr><td>Upgrade 3</td><td>[[GUNTOWER_DAMAGE_3]]</td><td>[[GUNTOWER_RANGE_3]]</td><td>[[GUNTOWER_RELOAD_3]]</td><td>[[FIRETOWER_DAMAGE_3]]</td><td>[[FIRETOWER_RANGE_3]]</td><td>[[FIRETOWER_RELOAD_3]]</td><td>[[GLUETOWER_DAMAGE_3]]</td><td>[[GLUETOWER_RANGE_3]]</td><td>[[GLUETOWER_RELOAD_3]]</td><td>[[HEALTOWER_DAMAGE_3]]</td><td>[[HEALTOWER_RANGE_3]]</td><td>[[HEALTOWER_RELOAD_3]]</td></tr>
 	  <table>
 	  
     </div>

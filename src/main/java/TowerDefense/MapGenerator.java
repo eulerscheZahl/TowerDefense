@@ -22,9 +22,26 @@ public class MapGenerator {
 
 		public static BoardDraft generatePath(int width, int height) {
 			BoardDraft board = new BoardDraft(width, height);
-			while (!board.isSymmetric())
+			while (!board.isSymmetric() || board.getPathLength() < Constants.MIN_PATH_LENGTH)
 				board = new BoardDraft(width, height);
 			return board;
+		}
+
+		private int getPathLength() {
+			ArrayList<Tile> start = new ArrayList<Tile>();
+			ArrayList<Tile> exit = new ArrayList<Tile>();
+			for (int y = 0; y < height; y++) {
+				if (grid[0][y].isCanyon())
+					start.add(grid[0][y]);
+				if (grid[width - 1][y].isCanyon())
+					exit.add(grid[width - 1][y]);
+			}
+			int[][] dist = bfs(start);
+			int result = Integer.MAX_VALUE;
+			for (Tile t : exit) {
+				result = Math.min(result, dist[t.getX()][t.getY()]);
+			}
+			return result;
 		}
 
 		public static BoardDraft GeneratePath(int width, int height, int paths) {
