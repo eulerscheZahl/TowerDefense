@@ -21,8 +21,11 @@ public class Board {
 	private int height;
 	private List<Player> players;
 	private BoardView view;
+	private int waveIndex = 0;
+	private int earliestWaveStart = 1;
 	private List<List<Attacker>> futureAttackers = new ArrayList<>();
 	private List<BuildAction> buildActions = new ArrayList<>();
+	private List<List<SubTile>> paths = new ArrayList<>();
 
 	public Board(Tile[][] tiles, List<Player> players, Random random) {
 		this.players = players;
@@ -40,20 +43,8 @@ public class Board {
 				targets.add(tile);
 		}
 
-		List<List<SubTile>> paths = new ArrayList<>();
 		for (Tile target : targets) {
 			findPaths(grid, width, height, target, paths);
-		}
-
-		for (int spawnType = 0; spawnType < Constants.SPAWN_START.length; spawnType++) {
-			for (int turn = Constants.SPAWN_START[spawnType]; turn < Constants.TURN_COUNT; turn += Constants.SPAWN_STEP[spawnType]) {
-				List<SubTile> path = selectPath(paths);
-				List<SubTile> mirror = mirrorPath(path);
-				int speed = Constants.SPAWN_SPEED[spawnType];
-				int hp = Constants.SPAWN_BASE_HP[spawnType] + Constants.SPAWN_INCREASE_HP[spawnType] * turn / 100;
-				futureAttackers.get(turn).add(new Attacker(mirror, hp, speed, players.get(1), players.get(0)));
-				futureAttackers.get(turn).add(new Attacker(path, hp, speed, players.get(0), players.get(1)));
-			}
 		}
 	}
 
@@ -147,7 +138,52 @@ public class Board {
 	public void moveAttackers(int turn) {
 		for (Attacker a : attackers)
 			a.move();
+	}
 
+	private boolean canCreateAttackers(int turn) {
+		if (turn == Constants.WAVE_START[waveIndex])
+			return true;
+		if (turn < earliestWaveStart)
+			return false;
+		for (Player p : players) {
+			boolean playerReady = true;
+			for (Attacker a : attackers) {
+				if (a.getOwner() == p && a.getPathLength() * Constants.WAVE_COMPLETION > paths.get(0).size())
+					playerReady = false;
+			}
+			if (playerReady)
+				return true;
+		}
+		return false;
+	}
+
+	private void createAttackers(int turn) {
+		earliestWaveStart = turn + Constants.WAVE_TIME + 1;
+		for (int unit = 0; unit < Constants.WAVE_COUNT[waveIndex]; unit++) {
+			int time = turn + Referee.random.nextInt(Constants.WAVE_TIME);
+
+			List<SubTile> path = selectPath(paths);
+			for (int remove = Referee.random.nextInt(10); remove > 0; remove--)
+				path.remove(path.size() - 1);
+			List<SubTile> mirror = mirrorPath(path);
+			int hp = Constants.WAVE_HP[waveIndex];
+			int speed = Constants.WAVE_SPEED[waveIndex];
+			futureAttackers.get(time).add(new Attacker(mirror, hp, speed, players.get(1), players.get(0)));
+			futureAttackers.get(time).add(new Attacker(path, hp, speed, players.get(0), players.get(1)));
+
+		}
+
+		if (waveIndex + 1 < Constants.WAVE_START.length)
+			waveIndex++;
+		else {
+			Constants.WAVE_COUNT[waveIndex]++;
+			Constants.WAVE_HP[waveIndex]++;
+		}
+	}
+
+	public void spawnAttackers(int turn) {
+		if (canCreateAttackers(turn))
+			createAttackers(turn);
 		for (Attacker a : futureAttackers.get(turn)) {
 			attackers.add(a);
 			view.addAttacker(a);

@@ -105,6 +105,7 @@ public class Referee extends AbstractReferee {
 		}
 		board.fireTowers();
 		board.moveAttackers(turn);
+		board.spawnAttackers(turn);
 
 		for (Player player : gameManager.getActivePlayers()) {
 			player.updateView();

@@ -27,9 +27,10 @@ public class Constants {
 	public static final double[] HEALTOWER_RELOAD = { 5, 4, 3, 2 };
 	public static final int[] TOWER_UPGRADE_COSTS = { 50, 100, 150, 0 };
 
-	public static final int[] SPAWN_START = { 1, 12, 22 };
-	public static final int[] SPAWN_STEP = { 2, 3, 5 };
-	public static final int[] SPAWN_SPEED = { 10, 12, 5 };
-	public static final int[] SPAWN_BASE_HP = { 10, 10, 16 };
-	public static final int[] SPAWN_INCREASE_HP = { 4, 0, 6 };
+	public static final int WAVE_TIME = 3;
+	public static final double WAVE_COMPLETION = 1.5;
+	public static final int[] WAVE_START = { 1, 21, 41, 61, 81, 96, 101 };
+	public static final int[] WAVE_COUNT = { 3, 4, 5, 6, 6, 7, 7 };
+	public static final int[] WAVE_SPEED = { 10, 12, 10, 15, 10, 10, 12 };
+	public static final int[] WAVE_HP = { 5, 8, 12, 10, 12, 15, 15 };
 }
