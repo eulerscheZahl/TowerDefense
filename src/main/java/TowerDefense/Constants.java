@@ -6,8 +6,8 @@ public class Constants {
 	public static final int TURN_COUNT = 200;
 	public static final int MIN_PATH_LENGTH = 30;
 
-	public static final int PLAYER_MONEY = 550;
-	public static final int PLAYER_LIVES = 10;
+	public static final int PLAYER_MONEY = 350;
+	public static final int PLAYER_LIVES = 1000;
 
 	public static final int GUNTOWER_COST = 100;
 	public static final double[] GUNTOWER_DAMAGE = { 5, 8, 15, 30 };
@@ -29,8 +29,9 @@ public class Constants {
 
 	public static final int WAVE_TIME = 3;
 	public static final double WAVE_COMPLETION = 1.5;
-	public static final int[] WAVE_START = { 1, 21, 41, 61, 81, 96, 101 };
-	public static final int[] WAVE_COUNT = { 3, 4, 5, 6, 6, 7, 7 };
-	public static final int[] WAVE_SPEED = { 10, 12, 10, 15, 10, 10, 12 };
-	public static final int[] WAVE_HP = { 5, 8, 12, 10, 12, 15, 15 };
+	public static final int[] WAVE_START = { 1, 16, 31, 46, 61, 71, 81, 91, 101 };
+	public static final int[] WAVE_COUNT = { 4, 4, 5, 6, 6, 7, 7, 8, 8 };
+	public static final int[] WAVE_SPEED = { 10, 12, 10, 15, 10, 10, 12, 13, 14 };
+	public static final int[] WAVE_HP = { 5, 8, 12, 8, 12, 15, 15, 15, 15 };
+	public static final int[] WAVE_BOUNTY = { 25, 30, 30, 20, 22, 25, 25, 30, 30 };
 }

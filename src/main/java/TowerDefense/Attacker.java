@@ -20,15 +20,15 @@ public class Attacker {
 	private AttackerView view;
 	private static int idCounter;
 
-	public Attacker(List<SubTile> path, int hp, int speed, Player owner, Player enemy) {
+	public Attacker(List<SubTile> path, int hp, int speed, int bounty, Player owner, Player enemy) {
 		id = idCounter++;
 		this.remainingPath = path;
 		this.owner = owner;
 		this.enemy = enemy;
-		maxSpeed = speed;
-		hitPoints = hp;
-		maxHealth = hitPoints;
-		bounty = hitPoints + 10;
+		this.maxSpeed = speed;
+		this.hitPoints = hp;
+		this.bounty = bounty;
+		this.maxHealth = hitPoints;
 	}
 
 	public int getId() {

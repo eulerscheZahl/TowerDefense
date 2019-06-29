@@ -78,6 +78,8 @@ public class Referee extends AbstractReferee {
 							board.upgrade(player, id, type); // upgrade before build => can't build and upgrade in the same turn
 						} else if (parts[0].equals("MSG")) {
 							player.setMessage(action.substring(4));
+						} else {
+							throw new InvalidActionException("unknown command: " + action, true, player);
 						}
 					} catch (InvalidActionException ex) {
 						if (ex.isGameBreaking()) {
@@ -107,8 +109,8 @@ public class Referee extends AbstractReferee {
 		board.moveAttackers(turn);
 		board.spawnAttackers(turn);
 
+		board.updateView();
 		for (Player player : gameManager.getActivePlayers()) {
-			player.updateView();
 			player.setScore(player.getScorePoints());
 			if (player.isDead())
 				player.deactivate(player.getNicknameToken() + ": no lives left");

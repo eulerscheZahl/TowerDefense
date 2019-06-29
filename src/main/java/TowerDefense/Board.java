@@ -1,6 +1,7 @@
 package TowerDefense;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -26,6 +27,7 @@ public class Board {
 	private List<List<Attacker>> futureAttackers = new ArrayList<>();
 	private List<BuildAction> buildActions = new ArrayList<>();
 	private List<List<SubTile>> paths = new ArrayList<>();
+	private int waveNumber = 0;
 
 	public Board(Tile[][] tiles, List<Player> players, Random random) {
 		this.players = players;
@@ -168,16 +170,18 @@ public class Board {
 			List<SubTile> mirror = mirrorPath(path);
 			int hp = Constants.WAVE_HP[waveIndex];
 			int speed = Constants.WAVE_SPEED[waveIndex];
-			futureAttackers.get(time).add(new Attacker(mirror, hp, speed, players.get(1), players.get(0)));
-			futureAttackers.get(time).add(new Attacker(path, hp, speed, players.get(0), players.get(1)));
-
+			int bounty = Constants.WAVE_BOUNTY[waveIndex];
+			futureAttackers.get(time).add(new Attacker(mirror, hp, speed, bounty, players.get(1), players.get(0)));
+			futureAttackers.get(time).add(new Attacker(path, hp, speed, bounty, players.get(0), players.get(1)));
 		}
+		waveNumber++;
 
 		if (waveIndex + 1 < Constants.WAVE_START.length)
 			waveIndex++;
-		else {
+		else { // make up new waves on the spot, if none defined
 			Constants.WAVE_COUNT[waveIndex]++;
 			Constants.WAVE_HP[waveIndex]++;
+			Constants.WAVE_START[waveIndex] += 10;
 		}
 	}
 
@@ -194,13 +198,11 @@ public class Board {
 		Collections.sort(towers, new Comparator<Tower>() {
 			@Override
 			public int compare(Tower t1, Tower t2) {
-				int t1Index = 0;
-				while (!Tower.TowerOrder[t1Index].equals(t1.getType()))
-					t1Index++;
-				int t2Index = 0;
-				while (!Tower.TowerOrder[t2Index].equals(t2.getType()))
-					t2Index++;
+				int t1Index = Arrays.asList(Tower.TowerOrder).indexOf(t1.getType());
+				int t2Index = Arrays.asList(Tower.TowerOrder).indexOf(t2.getType());
 				if (t1Index == t2Index) {
+					if (t1.getOwner() != t2.getOwner()) // order doesn't matter here, but search will crash without definite ordering
+						return t1.getOwner().getIndex() - t2.getOwner().getIndex();
 					int result = t1.getTile().getX() * height + t1.getTile().getY() - t2.getTile().getX() * height - t2.getTile().getY();
 					if (t1.getOwner().getIndex() == 1)
 						result *= -1;
@@ -372,5 +374,16 @@ public class Board {
 		for (Attacker a : attackers)
 			input.add(a.getPlayerInput());
 		return input;
+	}
+
+	public int getWaveNumber() {
+		return waveNumber;
+	}
+
+	public void updateView() {
+		view.updateView();
+		for (Player player : players) {
+			player.updateView();
+		}
 	}
 }

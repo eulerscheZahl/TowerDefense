@@ -3,6 +3,7 @@ package view;
 import com.codingame.gameengine.module.entities.GraphicEntityModule;
 import com.codingame.gameengine.module.entities.Group;
 import com.codingame.gameengine.module.entities.Sprite;
+import com.codingame.gameengine.module.entities.Text;
 import com.codingame.gameengine.module.tooltip.TooltipModule;
 
 import TowerDefense.Attacker;
@@ -15,12 +16,15 @@ public class BoardView {
 	private GraphicEntityModule graphics;
 	private Group boardGroup;
 	private TooltipModule tooltips;
+	private Text wave;
 
 	public BoardView(Board board, GraphicEntityModule graphics, TooltipModule tooltips) {
 		this.board = board;
 		board.setView(this);
 		this.graphics = graphics;
 		this.tooltips = tooltips;
+
+		wave = graphics.createText("").setAnchor(0.5).setFillColor(0xffffff).setFontSize(40).setStrokeColor(0x000000).setStrokeThickness(4.0).setX(855 / 2).setY(1080 / 2);
 
 		boardGroup = graphics.createGroup();
 		// TODO: switch gridgroup back to BufferedGroup
@@ -62,5 +66,9 @@ public class BoardView {
 
 	public void addTower(Tower tower) {
 		TowerView view = tower.createView(boardGroup, graphics, tooltips);
+	}
+
+	public void updateView() {
+		wave.setText("Wave " + board.getWaveNumber());
 	}
 }
