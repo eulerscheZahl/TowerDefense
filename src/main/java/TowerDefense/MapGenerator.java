@@ -123,7 +123,7 @@ public class MapGenerator {
 				}
 				front = newFront;
 				path.addAll(front);
-				if (dist[front.get(0).getX()][front.get(0).getY()] <= 0)
+				if (front.size() == 0 || dist[front.get(0).getX()][front.get(0).getY()] <= 0)
 					break;
 			}
 			for (int x = 0; x < width; x++) {
@@ -192,7 +192,7 @@ public class MapGenerator {
 			StringBuilder sb = new StringBuilder();
 			for (int y = 0; y < height; y++) {
 				for (int x = 0; x < width; x++) {
-					sb.append(grid[x][y]);
+					sb.append(grid[x][y].getMapChar());
 				}
 				sb.append("\n");
 			}
