@@ -31,7 +31,7 @@ public class Board {
 
 	public Board(Tile[][] tiles, List<Player> players, Random random) {
 		this.players = players;
-		for (int i = 0; i <= Constants.TURN_COUNT; i++)
+		for (int i = 0; i <= Constants.TURN_COUNT + Constants.WAVE_TIME; i++)
 			futureAttackers.add(new ArrayList<>());
 
 		grid = tiles;
@@ -127,6 +127,10 @@ public class Board {
 
 	public Tile[][] getGrid() {
 		return grid;
+	}
+
+	public List<List<SubTile>> getPaths() {
+		return paths;
 	}
 
 	public Player getPlayer(int index) {

@@ -2,6 +2,7 @@ package TowerDefense;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.stream.Collectors;
@@ -11,7 +12,7 @@ public class MapGenerator {
 
 	public static Tile[][] generateMap(Random random) {
 		MapGenerator.random = random;
-		BoardDraft draft = BoardDraft.GeneratePath(Constants.MAP_WIDTH, Constants.MAP_HEIGHT, 2);
+		BoardDraft draft = BoardDraft.generatePath(Constants.MAP_WIDTH, Constants.MAP_HEIGHT, 2);
 		return draft.grid;
 	}
 
@@ -44,9 +45,19 @@ public class MapGenerator {
 			return result;
 		}
 
-		public static BoardDraft GeneratePath(int width, int height, int paths) {
+		private boolean pathLengthsEqual() {
+			Board board = new Board(grid, null, null);
+			List<List<SubTile>> paths = board.getPaths();
+			for (int i = 1; i < paths.size(); i++) {
+				if (paths.get(i).size() != paths.get(0).size())
+					return false;
+			}
+			return true;
+		}
+
+		public static BoardDraft generatePath(int width, int height, int paths) {
 			BoardDraft board = tryGeneratePath(width, height, paths);
-			while (!board.isSymmetric())
+			while (!board.isSymmetric() || board.getPathLength() < Constants.MIN_PATH_LENGTH || !board.pathLengthsEqual())
 				board = tryGeneratePath(width, height, paths);
 			return board;
 		}
