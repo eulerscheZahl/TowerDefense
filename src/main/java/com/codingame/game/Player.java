@@ -53,6 +53,10 @@ public class Player extends AbstractMultiplayerPlayer {
 		lives--;
 	}
 
+	public void kill() {
+		lives = 0;
+	}
+
 	public int getScorePoints() {
 		if (isDead())
 			return 0;

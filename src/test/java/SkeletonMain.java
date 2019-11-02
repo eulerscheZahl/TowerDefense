@@ -6,7 +6,7 @@ public class SkeletonMain {
 	public static void main(String[] args) {
 		MultiplayerGameRunner gameRunner = new MultiplayerGameRunner();
 
-		String botPath = "/home/eulerschezahl/Dokumente/Programmieren/challenges/CodinGame/TowerDefense/bin/Debug/";
+		String botPath = "/home/eulerschezahl/Documents/Programming/challenges/CodinGame/TowerDefense/bin/Debug/";
 
 		if (new File(botPath + "TowerDefense.exe").isFile()) {
 			gameRunner.addAgent("mono " + botPath + "basicGun.exe");

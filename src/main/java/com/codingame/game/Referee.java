@@ -90,6 +90,7 @@ public class Referee extends AbstractReferee {
 					}
 				}
 			} catch (TimeoutException e) {
+				player.kill();
 				player.deactivate(String.format("$%d timeout!", player.getIndex()));
 			}
 		}
@@ -99,6 +100,7 @@ public class Referee extends AbstractReferee {
 					break;
 			} catch (InvalidActionException ex) {
 				if (ex.isGameBreaking()) {
+					ex.getPlayer().kill();
 					ex.getPlayer().deactivate(ex.getPlayer().getNicknameToken() + ": " + ex.getMessage());
 				} else {
 					gameManager.addToGameSummary(ex.getPlayer().getNicknameToken() + ": " + ex.getMessage());
@@ -110,9 +112,9 @@ public class Referee extends AbstractReferee {
 		board.spawnAttackers(turn);
 
 		board.updateView();
-		for (Player player : gameManager.getActivePlayers()) {
+		for (Player player : gameManager.getPlayers()) {
 			player.setScore(player.getScorePoints());
-			if (player.isDead())
+			if (player.isDead() && player.isActive())
 				player.deactivate(player.getNicknameToken() + ": no lives left");
 		}
 		if (gameManager.getActivePlayers().size() < 2)

@@ -26,27 +26,28 @@
 	  Attackers have a player owning them, a location on the map, movement speed, hitpoints and a bounty for killing them. <br>
 	  They will spawn at both ends of the canyon symmetrically, those attacking player 1 on the left, player 2 on the right. Each turn they move towards the base of their opponent by their movement speed. In case of multiple shortest paths, they will pick one at random. <br>
 	  When their opponent kills them, he will be rewarded by their bounty.
-	  
+	  <br>
+
 	  <h3>Towers</h3>
 	  A tower has an owner, a location, damage, range, reload and cooldown time.
 	  When a tower has an attacker in range and a cooldown time of 0, the tower will shoot at the attacker and be inactive for the next few turns, depending on the reload time. <br>
 	  An attacker is in range of a tower, when the pythagorean distance between them is less than or equal to the tower range. <br>
 	  A player can build and upgrade different types of towers as follows:
-	  <h4>Building towers</h4>
+	  <br><h4>Building towers</h4>
 	  Towers can only be built on plateaus, not in the canyon. It is not possible to build a tower at the same cell as another tower.
-	  <h5>Gun tower</h5>
+	  <br><h5>Gun tower</h5>
 	  The gun tower attacks one unit at a time, reducing the hit point by its damage value. In case of multiple possible targets, it will always take the one closest to the own base.
-	  <h5>Fire tower</h5>
+	  <br><h5>Fire tower</h5>
 	  The fire tower will damage all opponent attackers in its range and only shoot with one or more opponents in range.
-	  <h5>Glue tower</h5>
+	  <br><h5>Glue tower</h5>
 	  The glue tower does not cause any damage to the attacks. Instead it will slow them down for some turns. It will target the attacker closest to the own base, ignoring those which are already slowed down.
-	  <h5>Heal tower</h5>
+	  <br><h5>Heal tower</h5>
 	  The heal tower does not shoot at opponent attackers. Instead it will heal the attackers of the own team, making it harder for the opponent to kill them.
 	  
-	  <h4>Upgrading towers</h4>
+	  <br><h4>Upgrading towers</h4>
 	  It is possible to make towers stronger by increasing the damage and range as well as reducing the reload time. Each of these can be upgraded independently up to three times. The upgrade costs for the first, second and third level are [[TOWER_UPGRADE_COSTS_0]], [[TOWER_UPGRADE_COSTS_1]] and [[TOWER_UPGRADE_COSTS_2]].
 	  
-	  <h4>Tower strengths</h4>
+	  <br><h4>Tower strengths</h4>
 	  The tower strengths are as follows:
 	  <table>
 	  <tr><th></th><th colspan="3">Gun tower (cost: [[GUNTOWER_COST]])</th><th colspan="3">Fire tower (cost: [[FIRETOWER_COST]])</th><th colspan="3">Glue tower (cost: [[GLUETOWER_COST]])</th><th colspan="3">Heal tower (cost: [[HEALTOWER_COST]])</th></tr>
@@ -116,7 +117,8 @@
 		an action can be:
 		<ul>
 		<li><action>BUILD x y type</action> to build at a given location. <action>type</action> can be <const>GUNTOWER</const>, <const>FIRETOWER</const>, <const>GLUETOWER</const> or <const>HEALTOWER</const></li>
-		<li><action>BUILD id type</action> to upgrade a tower with a given id. <action>type</action> can be <const>DAMAGE</const>, <const>RANGE</const> or <const>RELOAD</const></li>
+		<li><action>UPGRADE id type</action> to upgrade a tower with a given id. <action>type</action> can be <const>DAMAGE</const>, <const>RANGE</const> or <const>RELOAD</const></li>
+		<li><action>PASS</action> to do nothing</li>
 		<li><action>MSG text</action> to print a message</li>
         <br>
       </div>
