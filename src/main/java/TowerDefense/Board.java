@@ -318,6 +318,12 @@ public class Board {
 			tower.undoBuild();
 			throw new InvalidActionException("Tile (" + x + "/" + y + ") is a canyon", false, player);
 		}
+		for (Tower t : towers) {
+			if (t.getTile() == tower.getTile()) {
+				tower.undoBuild();
+				throw new InvalidActionException("Tile (" + x + "/" + y + ") is occupied by another tower already", false, player);
+			}
+		}
 		if (player.buy(tower)) {
 			towers.add(tower);
 			view.addTower(tower);

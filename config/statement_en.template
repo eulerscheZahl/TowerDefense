@@ -66,6 +66,7 @@
       <span class="icon icon-expertrules">&nbsp;</span>
       <span>Expert Rules</span>
     </h1>
+    You can find the source code of the game at <a href="https://github.com/eulerscheZahl/TowerDefense/">https://github.com/eulerscheZahl/TowerDefense/</a> <br>
     <div class="statement-expert-rules-content">
       The turn order is the following:
 	  <ul>
