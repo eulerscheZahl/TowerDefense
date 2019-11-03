@@ -26,8 +26,6 @@ public class PlayerView {
 		player.setView(this);
 		this.graphics = graphics;
 		createPlayerView();
-		currentGold = this.player.getMoney();
-		currentGold = this.player.getLives();
 	}
 
 	public void createPlayerView() {
