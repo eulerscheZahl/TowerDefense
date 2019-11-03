@@ -5,7 +5,7 @@ gameloop
 read myMoney:int myLives:int
 read opponentMoney:int opponentLives:int
 read towerCount:int
-loop towerCount read towerType:word(10) towerId:int owner:int x:int y:int damage:int range:float reload:int coolDown:int
+loop towerCount read towerType:word(10) towerId:int owner:int x:int y:int damage:int attackRange:float reload:int coolDown:int
 read attackerCount:int
 loop attackerCount read attackerId:int owner:int x:float y:float hitPoints:int maxHitPoints:int currentSpeed:float maxSpeed:float slowTime:int bounty:int
 write BUILD 5 5 GUNTOWER
