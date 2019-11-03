@@ -33,16 +33,20 @@ public abstract class TowerView {
 		for (int level = 0; level < Constants.NUM_UPGRADE_SPRITES; level++) {
 			towerSprite[level] = Utils.createTowerSprite(graphics, sprite + level + ".png", tower.getTile().getX(), tower.getTile().getY());
 			towerSprite[level].setTint(tower.getOwner().getColor());
-			if (level == 0) {
-				tooltips.setTooltipText(towerSprite[level], getTooltipString());
-			} else {
+			if (level > 0) {
 				towerSprite[level].setVisible(false);
 			}
 		}
-		boardGroup.add(towerSprite);
 	}
 
-	public String getTooltipString() {
+	protected void commitSprites() {
+		boardGroup.add(towerSprite);
+		boardGroup.add(attackSprite);
+		if (attackLine != null) boardGroup.add(attackLine);
+		graphics.commitEntityState(0, boardGroup);
+	}
+
+	public void updateTooltip() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("x: ").append(tower.getTile().getX()).append("\ny: ").append(tower.getTile().getY());
 		sb.append("\ntype: ").append(tower.getType());
@@ -52,7 +56,7 @@ public abstract class TowerView {
 			sb.append("\n").append(p).append(": ").append(new DecimalFormat("0.#").format(tower.getProperty(p)));
 		}
 		sb.append("\ncooldown: ").append(tower.getCooldown());
-		return sb.toString();
+		tooltipModule.setTooltipText(towerSprite[upgradeLevel], sb.toString());
 	}
 
 	public abstract void attack(Attacker a);

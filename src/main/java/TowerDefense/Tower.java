@@ -45,6 +45,7 @@ public abstract class Tower {
 		owner.spendMoney(upgradeCost);
 		upgradeStates[property.ordinal()]++;
 		view.upgrade();
+		view.updateTooltip();
 	}
 
 	public double getProperty(TowerProperty property) {

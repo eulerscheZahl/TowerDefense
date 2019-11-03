@@ -14,7 +14,8 @@ public class FireTowerView extends TowerView {
 		attackSprite = graphics.createSprite().setImage("fireTower.png").setAlpha(0).setScale(3);
 		attackSprite.setX(BoardView.CELL_SIZE * tower.getTile().getX() - BoardView.CELL_SIZE);
 		attackSprite.setY(BoardView.CELL_SIZE * tower.getTile().getY() - BoardView.CELL_SIZE);
-		boardGroup.add(attackSprite);
+		commitSprites();
+		updateTooltip();
 	}
 
 	@Override

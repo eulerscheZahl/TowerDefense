@@ -11,34 +11,45 @@ import TowerDefense.Attacker;
 import TowerDefense.SubTile;
 
 public class AttackerView {
-	private static ArrayList<Sprite> spriteCache = new ArrayList<>();
+	private static ArrayList<ArrayList<Group>> spriteCache = new ArrayList<>();
 
 	private Attacker attacker;
-	private Sprite sprite;
+	private Group group;
 	private GraphicEntityModule graphics;
 	private TooltipModule tooltips;
+
+	static {
+		spriteCache.add(new ArrayList<Group>());
+		spriteCache.add(new ArrayList<Group>());
+	}
 
 	public AttackerView(Attacker attacker, Group boardGroup, GraphicEntityModule graphics, TooltipModule tooltips) {
 		this.attacker = attacker;
 		this.graphics = graphics;
 		this.tooltips = tooltips;
 		attacker.setView(this);
-		for (Sprite s : spriteCache) {
-			if (s.getTint() == attacker.getOwner().getColor()) {
-				sprite = s;
-				SubTile t = attacker.getLocation();
-				sprite.setAlpha(1).setX((int) (BoardView.CELL_SIZE * t.getX())).setY((int) (BoardView.CELL_SIZE * t.getY()));
-				graphics.commitEntityState(0, sprite);
-				spriteCache.remove(s);
-				break;
-			}
+		for (Group g : spriteCache.get(attacker.getOwner().getIndex())) {
+			group = g;
+			SubTile t = attacker.getLocation();
+			group.setAlpha(1).setX((int) (BoardView.CELL_SIZE * t.getX())).setY((int) (BoardView.CELL_SIZE * t.getY()));
+			graphics.commitEntityState(0, group);
+			spriteCache.get(attacker.getOwner().getIndex()).remove(g);
+			break;
 		}
-		if (sprite == null) {
-			sprite = Utils.createAttackerSprite(graphics, "attacker.png", attacker.getLocation().getX(), attacker.getLocation().getY());
-			boardGroup.add(sprite);
+		if (group == null) {
+			Sprite attackerBody = graphics.createSprite().setImage("attackerBody.png");
+			Sprite attackerHelmet = graphics.createSprite().setImage("attackerHelmet.png").setTint(attacker.getOwner().getColor());
+			group = graphics.createGroup(attackerBody, attackerHelmet)
+					.setX((int) (BoardView.CELL_SIZE * attacker.getLocation().getX()))
+					.setY((int) (BoardView.CELL_SIZE * attacker.getLocation().getY()));
+			if (attacker.getOwner().getIndex() == 1) {
+				attackerBody.setX(-BoardView.CELL_SIZE );
+				attackerHelmet.setX(-BoardView.CELL_SIZE );
+				group.setScaleX(-1);
+			}
+			boardGroup.add(group);
 		}
 		//tooltips.setTooltipText(sprite, getTooltipString());
-		sprite.setTint(attacker.getOwner().getColor());
 	}
 
 	public void move(ArrayList<SubTile> steps) {
@@ -53,15 +64,15 @@ public class AttackerView {
 			boolean changeDir = current.getX() != prev.getX() && current.getY() != next.getY();
 			changeDir |= current.getX() != next.getX() && current.getY() != prev.getY();
 			if (changeDir) {
-				sprite.setX((int) (BoardView.CELL_SIZE * current.getX()));
-				sprite.setY((int) (BoardView.CELL_SIZE * current.getY()));
-				graphics.commitEntityState((double) i / (steps.size() - 1), sprite);
+				group.setX((int) (BoardView.CELL_SIZE * current.getX()));
+				group.setY((int) (BoardView.CELL_SIZE * current.getY()));
+				graphics.commitEntityState((double) i / (steps.size() - 1), group);
 			}
 		}
 
 		SubTile last = steps.get(steps.size() - 1);
-		sprite.setX((int) (BoardView.CELL_SIZE * last.getX()));
-		sprite.setY((int) (BoardView.CELL_SIZE * last.getY()));
+		group.setX((int) (BoardView.CELL_SIZE * last.getX()));
+		group.setY((int) (BoardView.CELL_SIZE * last.getY()));
 		//tooltips.setTooltipText(sprite, getTooltipString());
 	}
 
@@ -79,7 +90,7 @@ public class AttackerView {
 	}
 
 	public void kill() {
-		sprite.setAlpha(0);
-		//spriteCache.add(sprite);
+		group.setAlpha(0);
+		//spriteCache.get(attacker.getOwner().getIndex()).add(sprite);
 	}
 }
