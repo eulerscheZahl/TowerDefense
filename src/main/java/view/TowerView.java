@@ -30,7 +30,8 @@ public abstract class TowerView {
 	}
 
 	protected void commitSprites() {
-		boardGroup.add(towerSprite, attackSprite, attackLine);
+		boardGroup.add(towerSprite, attackSprite);
+		if (attackLine != null) boardGroup.add(attackLine);
 		graphics.commitEntityState(0, boardGroup);
 	}
 
