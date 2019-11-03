@@ -19,7 +19,7 @@ import view.BoardView;
 
 public class Referee extends AbstractReferee {
 	public static final int FRAME_DURATION = 500;
-	public static final Random random = new Random();
+	public static Random random;
 
 	@Inject
 	private MultiplayerGameManager<Player> gameManager;
@@ -33,7 +33,7 @@ public class Referee extends AbstractReferee {
 	@Override
 	public void init() {
 		Locale.setDefault(new Locale("en", "US"));
-		Random random = new Random(gameManager.getSeed());
+		random = new Random(gameManager.getSeed());
 		Tile[][] grid = MapGenerator.generateMap(random);
 		gameManager.setMaxTurns(Constants.TURN_COUNT);
 		board = new Board(grid, gameManager.getPlayers(), random);
