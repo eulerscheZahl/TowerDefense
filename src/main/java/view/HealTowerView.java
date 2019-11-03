@@ -10,9 +10,7 @@ import TowerDefense.Tower;
 public class HealTowerView extends TowerView {
 
 	public HealTowerView(Tower tower, Group boardGroup, GraphicEntityModule graphics, TooltipModule tooltips) {
-		super(tower, boardGroup, graphics, tooltips);
-		towerSprite = Utils.createTowerSprite(graphics, "healTower.png", tower.getTile().getX(), tower.getTile().getY());
-		towerSprite.setTint(tower.getOwner().getColor());
+		super(tower, boardGroup, graphics, tooltips, "healTower");
 		attackSprite = graphics.createSprite().setImage("healTowerAttack.png").setAlpha(0);
 		attackLine = graphics.createLine();
 		attackLine.setX(BoardView.CELL_SIZE * tower.getTile().getX());
@@ -23,6 +21,7 @@ public class HealTowerView extends TowerView {
 		updateTooltip();
 	}
 
+	@Override
 	public void attack(Attacker a) {
 		attackSprite.setAlpha(1);
 		attackSprite.setX((int) (BoardView.CELL_SIZE * a.getLocation().getX()));

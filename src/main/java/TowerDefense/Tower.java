@@ -44,6 +44,7 @@ public abstract class Tower {
 		int upgradeCost = Constants.TOWER_UPGRADE_COSTS[upgradeState];
 		owner.spendMoney(upgradeCost);
 		upgradeStates[property.ordinal()]++;
+		view.upgrade();
 		view.updateTooltip();
 	}
 

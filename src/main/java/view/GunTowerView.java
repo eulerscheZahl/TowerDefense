@@ -10,9 +10,7 @@ import TowerDefense.Tower;
 public class GunTowerView extends TowerView {
 
 	public GunTowerView(Tower tower, Group boardGroup, GraphicEntityModule graphics, TooltipModule tooltips) {
-		super(tower, boardGroup, graphics, tooltips);
-		towerSprite = Utils.createTowerSprite(graphics, "gunTower.png", tower.getTile().getX(), tower.getTile().getY());
-		towerSprite.setTint(tower.getOwner().getColor());
+		super(tower, boardGroup, graphics, tooltips, "gunTower");
 		attackSprite = graphics.createSprite().setImage("gunTowerAttack.png").setAlpha(0);
 		attackLine = graphics.createLine();
 		attackLine.setX((int) (BoardView.CELL_SIZE * (tower.getTile().getX() + 0.5)));
@@ -23,6 +21,7 @@ public class GunTowerView extends TowerView {
 		updateTooltip();
 	}
 
+	@Override
 	public void attack(Attacker a) {
 		attackSprite.setAlpha(1);
 		attackSprite.setX((int) (BoardView.CELL_SIZE * a.getLocation().getX()));

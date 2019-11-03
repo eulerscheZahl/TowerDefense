@@ -9,6 +9,7 @@ import com.codingame.gameengine.module.entities.Sprite;
 import com.codingame.gameengine.module.tooltip.TooltipModule;
 
 import TowerDefense.Attacker;
+import TowerDefense.Constants;
 import TowerDefense.Tower;
 import TowerDefense.TowerProperty;
 
@@ -21,16 +22,23 @@ public abstract class TowerView {
 	protected TooltipModule tooltipModule;
 	protected Group boardGroup;
 
-	public TowerView(Tower tower, Group boardGroup, GraphicEntityModule graphics, TooltipModule tooltips) {
+	String spriteFileBaseName;
+	int upgradeLevel = 0;
+	
+	public TowerView(Tower tower, Group boardGroup, GraphicEntityModule graphics, TooltipModule tooltips, String sprite) {
 		this.tower = tower;
 		this.graphics = graphics;
 		tower.setView(this);
 		this.tooltipModule = tooltips;
 		this.boardGroup = boardGroup;
+		this.spriteFileBaseName = sprite;
+		towerSprite = Utils.createTowerSprite(graphics, sprite + upgradeLevel + ".png", tower.getTile().getX(), tower.getTile().getY());
+		towerSprite.setTint(tower.getOwner().getColor());
 	}
 
 	protected void commitSprites() {
-		boardGroup.add(towerSprite, attackSprite);
+		boardGroup.add(towerSprite);
+		boardGroup.add(attackSprite);
 		if (attackLine != null) boardGroup.add(attackLine);
 		graphics.commitEntityState(0, boardGroup);
 	}
@@ -49,4 +57,11 @@ public abstract class TowerView {
 	}
 
 	public abstract void attack(Attacker a);
+	
+	public void upgrade() {
+		if (upgradeLevel + 1 == Constants.NUM_UPGRADE_SPRITES)
+			return;
+		upgradeLevel++;
+		this.towerSprite.setImage(spriteFileBaseName + upgradeLevel + ".png");
+	}
 }
