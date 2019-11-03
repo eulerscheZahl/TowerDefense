@@ -15,13 +15,14 @@ import TowerDefense.TowerProperty;
 
 public abstract class TowerView {
 	protected Tower tower;
-	protected Sprite[] towerSprite = new Sprite[Constants.NUM_UPGRADE_SPRITES];
+	protected Sprite towerSprite;
 	protected Sprite attackSprite;
 	protected Line attackLine;
 	protected GraphicEntityModule graphics;
 	protected TooltipModule tooltipModule;
 	protected Group boardGroup;
 
+	String spriteFileBaseName;
 	int upgradeLevel = 0;
 	
 	public TowerView(Tower tower, Group boardGroup, GraphicEntityModule graphics, TooltipModule tooltips, String sprite) {
@@ -30,13 +31,9 @@ public abstract class TowerView {
 		tower.setView(this);
 		this.tooltipModule = tooltips;
 		this.boardGroup = boardGroup;
-		for (int level = 0; level < Constants.NUM_UPGRADE_SPRITES; level++) {
-			towerSprite[level] = Utils.createTowerSprite(graphics, sprite + level + ".png", tower.getTile().getX(), tower.getTile().getY());
-			towerSprite[level].setTint(tower.getOwner().getColor());
-			if (level > 0) {
-				towerSprite[level].setVisible(false);
-			}
-		}
+		this.spriteFileBaseName = sprite;
+		towerSprite = Utils.createTowerSprite(graphics, sprite + upgradeLevel + ".png", tower.getTile().getX(), tower.getTile().getY());
+		towerSprite.setTint(tower.getOwner().getColor());
 	}
 
 	protected void commitSprites() {
@@ -56,7 +53,7 @@ public abstract class TowerView {
 			sb.append("\n").append(p).append(": ").append(new DecimalFormat("0.#").format(tower.getProperty(p)));
 		}
 		sb.append("\ncooldown: ").append(tower.getCooldown());
-		tooltipModule.setTooltipText(towerSprite[upgradeLevel], sb.toString());
+		tooltipModule.setTooltipText(towerSprite, sb.toString());
 	}
 
 	public abstract void attack(Attacker a);
@@ -64,8 +61,7 @@ public abstract class TowerView {
 	public void upgrade() {
 		if (upgradeLevel + 1 == Constants.NUM_UPGRADE_SPRITES)
 			return;
-		this.towerSprite[upgradeLevel].setVisible(false);
 		upgradeLevel++;
-		this.towerSprite[upgradeLevel].setVisible(true);
+		this.towerSprite.setImage(spriteFileBaseName + upgradeLevel + ".png");
 	}
 }
