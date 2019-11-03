@@ -29,7 +29,12 @@ public abstract class TowerView {
 		this.boardGroup = boardGroup;
 	}
 
-	public String getTooltipString() {
+	protected void commitSprites() {
+		boardGroup.add(towerSprite, attackSprite, attackLine);
+		graphics.commitEntityState(0, boardGroup);
+	}
+
+	public void updateTooltip() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("x: ").append(tower.getTile().getX()).append("\ny: ").append(tower.getTile().getY());
 		sb.append("\ntype: ").append(tower.getType());
@@ -39,7 +44,7 @@ public abstract class TowerView {
 			sb.append("\n").append(p).append(": ").append(new DecimalFormat("0.#").format(tower.getProperty(p)));
 		}
 		sb.append("\ncooldown: ").append(tower.getCooldown());
-		return sb.toString();
+		tooltipModule.setTooltipText(towerSprite, sb.toString());
 	}
 
 	public abstract void attack(Attacker a);

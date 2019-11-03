@@ -19,8 +19,8 @@ public class GunTowerView extends TowerView {
 		attackLine.setY((int) (BoardView.CELL_SIZE * (tower.getTile().getY() + 0.5)));
 		attackLine.setLineColor(0xff0000).setAlpha(0);
 		attackLine.setLineWidth(5);
-		boardGroup.add(towerSprite, attackSprite, attackLine);
-		tooltips.setTooltipText(towerSprite, getTooltipString());
+		commitSprites();
+		updateTooltip();
 	}
 
 	public void attack(Attacker a) {
