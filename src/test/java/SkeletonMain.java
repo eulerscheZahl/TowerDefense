@@ -8,7 +8,7 @@ public class SkeletonMain {
 
 		String botPath = "/home/eulerschezahl/Documents/Programming/challenges/CodinGame/TowerDefense/bin/Debug/";
 
-		if (new File(botPath + "TowerDefense.exe").isFile()) {
+		if (new File(botPath + "basicGun.exe").isFile()) {
 			gameRunner.addAgent("mono " + botPath + "basicGun.exe");
 			gameRunner.addAgent("mono " + botPath + "basicGunUpgrade.exe");
 		} else {
@@ -16,7 +16,7 @@ public class SkeletonMain {
 			gameRunner.addAgent(Agent1.class);
 		}
 
-		gameRunner.setSeed(7129279169689094050L);
+		gameRunner.setSeed(7975987388959628300L);
 		gameRunner.start();
 	}
 }

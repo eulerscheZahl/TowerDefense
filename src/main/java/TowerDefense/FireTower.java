@@ -27,6 +27,7 @@ public class FireTower extends Tower {
 			a.dealDamage((int) getProperty(TowerProperty.DAMAGE));
 			firing = true;
 		}
+		if (firing) getView().attack(null);
 		return firing;
 	}
 
