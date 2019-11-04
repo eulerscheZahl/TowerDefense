@@ -11,7 +11,8 @@ import TowerDefense.Attacker;
 import TowerDefense.SubTile;
 
 public class AttackerView {
-	private static final int ANIMATION_DURATION = 800;
+	private static final int WALK_DURATION = 800;
+	private static final int DEATH_DURATION = 1000;
 
 	private static ArrayList<ArrayList<Group>> spriteCache = new ArrayList<>();
 
@@ -42,10 +43,10 @@ public class AttackerView {
 		if (group == null) {
 			attackerBody = graphics.createSpriteAnimation().
 					setImages("att_body_01.png", "att_body_03.png", "att_body_05.png", "att_body_07.png", "att_body_09.png", "att_body_11.png", "att_body_13.png", "att_body_15.png", "att_body_17.png", "att_body_19.png").
-					setDuration(ANIMATION_DURATION).setLoop(true).setPlaying(true);
+					setDuration(WALK_DURATION).setLoop(true).setPlaying(true);
 			attackerHelmet = graphics.createSpriteAnimation().
 					setImages("att_helmet_01.png", "att_helmet_03.png", "att_helmet_05.png", "att_helmet_07.png", "att_helmet_09.png", "att_helmet_11.png", "att_helmet_13.png", "att_helmet_15.png", "att_helmet_17.png", "att_helmet_19.png").
-					setDuration(ANIMATION_DURATION).setLoop(true).setPlaying(true).
+					setDuration(WALK_DURATION).setLoop(true).setPlaying(true).
 					setTint(attacker.getOwner().getColor());
 			group = graphics.createGroup(attackerBody, attackerHelmet)
 					.setX((int) (BoardView.CELL_SIZE * attacker.getLocation().getX()))
@@ -102,7 +103,17 @@ public class AttackerView {
 	}
 
 	public void kill() {
-		group.setAlpha(0);
+		attackerBody.setImages("die_body_00.png", "die_body_02.png", "die_body_04.png", "die_body_06.png", "die_body_08.png", "die_body_10.png", "die_body_12.png", "die_body_14.png", "die_body_16.png", "die_body_18.png");
+		attackerBody.setDuration(DEATH_DURATION);
+		attackerBody.reset();
+		attackerHelmet.setImages("die_helmet_00.png", "die_helmet_02.png", "die_helmet_04.png", "die_helmet_06.png", "die_helmet_08.png", "die_helmet_10.png", "die_helmet_12.png", "die_helmet_14.png", "die_helmet_16.png", "die_helmet_18.png");
+		attackerHelmet.setDuration(DEATH_DURATION);
+		attackerHelmet.reset();
+		graphics.commitEntityState(0, attackerBody);
+		graphics.commitEntityState(0, attackerHelmet);
+
+		graphics.commitEntityState(0.9, group);
+		group.setVisible(false);
 		//spriteCache.get(attacker.getOwner().getIndex()).add(sprite);
 	}
 }
