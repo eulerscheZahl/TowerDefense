@@ -1,5 +1,6 @@
 package TowerDefense;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.codingame.gameengine.module.entities.GraphicEntityModule;
@@ -10,6 +11,9 @@ import view.FireTowerView;
 import view.TowerView;
 
 public class FireTower extends Tower {
+	private ArrayList<Attacker> alreadyAttacked = new ArrayList<>();
+	private int fireEffect = 0;
+
 	public FireTower(Tile tile) {
 		super("FIRETOWER", tile);
 		properties[TowerProperty.DAMAGE.ordinal()] = Constants.FIRETOWER_DAMAGE;
@@ -19,12 +23,30 @@ public class FireTower extends Tower {
 	}
 
 	@Override
+	public void attack(List<Attacker> attackers) {
+		if (cooldown > 0) {
+			cooldown--;
+		}
+		if (fireEffect > 0) {
+			fireEffect--;
+			doAttack(attackers);
+		}
+		if (cooldown > 0) return;
+		if (doAttack(attackers)) {
+			cooldown = (int) getProperty(TowerProperty.RELOAD) - 1;
+			fireEffect = Constants.FIRE_EFFECT_DURATION - 1;
+		}
+	}
+
+	@Override
 	boolean doAttack(List<Attacker> attackers) {
+		if (cooldown == 0) alreadyAttacked.clear();
 		boolean firing = false;
 		for (Attacker a : attackers) {
-			if (getOwner() == a.getOwner() || !inRange(a))
+			if (getOwner() == a.getOwner() || !inRange(a) || alreadyAttacked.contains(a))
 				continue;
 			a.dealDamage((int) getProperty(TowerProperty.DAMAGE));
+			alreadyAttacked.add(a);
 			firing = true;
 		}
 		if (firing) getView().attack(null);

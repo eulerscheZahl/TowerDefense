@@ -17,6 +17,7 @@ public class Constants {
 	public static final double[] FIRETOWER_DAMAGE = { 2, 3, 5, 7 };
 	public static final double[] FIRETOWER_RANGE = { 1.5, 2, 2.3, 2.5 };
 	public static final double[] FIRETOWER_RELOAD = { 8, 7, 6, 5 };
+	public static final int FIRE_EFFECT_DURATION = 2;
 	public static final int GLUETOWER_COST = 70;
 	public static final double[] GLUETOWER_DAMAGE = { 8, 15, 25, 40 }; // duration of slowdown effect
 	public static final double[] GLUETOWER_RANGE = { 3, 4, 5, 6 };

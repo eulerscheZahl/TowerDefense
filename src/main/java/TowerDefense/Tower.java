@@ -16,7 +16,7 @@ public abstract class Tower {
 	private Tile tile;
 	private int[] upgradeStates;
 	protected double[][] properties;
-	private int cooldown;
+	protected int cooldown;
 	protected int cost;
 	private TowerView view;
 	private Player owner;
