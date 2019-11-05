@@ -61,7 +61,8 @@ public class AttackerView {
 		//tooltips.setTooltipText(sprite, getTooltipString());
 	}
 
-	public void move(ArrayList<SubTile> steps) {
+	public void move() {
+		ArrayList<SubTile> steps = attacker.getSteps();
 		if (steps.size() == 0)
 			return;
 		steps.add(attacker.getLocation());

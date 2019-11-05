@@ -19,6 +19,7 @@ public class Attacker {
 	private Player enemy;
 	private AttackerView view;
 	private static int idCounter;
+	private ArrayList<SubTile> steps;
 
 	public Attacker(List<SubTile> path, int hp, int speed, int bounty, Player owner, Player enemy) {
 		id = idCounter++;
@@ -99,14 +100,18 @@ public class Attacker {
 		this.view = view;
 	}
 
+	public ArrayList<SubTile> getSteps() {
+		return steps;
+	}
+
 	public void move() {
 		int speed = getSpeed();
-		ArrayList<SubTile> steps = new ArrayList<>();
+		steps = new ArrayList<>();
 		while (steps.size() < speed && remainingPath.size() > 1) {
 			steps.add(remainingPath.get(remainingPath.size() - 1));
 			remainingPath.remove(remainingPath.size() - 1);
 		}
-		view.move(steps);
+		view.move();
 		if (slowCountdown > 0)
 			slowCountdown--;
 	}

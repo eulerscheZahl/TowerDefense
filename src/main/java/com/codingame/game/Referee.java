@@ -107,8 +107,8 @@ public class Referee extends AbstractReferee {
 				}
 			}
 		}
-		board.fireTowers();
 		board.moveAttackers(turn);
+		board.fireTowers();
 		board.spawnAttackers(turn);
 
 		board.updateView();

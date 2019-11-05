@@ -97,12 +97,15 @@ public abstract class Tower {
 	}
 
 	public boolean inRange(Attacker a) {
-		double dx = a.getLocation().getX() - tile.getX();
-		double dy = a.getLocation().getY() - tile.getY();
-		int rangeIndex = TowerProperty.RANGE.ordinal();
-		double range = properties[rangeIndex][upgradeStates[rangeIndex]];
-		double dist = Math.sqrt(dx * dx + dy * dy);
-		return range >= dist;
+		for (SubTile sub : a.getSteps()) {
+			double dx = sub.getX() - tile.getX();
+			double dy = sub.getY() - tile.getY();
+			int rangeIndex = TowerProperty.RANGE.ordinal();
+			double range = properties[rangeIndex][upgradeStates[rangeIndex]];
+			double dist = Math.sqrt(dx * dx + dy * dy);
+			if (range >= dist) return true;
+		}
+		return false;
 	}
 
 	abstract boolean doAttack(List<Attacker> attackers);
