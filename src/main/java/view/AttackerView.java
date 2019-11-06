@@ -21,6 +21,10 @@ public class AttackerView {
 	private SpriteAnimation attackerBody, attackerHelmet;
 	private GraphicEntityModule graphics;
 	private TooltipModule tooltips;
+	private String[] attackerBodySprites;
+	private String[] attackerHelmetSprites;
+	private String[] attackerBodyDeathSprites;
+	private String[] attackerHelmetDeathSprites;
 
 	static {
 		spriteCache.add(new ArrayList<Group>());
@@ -28,6 +32,12 @@ public class AttackerView {
 	}
 
 	public AttackerView(Attacker attacker, Group boardGroup, GraphicEntityModule graphics, TooltipModule tooltips) {
+		if (attackerBodySprites == null) {
+			attackerBodySprites = graphics.createSpriteSheetSplitter().setSourceImage("att_body.png").setHeight(94).setWidth(100).setImageCount(10).setImagesPerRow(4).setOrigRow(0).setOrigCol(0).setName("ab").split();
+			attackerHelmetSprites = graphics.createSpriteSheetSplitter().setSourceImage("att_helmet.png").setHeight(94).setWidth(100).setImageCount(10).setImagesPerRow(4).setOrigRow(0).setOrigCol(0).setName("ah").split();
+			attackerBodyDeathSprites = graphics.createSpriteSheetSplitter().setSourceImage("die_body.png").setHeight(94).setWidth(100).setImageCount(10).setImagesPerRow(4).setOrigRow(0).setOrigCol(0).setName("db").split();
+			attackerHelmetDeathSprites = graphics.createSpriteSheetSplitter().setSourceImage("die_helmet.png").setHeight(94).setWidth(100).setImageCount(10).setImagesPerRow(4).setOrigRow(0).setOrigCol(0).setName("dh").split();
+		}
 		this.attacker = attacker;
 		this.graphics = graphics;
 		this.tooltips = tooltips;
@@ -42,10 +52,10 @@ public class AttackerView {
 		}
 		if (group == null) {
 			attackerBody = graphics.createSpriteAnimation().
-					setImages("att_body_01.png", "att_body_03.png", "att_body_05.png", "att_body_07.png", "att_body_09.png", "att_body_11.png", "att_body_13.png", "att_body_15.png", "att_body_17.png", "att_body_19.png").
+					setImages(attackerBodySprites).
 					setDuration(WALK_DURATION).setLoop(true).setPlaying(true);
 			attackerHelmet = graphics.createSpriteAnimation().
-					setImages("att_helmet_01.png", "att_helmet_03.png", "att_helmet_05.png", "att_helmet_07.png", "att_helmet_09.png", "att_helmet_11.png", "att_helmet_13.png", "att_helmet_15.png", "att_helmet_17.png", "att_helmet_19.png").
+					setImages(attackerHelmetSprites).
 					setDuration(WALK_DURATION).setLoop(true).setPlaying(true).
 					setTint(attacker.getOwner().getColor());
 			group = graphics.createGroup(attackerBody, attackerHelmet)
@@ -104,10 +114,10 @@ public class AttackerView {
 	}
 
 	public void kill() {
-		attackerBody.setImages("die_body_00.png", "die_body_02.png", "die_body_04.png", "die_body_06.png", "die_body_08.png", "die_body_10.png", "die_body_12.png", "die_body_14.png", "die_body_16.png", "die_body_18.png");
+		attackerBody.setImages(attackerBodyDeathSprites);
 		attackerBody.setDuration(DEATH_DURATION);
 		attackerBody.reset();
-		attackerHelmet.setImages("die_helmet_00.png", "die_helmet_02.png", "die_helmet_04.png", "die_helmet_06.png", "die_helmet_08.png", "die_helmet_10.png", "die_helmet_12.png", "die_helmet_14.png", "die_helmet_16.png", "die_helmet_18.png");
+		attackerHelmet.setImages(attackerHelmetDeathSprites);
 		attackerHelmet.setDuration(DEATH_DURATION);
 		attackerHelmet.reset();
 		graphics.commitEntityState(0, attackerBody);
