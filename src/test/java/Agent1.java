@@ -16,7 +16,7 @@ public class Agent1 {
 			String line = scanner.nextLine();
 			initialInput += line + "\n";
 		}
-		while (true) {
+		for (int turn = 0;; turn += 1) {
 			int myMoney = scanner.nextInt();
 			int myLives = scanner.nextInt();
 			System.err.println(initialInput + myMoney + " " + myLives);
@@ -58,9 +58,11 @@ public class Agent1 {
 				if (playerId == 0)
 					System.out.println("BUILD 2 3 GUNTOWER;BUILD 13 2 HEALTOWER;BUILD 5 3 GLUETOWER");
 				else
-					System.out.println("BUILD 12 2 GUNTOWER;BUILD 10 3 FIRETOWER;BUILD 12 4 GUNTOWER");
+					System.out.println("BUILD 12 2 GUNTOWER;BUILD 10 3 FIRETOWER");
 			} else if (myMoney >= 200 && playerId == 1) {
 				System.out.println("UPGRADE 3 DAMAGE");
+			} else if (playerId == 1 && turn == 3) {
+				System.out.println("BUILD 2 10 GUNTOWER");
 			} else
 				System.out.println("PASS");
 		}
