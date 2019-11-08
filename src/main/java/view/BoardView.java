@@ -66,7 +66,6 @@ public class BoardView {
 
 	public void addTower(Tower tower) {
 		TowerView view = tower.createView(boardGroup, graphics, tooltips);
-		graphics.commitEntityState(0, view.towerSprite);
 	}
 
 	public void updateView() {

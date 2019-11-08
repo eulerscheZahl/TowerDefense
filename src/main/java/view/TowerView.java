@@ -40,7 +40,7 @@ public abstract class TowerView {
 		boardGroup.add(towerSprite);
 		boardGroup.add(attackSprite);
 		if (attackLine != null) boardGroup.add(attackLine);
-		graphics.commitEntityState(0, boardGroup);
+		graphics.commitEntityState(0, boardGroup, towerSprite);
 	}
 
 	public void updateTooltip() {
