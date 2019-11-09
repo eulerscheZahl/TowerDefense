@@ -1,3 +1,4 @@
+#! /usr/bin/env python
 import re
 
 with open('../src/main/java/TowerDefense/Constants.java') as f:

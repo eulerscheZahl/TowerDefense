@@ -38,7 +38,7 @@
 	  <br><h5>Gun tower</h5>
 	  The gun tower attacks one unit at a time, reducing the hit point by its damage value. In case of multiple possible targets, it will always take the one closest to the own base.
 	  <br><h5>Fire tower</h5>
-	  The fire tower will damage all opponent attackers in its range and only shoot with one or more opponents in range.
+	  The fire tower damages all opponent attackers in its range.
 	  <br><h5>Glue tower</h5>
 	  The glue tower does not cause any damage to the attacks. Instead it will slow them down for some turns. It will target the attacker closest to the own base, ignoring those which are already slowed down.
 	  <br><h5>Heal tower</h5>
