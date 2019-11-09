@@ -15,7 +15,7 @@ import TowerDefense.TowerProperty;
 
 public abstract class TowerView {
 	protected Tower tower;
-	protected Sprite towerSprite;
+	protected Sprite towerSprite, towerFixedSprite;
 	protected Sprite attackSprite;
 	protected Line attackLine;
 	protected GraphicEntityModule graphics;
@@ -38,9 +38,13 @@ public abstract class TowerView {
 
 	protected void commitSprites() {
 		boardGroup.add(towerSprite);
+		if (towerFixedSprite != null)
+			boardGroup.add(towerFixedSprite);
 		boardGroup.add(attackSprite);
 		if (attackLine != null) boardGroup.add(attackLine);
 		graphics.commitEntityState(0, boardGroup, towerSprite);
+		if (towerFixedSprite != null)
+			graphics.commitEntityState(0, towerFixedSprite);
 	}
 
 	public void updateTooltip() {
@@ -63,5 +67,7 @@ public abstract class TowerView {
 			return;
 		upgradeLevel++;
 		this.towerSprite.setImage(spriteFileBaseName + upgradeLevel + ".png");
+		if (towerFixedSprite != null)
+			this.towerFixedSprite.setImage(spriteFileBaseName + "Fixed" + upgradeLevel + ".png");
 	}
 }
