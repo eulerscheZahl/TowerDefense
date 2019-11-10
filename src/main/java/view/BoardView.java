@@ -42,9 +42,9 @@ public class BoardView {
 					tooltips.setTooltipText(plateau, "x: " + x + "\ny: " + y);
 					innerGroup.add(plateau);
 				} else if (board.getGrid()[x][y].canEnter()) {
-					Sprite canyon = Utils.createBoardSprite(graphics, "canyon.png", x, y);
+					Sprite canyon = Utils.createBoardSprite(graphics, "canyon.png", x, y).setZIndex(-1);
 					tooltips.setTooltipText(canyon, "x: " + x + "\ny: " + y);
-					innerGroup.add(canyon);
+					boardGroup.add(canyon);
 					if (x == 0) {
 						Sprite headquarter = Utils.createBoardSprite(graphics, "headquarter.png", x, y);
 						headquarter.setTint(board.getPlayer(0).getColor());
