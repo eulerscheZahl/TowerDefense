@@ -39,7 +39,7 @@ public class Attacker {
 	public int getSpeed() {
 		if (slowCountdown == 0)
 			return maxSpeed;
-		return maxSpeed * 1 / 3;
+		return maxSpeed / Constants.GLUE_SLOWDOWN;
 	}
 
 	public boolean isSlow() {

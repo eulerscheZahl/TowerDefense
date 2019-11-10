@@ -20,19 +20,15 @@ public class GlueTower extends Tower {
 
 	@Override
 	boolean doAttack(List<Attacker> attackers) {
-		Attacker target = null;
+		boolean attacked = false;
 		for (Attacker a : attackers) {
 			if (getOwner() == a.getOwner() || !inRange(a) || a.isSlow())
 				continue;
-			if (target == null || a.getPathLength() < target.getPathLength())
-				target = a;
+			a.slowDown((int) getProperty(TowerProperty.DAMAGE));
+			getView().attack(a);
+			attacked = true;
 		}
-		if (target == null)
-			return false;
-
-		target.slowDown((int) getProperty(TowerProperty.DAMAGE));
-		getView().attack(target);
-		return true;
+		return attacked;
 	}
 
 	@Override

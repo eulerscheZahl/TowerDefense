@@ -22,6 +22,7 @@ public class Constants {
 	public static final double[] GLUETOWER_DAMAGE = { 8, 15, 25, 40 }; // duration of slowdown effect
 	public static final double[] GLUETOWER_RANGE = { 3, 4, 5, 6 };
 	public static final double[] GLUETOWER_RELOAD = { 4, 3, 2, 1 };
+	public static final int GLUE_SLOWDOWN = 4;
 	public static final int HEALTOWER_COST = 100;
 	public static final double[] HEALTOWER_DAMAGE = { 5, 8, 15, 30 };
 	public static final double[] HEALTOWER_RANGE = { 3, 4, 5, 6 };
