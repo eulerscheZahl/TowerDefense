@@ -9,9 +9,11 @@ import java.util.stream.Collectors;
 
 public class MapGenerator {
 	private static Random random;
+	private static boolean enforceBranching;
 
 	public static Tile[][] generateMap(Random random) {
 		MapGenerator.random = random;
+		enforceBranching = random.nextDouble() < Constants.ENFORCE_BRANCHING_PROBABILITY;
 		BoardDraft draft = BoardDraft.generatePath(Constants.MAP_WIDTH, Constants.MAP_HEIGHT, 2);
 		return draft.grid;
 	}
@@ -55,9 +57,27 @@ public class MapGenerator {
 			return true;
 		}
 
+		private boolean hasBranching() {
+			if (!enforceBranching) return true;
+			for (int x = 1; x < width; x++) {
+				for (int y = 1; y < height; y++) {
+					if (grid[x][y].isCanyon() && grid[x - 1][y].isCanyon() && grid[x][y - 1].isCanyon() && grid[x - 1][y - 1].isCanyon())
+						return false; // no "real" branching, just large area
+				}
+			}
+
+			for (int x = 0; x < width; x++) {
+				for (int y = 0; y < height; y++) {
+					if (grid[x][y].isCanyon() && Arrays.stream(grid[x][y].getNeighbors()).filter(n -> n != null && n.isCanyon()).count() > 2)
+						return true;
+				}
+			}
+			return false;
+		}
+
 		public static BoardDraft generatePath(int width, int height, int paths) {
 			BoardDraft board = tryGeneratePath(width, height, paths);
-			while (!board.isSymmetric() || board.getPathLength() < Constants.MIN_PATH_LENGTH || !board.pathLengthsEqual())
+			while (!board.isSymmetric() || board.getPathLength() < Constants.MIN_PATH_LENGTH || !board.pathLengthsEqual() || !board.hasBranching())
 				board = tryGeneratePath(width, height, paths);
 			return board;
 		}
