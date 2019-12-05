@@ -25,6 +25,8 @@ public class AttackerView {
 	private String[] attackerHelmetSprites;
 	private String[] attackerBodyDeathSprites;
 	private String[] attackerHelmetDeathSprites;
+	private String[] attackerBodyWinSprites;
+	private String[] attackerHelmetWinSprites;
 
 	static {
 		spriteCache.add(new ArrayList<Group>());
@@ -37,6 +39,8 @@ public class AttackerView {
 			attackerHelmetSprites = graphics.createSpriteSheetSplitter().setSourceImage("att_helmet.png").setHeight(94).setWidth(100).setImageCount(10).setImagesPerRow(4).setOrigRow(0).setOrigCol(0).setName("ah").split();
 			attackerBodyDeathSprites = graphics.createSpriteSheetSplitter().setSourceImage("die_body.png").setHeight(94).setWidth(100).setImageCount(10).setImagesPerRow(4).setOrigRow(0).setOrigCol(0).setName("db").split();
 			attackerHelmetDeathSprites = graphics.createSpriteSheetSplitter().setSourceImage("die_helmet.png").setHeight(94).setWidth(100).setImageCount(10).setImagesPerRow(4).setOrigRow(0).setOrigCol(0).setName("dh").split();
+			attackerBodyWinSprites = graphics.createSpriteSheetSplitter().setSourceImage("jump_body.png").setHeight(94).setWidth(100).setImageCount(10).setImagesPerRow(4).setOrigRow(0).setOrigCol(0).setName("jb").split();
+			attackerHelmetWinSprites = graphics.createSpriteSheetSplitter().setSourceImage("jump_helmet.png").setHeight(94).setWidth(100).setImageCount(10).setImagesPerRow(4).setOrigRow(0).setOrigCol(0).setName("jh").split();
 		}
 		this.attacker = attacker;
 		this.graphics = graphics;
@@ -114,10 +118,11 @@ public class AttackerView {
 	}
 
 	public void kill() {
-		attackerBody.setImages(attackerBodyDeathSprites);
+		boolean win = attacker.hasSucceeded();
+		attackerBody.setImages(win ? attackerBodyWinSprites : attackerBodyDeathSprites);
 		attackerBody.setDuration(DEATH_DURATION);
 		attackerBody.reset();
-		attackerHelmet.setImages(attackerHelmetDeathSprites);
+		attackerHelmet.setImages(win ? attackerHelmetWinSprites : attackerHelmetDeathSprites);
 		attackerHelmet.setDuration(DEATH_DURATION);
 		attackerHelmet.reset();
 		graphics.commitEntityState(0, attackerBody);

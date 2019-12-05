@@ -56,7 +56,7 @@ public abstract class TowerView {
 		for (TowerProperty p : TowerProperty.values()) {
 			sb.append("\n").append(p).append(": ").append(new DecimalFormat("0.#").format(tower.getProperty(p)));
 		}
-		sb.append("\ncooldown: ").append(tower.getCooldown());
+		//sb.append("\ncooldown: ").append(tower.getCooldown());
 		tooltipModule.setTooltipText(towerSprite, sb.toString());
 	}
 
