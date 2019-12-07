@@ -56,15 +56,15 @@ public class Agent1 {
 			System.err.println("money: " + myMoney + "   lives: " + myLives);
 			if (myMoney >= 350) {
 				if (playerId == 0)
-					System.out.println("BUILD 2 3 GUNTOWER;BUILD 13 2 HEALTOWER;BUILD 5 3 GLUETOWER");
+					System.out.println("BUILD 2 3 GUNTOWER;BUILD 13 2 HEALTOWER;BUILD 5 3 GLUETOWER;MSG MELDING YO");
 				else
-					System.out.println("BUILD 12 2 GUNTOWER;BUILD 10 3 FIRETOWER");
+					System.out.println("BUILD 12 2 GUNTOWER;BUILD 10 3 FIRETOWER;MSG MELDING YO hra hrae");
 			} else if (myMoney >= 200 && playerId == 1) {
-				System.out.println("UPGRADE 3 DAMAGE");
+				System.out.println("UPGRADE 3 DAMAGE;MSG MELDING YO");
 			} else if (playerId == 1 && turn == 3) {
-				System.out.println("BUILD 2 10 GUNTOWER");
+				System.out.println("BUILD 2 10 GUNTOWER;MSG MELDING YO hreah rea hr");
 			} else
-				System.out.println("PASS");
+				System.out.println("PASS;MSG MELDING YO yoloyoylyl");
 		}
 	}
 }
