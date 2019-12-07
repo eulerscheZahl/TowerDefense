@@ -29,37 +29,36 @@ public class PlayerView {
 	}
 
 	public void createPlayerView() {
-		int baseY = player.getIndex() == 0 ? 12 : 744;
-
-		avatar = graphics.createSprite().setAnchor(0).setBaseHeight(200).setBaseWidth(200).setImage(player.getAvatarToken()).setX(50).setY(baseY + 350 / 2 - 200 / 2).setZIndex(20);
+		Sprite frame = graphics.createSprite().setZIndex(-10000).setImage("Player_panel.png").setTint(0xebebeb).setX(0).setY(0).setBaseWidth(713).setBaseHeight(367);
+		avatar = graphics.createSprite().setAnchor(0.5).setBaseHeight(245).setBaseWidth(245).setImage(player.getAvatarToken()).setX(132).setY(239).setZIndex(20);
 
 		//background = entityModule.createSprite().setAnchor(0).setImage("HUD_" + color + ".png").setX(238 - 50 - PLAYER_AVATAR_RADIUS / 2).setY(baseY);
 
-		int textGap = 85;
-		pseudo = graphics.createText(player.getNicknameToken()).setAnchor(0.5).setFillColor(0xffffff).setFontSize(60).setStrokeColor(0x000000).setStrokeThickness(4.0).setX(460).setY(baseY + textGap).setFillColor(player.getColor()).setZIndex(-1);
+		pseudo = graphics.createText(player.getNicknameToken()).setAnchor(0.5).setFontSize(60).setStrokeColor(4).setStrokeColor(0x000000).setStrokeThickness(1.0).setY(57).setX(361).setFillColor(player.getColor()).setZIndex(-1);
+		int textPos = 490;
+		int textGap = 87;
+		gold = graphics.createText("").setAnchor(0.5).setFillColor(0x000000).setFontSize(50).setStrokeColor(0x000000).setStrokeThickness(1.0).setX(textPos).setY(154);
 
-		gold = graphics.createText("").setAnchor(0.5).setFillColor(0xffffff).setFontSize(40).setStrokeColor(0x000000).setStrokeThickness(4.0).setX(855 / 2).setY(baseY + textGap + 70);
+		lives = graphics.createText("").setAnchor(0.5).setFillColor(0x000000).setFontSize(50).setStrokeColor(0x000000).setStrokeThickness(1.0).setX(textPos).setY(gold.getY()+textGap);
 
-		lives = graphics.createText("").setAnchor(0.5).setFillColor(0xffffff).setFontSize(40).setStrokeColor(0x000000).setStrokeThickness(4.0).setX(855 / 2).setY(baseY + textGap + 70 + 50);
+		message = graphics.createText("").setAnchorY(0.5).setAnchorX(0).setFillColor(0x000000).setFontSize(35).setStrokeColor(0x000000).setStrokeThickness(0.0).setX(textPos-120).setY(lives.getY()+textGap).setZIndex(-1);
 
-		message = graphics.createText("").setAnchor(0.5).setFillColor(0xffffff).setFontSize(35).setStrokeColor(0x000000).setStrokeThickness(4.0).setX(855 / 2).setY(baseY + textGap + 70 + 50 + 50).setZIndex(-1);
-
-		group = graphics.createGroup().setScale(1).setX(0).setY(0);
-		group.add(avatar, pseudo, gold, lives, message);
+		group = graphics.createGroup().setScale(1).setX(0).setY(player.getIndex() == 0 ? 0 : (1080-375));
+		group.add( avatar, pseudo, gold, lives, message, frame);
 	}
 
 	public void updateView() {
 		if (player.getMoney() != this.currentGold) {
 			this.currentGold = player.getMoney();
-			this.gold.setText("Gold: " + currentGold);
+			this.gold.setText(currentGold+"");
 		}
 		if (player.getLives() != this.currentLives) {
 			this.currentLives = player.getLives();
-			this.lives.setText("Lives: " + currentLives);
+			this.lives.setText(currentLives+"");
 		}
 		if (!player.getMessage().equals(currentMessage)) {
 			this.currentMessage = player.getMessage();
-			this.message.setText(currentMessage);
+			this.message.setText((currentMessage+"                ").substring(0, 15));
 		}
 	}
 }

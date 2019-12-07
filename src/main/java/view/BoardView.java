@@ -20,12 +20,13 @@ public class BoardView {
 	private Text wave;
 
 	public BoardView(Board board, GraphicEntityModule graphics, TooltipModule tooltips) {
+		graphics.createRectangle().setFillColor(0xebebeb).setHeight(1080).setWidth(1920);
 		this.board = board;
 		board.setView(this);
 		this.graphics = graphics;
 		this.tooltips = tooltips;
 
-		wave = graphics.createText("").setAnchor(0.5).setFillColor(0xffffff).setFontSize(40).setStrokeColor(0x000000).setStrokeThickness(4.0).setX(855 / 2).setY(540);
+		wave = graphics.createText("").setAnchor(0.5).setFillColor(0x000000).setFontSize(40).setStrokeColor(0x000000).setStrokeThickness(0.0).setX(855 / 2).setY(540);
 
 		String[] attackerBodySprites = graphics.createSpriteSheetSplitter().setSourceImage("att_body.png").setHeight(94).setWidth(100).setImageCount(10).setImagesPerRow(4).setOrigRow(0).setOrigCol(0).setName("b").split();
 		String[] attackerHelmetSprites = graphics.createSpriteSheetSplitter().setSourceImage("att_helmet.png").setHeight(94).setWidth(100).setImageCount(10).setImagesPerRow(4).setOrigRow(0).setOrigCol(0).setName("h").split();
