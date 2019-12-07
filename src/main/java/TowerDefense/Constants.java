@@ -35,7 +35,7 @@ public class Constants {
 	public static final int[] WAVE_START = { 1, 16, 31, 46, 61, 71, 81, 91, 101 };
 	public static final int[] WAVE_COUNT = { 4, 4, 5, 6, 6, 7, 7, 8, 8 };
 	public static final int[] WAVE_SPEED = { 10, 12, 10, 15, 10, 10, 12, 13, 14 };
-	public static final int[] WAVE_HP = { 5, 8, 12, 8, 12, 15, 15, 15, 15 };
+	public static final int[] WAVE_HP = { 5, 8, 12, 8, 12, 15, 15, 18, 18 };
 	public static final int[] WAVE_BOUNTY = { 25, 30, 30, 20, 22, 25, 25, 30, 30 };
 	
 	public static final int NUM_UPGRADE_SPRITES = 3;
