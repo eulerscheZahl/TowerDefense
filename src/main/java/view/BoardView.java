@@ -1,5 +1,6 @@
 package view;
 
+import TowerDefense.Constants;
 import com.codingame.gameengine.module.entities.GraphicEntityModule;
 import com.codingame.gameengine.module.entities.Group;
 import com.codingame.gameengine.module.entities.Sprite;
@@ -24,19 +25,27 @@ public class BoardView {
 		this.graphics = graphics;
 		this.tooltips = tooltips;
 
-		wave = graphics.createText("").setAnchor(0.5).setFillColor(0xffffff).setFontSize(40).setStrokeColor(0x000000).setStrokeThickness(4.0).setX(855 / 2).setY(1080 / 2);
+		wave = graphics.createText("").setAnchor(0.5).setFillColor(0xffffff).setFontSize(40).setStrokeColor(0x000000).setStrokeThickness(4.0).setX(855 / 2).setY(540);
+
+		String[] attackerBodySprites = graphics.createSpriteSheetSplitter().setSourceImage("att_body.png").setHeight(94).setWidth(100).setImageCount(10).setImagesPerRow(4).setOrigRow(0).setOrigCol(0).setName("b").split();
+		String[] attackerHelmetSprites = graphics.createSpriteSheetSplitter().setSourceImage("att_helmet.png").setHeight(94).setWidth(100).setImageCount(10).setImagesPerRow(4).setOrigRow(0).setOrigCol(0).setName("h").split();
+		graphics.createSpriteAnimation().setImages(attackerBodySprites).setLoop(true).setPlaying(true).setX(100).setY(440).setScale(2);
+		graphics.createSpriteAnimation().setImages(attackerHelmetSprites).setLoop(true).setPlaying(true).setX(100).setY(440).setScale(2);
+
 
 		boardGroup = graphics.createGroup();
 		// TODO: switch gridgroup back to BufferedGroup
-		boardGroup.setScale(1080.0 / (board.getHeight() * CELL_SIZE));
-		boardGroup.setX(1920 - 1080);
+		boardGroup.setScale((double) graphics.getWorld().getHeight() / (board.getHeight() * CELL_SIZE));
+		boardGroup.setX(graphics.getWorld().getWidth() - graphics.getWorld().getHeight() * (1 + Constants.MAP_HEIGHT) / Constants.MAP_HEIGHT);
 		Group gridGroup = graphics.createGroup();
 		boardGroup.add(gridGroup);
 		Group innerGroup = graphics.createGroup();
 		gridGroup.add(innerGroup);
 
-		for (int x = 0; x < board.getWidth(); x++) {
-			for (int y = 0; y < board.getHeight(); y++) {
+		for (int y = 0; y < board.getHeight(); y++) {
+			innerGroup.add(Utils.createBoardSprite(graphics, "canyon.png", -1, y).setAlpha(0.7));
+			innerGroup.add(Utils.createBoardSprite(graphics, "canyon.png", board.getWidth(), y).setAlpha(0.7));
+			for (int x = 0; x < board.getWidth(); x++) {
 				if (board.getGrid()[x][y].canBuild()) {
 					Sprite plateau = Utils.createBoardSprite(graphics, "plateau.png", x, y);
 					tooltips.setTooltipText(plateau, "x: " + x + "\ny: " + y);
@@ -69,6 +78,8 @@ public class BoardView {
 	}
 
 	public void updateView() {
-		wave.setText("Wave " + board.getWaveNumber());
+		String text = board.getWaveInfo();
+		if (!text.equals(wave.getText()))
+			wave.setText(text);
 	}
 }

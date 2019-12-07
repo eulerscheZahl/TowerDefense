@@ -6,6 +6,7 @@ import java.util.Random;
 import com.codingame.gameengine.core.AbstractPlayer.TimeoutException;
 import com.codingame.gameengine.core.AbstractReferee;
 import com.codingame.gameengine.core.MultiplayerGameManager;
+import com.codingame.gameengine.module.endscreen.EndScreenModule;
 import com.codingame.gameengine.module.entities.GraphicEntityModule;
 import com.codingame.gameengine.module.tooltip.TooltipModule;
 import com.google.inject.Inject;
@@ -27,6 +28,8 @@ public class Referee extends AbstractReferee {
 	private GraphicEntityModule graphicEntityModule;
 	@Inject
 	private TooltipModule tooltipModule;
+	@Inject
+	private EndScreenModule endScreenModule;
 
 	private Board board;
 
@@ -87,6 +90,8 @@ public class Referee extends AbstractReferee {
 						} else {
 							gameManager.addToGameSummary(ex.getPlayer().getNicknameToken() + ": " + ex.getMessage());
 						}
+					} catch (NumberFormatException ex) {
+						player.deactivate(player.getNicknameToken() + " provided a malformed output");
 					}
 				}
 			} catch (TimeoutException e) {
@@ -119,5 +124,19 @@ public class Referee extends AbstractReferee {
 		}
 		if (gameManager.getActivePlayers().size() < 2)
 			gameManager.endGame();
+	}
+
+	@Override
+	public void onEnd() {
+		int[] scores = gameManager.getPlayers().stream().mapToInt(p -> p.getScore()).toArray();
+		String[] texts = new String[2];
+		for (int i = 0; i < scores.length; i++) {
+			texts[i] = gameManager.getPlayers().get(i).getLives() + " lives, " + gameManager.getPlayers().get(i).getMoney() + " gold";
+		}
+		endScreenModule.setScores(scores, texts);
+		//String endSprite = "tie";
+		//if (scores[0] > scores[1]) endSprite = "win0";
+		//if (scores[0] < scores[1]) endSprite = "win1";
+		//endScreenModule.setTitleRankingsSprite(endSprite + ".png");
 	}
 }

@@ -1,7 +1,9 @@
 package view;
 
 import java.util.ArrayList;
+import java.util.Random;
 
+import TowerDefense.Constants;
 import com.codingame.gameengine.module.entities.GraphicEntityModule;
 import com.codingame.gameengine.module.entities.Group;
 import com.codingame.gameengine.module.entities.SpriteAnimation;
@@ -66,8 +68,8 @@ public class AttackerView {
 					.setX((int) (BoardView.CELL_SIZE * attacker.getLocation().getX()))
 					.setY((int) (BoardView.CELL_SIZE * attacker.getLocation().getY()));
 			if (attacker.getOwner().getIndex() == 1) {
-				attackerBody.setX(-BoardView.CELL_SIZE );
-				attackerHelmet.setX(-BoardView.CELL_SIZE );
+				attackerBody.setX(-BoardView.CELL_SIZE);
+				attackerHelmet.setX(-BoardView.CELL_SIZE);
 				group.setScaleX(-1);
 			}
 			boardGroup.add(group);
@@ -75,16 +77,39 @@ public class AttackerView {
 		//tooltips.setTooltipText(sprite, getTooltipString());
 	}
 
+	private int finalY = -1;
 	public void move() {
 		ArrayList<SubTile> steps = attacker.getSteps();
-		if (steps.size() == 0)
+		if (steps.size() == 0) {
+			if (attacker.hasSucceeded()) {
+				if (finalY == -1) {
+					changeAnimation(attackerBodySprites, attackerHelmetSprites);
+					attackerBody.setLoop(true).play();
+					attackerHelmet.setLoop(true).play();
+					finalY = 923 * attacker.getId() % (Constants.MAP_HEIGHT * BoardView.CELL_SIZE);
+				}
+
+				int missing = group.getY() - finalY;
+				if (missing == 0) {
+					if (attackerBody.isPlaying()) {
+						attackerBody.pause();
+						attackerHelmet.pause();
+					}
+					return;
+				}
+				int moveDist = attacker.getSpeed() * BoardView.CELL_SIZE / SubTile.SUBTILE_SIZE;
+				if (Math.abs(missing) < moveDist) moveDist = Math.abs(missing);
+				if (group.getY() < finalY) group.setY(group.getY() + moveDist);
+				else group.setY(group.getY() - moveDist);
+			}
 			return;
+		}
 		steps.add(attacker.getLocation());
 
 		// Seems to be needed for the animations to play
 		graphics.commitEntityState(0, attackerBody);
 		graphics.commitEntityState(0, attackerHelmet);
-		
+
 		for (int i = 1; i < steps.size() - 1; i++) {
 			SubTile current = steps.get(i);
 			SubTile prev = steps.get(i - 1);
@@ -118,18 +143,24 @@ public class AttackerView {
 	}
 
 	public void kill() {
-		boolean win = attacker.hasSucceeded();
-		attackerBody.setImages(win ? attackerBodyWinSprites : attackerBodyDeathSprites);
+		if (attacker.hasSucceeded()) {
+			changeAnimation(attackerBodyWinSprites, attackerHelmetWinSprites);
+		} else {
+			changeAnimation(attackerBodyDeathSprites, attackerHelmetDeathSprites);
+			graphics.commitEntityState(0.9, group);
+			group.setVisible(false);
+			//spriteCache.get(attacker.getOwner().getIndex()).add(sprite);
+		}
+	}
+
+	private void changeAnimation(String[] body, String[] helmet) {
+		attackerBody.setImages(body);
 		attackerBody.setDuration(DEATH_DURATION);
 		attackerBody.reset();
-		attackerHelmet.setImages(win ? attackerHelmetWinSprites : attackerHelmetDeathSprites);
+		attackerHelmet.setImages(helmet);
 		attackerHelmet.setDuration(DEATH_DURATION);
 		attackerHelmet.reset();
 		graphics.commitEntityState(0, attackerBody);
 		graphics.commitEntityState(0, attackerHelmet);
-
-		graphics.commitEntityState(0.9, group);
-		group.setVisible(false);
-		//spriteCache.get(attacker.getOwner().getIndex()).add(sprite);
 	}
 }

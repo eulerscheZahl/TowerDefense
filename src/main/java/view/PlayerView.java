@@ -29,20 +29,20 @@ public class PlayerView {
 	}
 
 	public void createPlayerView() {
-		int baseY = player.getIndex() == 0 ? 112 : 644;
+		int baseY = player.getIndex() == 0 ? 12 : 744;
 
 		avatar = graphics.createSprite().setAnchor(0).setBaseHeight(200).setBaseWidth(200).setImage(player.getAvatarToken()).setX(50).setY(baseY + 350 / 2 - 200 / 2).setZIndex(20);
 
 		//background = entityModule.createSprite().setAnchor(0).setImage("HUD_" + color + ".png").setX(238 - 50 - PLAYER_AVATAR_RADIUS / 2).setY(baseY);
 
 		int textGap = 85;
-		pseudo = graphics.createText(player.getNicknameToken()).setAnchor(0.5).setFillColor(0xffffff).setFontSize(60).setStrokeColor(0x000000).setStrokeThickness(4.0).setX(855 / 2).setY(baseY + textGap).setFillColor(player.getColor());
+		pseudo = graphics.createText(player.getNicknameToken()).setAnchor(0.5).setFillColor(0xffffff).setFontSize(60).setStrokeColor(0x000000).setStrokeThickness(4.0).setX(460).setY(baseY + textGap).setFillColor(player.getColor()).setZIndex(-1);
 
 		gold = graphics.createText("").setAnchor(0.5).setFillColor(0xffffff).setFontSize(40).setStrokeColor(0x000000).setStrokeThickness(4.0).setX(855 / 2).setY(baseY + textGap + 70);
 
 		lives = graphics.createText("").setAnchor(0.5).setFillColor(0xffffff).setFontSize(40).setStrokeColor(0x000000).setStrokeThickness(4.0).setX(855 / 2).setY(baseY + textGap + 70 + 50);
 
-		message = graphics.createText("").setAnchor(0.5).setFillColor(0xffffff).setFontSize(35).setStrokeColor(0x000000).setStrokeThickness(4.0).setX(855 / 2).setY(baseY + textGap + 70 + 50 + 50);
+		message = graphics.createText("").setAnchor(0.5).setFillColor(0xffffff).setFontSize(35).setStrokeColor(0x000000).setStrokeThickness(4.0).setX(855 / 2).setY(baseY + textGap + 70 + 50 + 50).setZIndex(-1);
 
 		group = graphics.createGroup().setScale(1).setX(0).setY(0);
 		group.add(avatar, pseudo, gold, lives, message);

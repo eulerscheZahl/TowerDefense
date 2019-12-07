@@ -14,7 +14,7 @@ public class Player extends AbstractMultiplayerPlayer {
 	private PlayerView view;
 	private String message = "";
 
-	private static int[] colors = { 0xff8080, 0x8080ff };
+	private static int[] colors = { 0xff4040, 0x4040ff };
 
 	@Override
 	public int getExpectedOutputLines() {

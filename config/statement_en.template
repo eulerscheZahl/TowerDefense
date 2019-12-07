@@ -133,17 +133,6 @@
         is &le; <const>50</const> ms (<const>1000</const> ms for the first turn).</div>
     </div>
   </div>
-  <!-- STORY -->
-  <div class="statement-story-background">
-    <div class="statement-story-cover" style="background-size: cover;>
-      <div class="statement-story" style="min-height: 300px; position: relative">
-        <h1>Title</h1>
-        <div class="story-text">Story
-          <br>
-          Totally optional</div>
-      </div>
-    </div>
-  </div>
 
   <br>
   <div>Graphics assets:<br>

@@ -17,6 +17,7 @@ import view.BoardView;
 public class Board {
 	private Tile[][] grid;
 	private List<Attacker> attackers = new ArrayList<>();
+	private List<Attacker> veterans = new ArrayList<>();
 	private List<Tower> towers = new ArrayList<>();
 	private int width;
 	private int height;
@@ -142,6 +143,8 @@ public class Board {
 	}
 
 	public void moveAttackers(int turn) {
+		for (Attacker a : veterans)
+			a.move();
 		for (Attacker a : attackers)
 			a.move();
 	}
@@ -231,6 +234,7 @@ public class Board {
 			Attacker a = attackers.get(i);
 			if (a.hasSucceeded()) {
 				attackers.remove(i);
+				veterans.add(a);
 				a.kill();
 				a.getEnemy().loseLife();
 			}
@@ -386,8 +390,13 @@ public class Board {
 		return input;
 	}
 
-	public int getWaveNumber() {
-		return waveNumber;
+	public String getWaveInfo() {
+		int index = Math.min(waveNumber, Constants.WAVE_COUNT.length) - 1;
+		return "Wave " + waveNumber
+				+ "\ncount: " + Constants.WAVE_COUNT[index]
+				+ "\nhealth: " + Constants.WAVE_HP[index]
+				+ "\nspeed: " + ((double)Constants.WAVE_SPEED[index] / SubTile.SUBTILE_SIZE)
+				+ "\nbounty: " + Constants.WAVE_BOUNTY[index];
 	}
 
 	public void updateView() {

@@ -8,7 +8,7 @@ public class Constants {
 	public static final int MIN_PATH_LENGTH = 30;
 
 	public static final int PLAYER_MONEY = 350;
-	public static final int PLAYER_LIVES = 1000;
+	public static final int PLAYER_LIVES = 20;
 
 	public static final int GUNTOWER_COST = 100;
 	public static final double[] GUNTOWER_DAMAGE = { 5, 8, 15, 30 };
