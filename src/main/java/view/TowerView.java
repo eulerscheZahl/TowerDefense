@@ -40,7 +40,7 @@ public abstract class TowerView {
 		boardGroup.add(towerSprite);
 		if (towerFixedSprite != null)
 			boardGroup.add(towerFixedSprite);
-		boardGroup.add(attackSprite);
+		if (attackSprite != null) boardGroup.add(attackSprite);
 		if (attackLine != null) boardGroup.add(attackLine);
 		graphics.commitEntityState(0, boardGroup, towerSprite);
 		if (towerFixedSprite != null)

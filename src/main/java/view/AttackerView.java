@@ -6,6 +6,7 @@ import java.util.Random;
 import TowerDefense.Constants;
 import com.codingame.gameengine.module.entities.GraphicEntityModule;
 import com.codingame.gameengine.module.entities.Group;
+import com.codingame.gameengine.module.entities.Sprite;
 import com.codingame.gameengine.module.entities.SpriteAnimation;
 import com.codingame.gameengine.module.tooltip.TooltipModule;
 
@@ -20,6 +21,7 @@ public class AttackerView {
 
 	private Attacker attacker;
 	private Group group;
+	private Sprite glueSprite = null;
 	private SpriteAnimation attackerBody, attackerHelmet;
 	private GraphicEntityModule graphics;
 	private TooltipModule tooltips;
@@ -79,6 +81,25 @@ public class AttackerView {
 
 	private int finalY = -1;
 	public void move() {
+		if (attacker.isSlow()) {
+			if (glueSprite == null) {
+				glueSprite = graphics.createSprite().setImage("glue" + (1 + attacker.getId() % 3) + ".png").setScale(0.3).setY(50);
+				if (attacker.getOwner().getIndex() == 1) {
+					glueSprite.setX(-BoardView.CELL_SIZE);
+				}
+				group.add(glueSprite);
+				graphics.commitEntityState(0, group, glueSprite);
+			}
+			if (glueSprite.getAlpha() == 0) {
+				glueSprite.setAlpha(1);
+				graphics.commitEntityState(0, glueSprite);
+			}
+		} else if (glueSprite != null && glueSprite.getAlpha() == 1) {
+			glueSprite.setAlpha(0);
+			graphics.commitEntityState(0, glueSprite);
+		}
+
+
 		ArrayList<SubTile> steps = attacker.getSteps();
 		if (steps.size() == 0) {
 			if (attacker.hasSucceeded()) {
