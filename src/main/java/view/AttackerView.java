@@ -170,7 +170,7 @@ public class AttackerView {
 			changeAnimation(attackerBodyDeathSprites, attackerHelmetDeathSprites);
 			graphics.commitEntityState(0.9, group);
 			group.setVisible(false);
-			//spriteCache.get(attacker.getOwner().getIndex()).add(sprite);
+			//spriteCache.get(attacker.getOwner().getIndex()).add(group);
 		}
 	}
 
