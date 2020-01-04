@@ -15,6 +15,37 @@ public class BuildAction {
         this.type = type;
     }
 
+    public boolean isPriorityBuild() {
+        // if width is even
+        if (Constants.MAP_WIDTH == 0) {
+            if (player.getIndex() == 0) {
+                return x < Constants.MAP_WIDTH / 2;
+            } else {
+                return x >= Constants.MAP_WIDTH / 2;
+            }
+        }
+        // if width is odd
+        else {
+            if (player.getIndex() == 0) {
+                if (x < Constants.MAP_WIDTH / 2) {
+                    return true;
+                } else if (x == Constants.MAP_WIDTH / 2) {
+                    return y < Constants.MAP_HEIGHT / 2;
+                } else {
+                    return false;
+                }
+            } else {
+                if (x > Constants.MAP_WIDTH / 2) {
+                    return true;
+                } else if (x == Constants.MAP_WIDTH / 2) {
+                    return y >= Constants.MAP_HEIGHT / 2;
+                } else {
+                    return false;
+                }
+            }
+        }
+    }
+
     public Player getPlayer() {
         return player;
     }

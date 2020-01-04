@@ -38,7 +38,7 @@
 	  <br><h5>Gun tower</h5>
 	  The gun tower attacks one unit at a time, reducing the hit point by its damage value. In case of multiple possible targets, it will always take the one closest to the own base.
 	  <br><h5>Fire tower</h5>
-	  The fire tower damages all opponent attackers in its range.
+	  The fire tower damages all opponent attackers in its range. The attack will last <const>2</const> turns, damaging the units that are in range during the turn of the attack happening or one turn after.
 	  <br><h5>Glue tower</h5>
 	  The glue tower does not cause any damage to the attackers. Instead it will slow them down for some turns. It targets all attackers in range, ignoring those which are already slowed down.
 	  <br><h5>Heal tower</h5>
@@ -49,14 +49,15 @@
 	  
 	  <br><h4>Tower strengths</h4>
 	  The tower strengths are as follows:
-	  <table>
-	  <tr><th></th><th colspan="3">Gun tower (cost: [[GUNTOWER_COST]])</th><th colspan="3">Fire tower (cost: [[FIRETOWER_COST]])</th><th colspan="3">Glue tower (cost: [[GLUETOWER_COST]])</th><th colspan="3">Heal tower (cost: [[HEALTOWER_COST]])</th></tr>
+	  <!--<table>
+	  <tr><th width="100"></th><th colspan="3">Gun tower (cost: [[GUNTOWER_COST]])</th><th colspan="3">Fire tower (cost: [[FIRETOWER_COST]])</th><th colspan="3">Glue tower (cost: [[GLUETOWER_COST]])</th><th colspan="3">Heal tower (cost: [[HEALTOWER_COST]])</th></tr>
 	  <tr><th></th><th>damage</th><th>range</th><th>reload</th><th>damage</th><th>range</th><th>reload</th><th>damage</th><th>range</th><th>reload</th><th>damage</th><th>range</th><th>reload</th></tr>
 	  <tr><td>Initial</td><td>[[GUNTOWER_DAMAGE_0]]</td><td>[[GUNTOWER_RANGE_0]]</td><td>[[GUNTOWER_RELOAD_0]]</td><td>[[FIRETOWER_DAMAGE_0]]</td><td>[[FIRETOWER_RANGE_0]]</td><td>[[FIRETOWER_RELOAD_0]]</td><td>[[GLUETOWER_DAMAGE_0]]</td><td>[[GLUETOWER_RANGE_0]]</td><td>[[GLUETOWER_RELOAD_0]]</td><td>[[HEALTOWER_DAMAGE_0]]</td><td>[[HEALTOWER_RANGE_0]]</td><td>[[HEALTOWER_RELOAD_0]]</td></tr>
 	  <tr><td>Upgrade 1</td><td>[[GUNTOWER_DAMAGE_1]]</td><td>[[GUNTOWER_RANGE_1]]</td><td>[[GUNTOWER_RELOAD_1]]</td><td>[[FIRETOWER_DAMAGE_1]]</td><td>[[FIRETOWER_RANGE_1]]</td><td>[[FIRETOWER_RELOAD_1]]</td><td>[[GLUETOWER_DAMAGE_1]]</td><td>[[GLUETOWER_RANGE_1]]</td><td>[[GLUETOWER_RELOAD_1]]</td><td>[[HEALTOWER_DAMAGE_1]]</td><td>[[HEALTOWER_RANGE_1]]</td><td>[[HEALTOWER_RELOAD_1]]</td></tr>
 	  <tr><td>Upgrade 2</td><td>[[GUNTOWER_DAMAGE_2]]</td><td>[[GUNTOWER_RANGE_2]]</td><td>[[GUNTOWER_RELOAD_2]]</td><td>[[FIRETOWER_DAMAGE_2]]</td><td>[[FIRETOWER_RANGE_2]]</td><td>[[FIRETOWER_RELOAD_2]]</td><td>[[GLUETOWER_DAMAGE_2]]</td><td>[[GLUETOWER_RANGE_2]]</td><td>[[GLUETOWER_RELOAD_2]]</td><td>[[HEALTOWER_DAMAGE_2]]</td><td>[[HEALTOWER_RANGE_2]]</td><td>[[HEALTOWER_RELOAD_2]]</td></tr>
 	  <tr><td>Upgrade 3</td><td>[[GUNTOWER_DAMAGE_3]]</td><td>[[GUNTOWER_RANGE_3]]</td><td>[[GUNTOWER_RELOAD_3]]</td><td>[[FIRETOWER_DAMAGE_3]]</td><td>[[FIRETOWER_RANGE_3]]</td><td>[[FIRETOWER_RELOAD_3]]</td><td>[[GLUETOWER_DAMAGE_3]]</td><td>[[GLUETOWER_RANGE_3]]</td><td>[[GLUETOWER_RELOAD_3]]</td><td>[[HEALTOWER_DAMAGE_3]]</td><td>[[HEALTOWER_RANGE_3]]</td><td>[[HEALTOWER_RELOAD_3]]</td></tr>
-	  <table>
+	  <table>-->
+	  <img src="https://i.imgur.com/p7JWEYi.png"/>
 	  
     </div>
   </div>

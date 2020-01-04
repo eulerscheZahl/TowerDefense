@@ -246,55 +246,20 @@ public class Board {
 	}
 
 	public void cacheBuild(Player player, int x, int y, String type) throws InvalidActionException {
-		for (BuildAction buildAction : buildActions) {
-			if (buildAction.getX() == x && buildAction.getY() == y) {
-				if (isCloserTo(player, x, y)) {
-					buildAction.setPlayer(player);
-					buildAction.setType(type);
-				}
-
-				throw new InvalidActionException("Tile (" + x + "/" + y + ") already occupied", false, players.get(1 - buildAction.getPlayer().getIndex()));
-			}
-		}
-
 		buildActions.add(new BuildAction(player, x, y, type));
-	}
-
-	private boolean isCloserTo(Player player, int x, int y) {
-		// if width is even
-		if (width % 2 == 0) {
-			if (player.getIndex() == 0) {
-				return x < width / 2;
-			} else {
-				return x >= width / 2;
-			}
-		}
-		// if width is odd
-		else {
-			if (player.getIndex() == 0) {
-				if (x < width / 2) {
-					return true;
-				} else if (x == width / 2) {
-					return y < height / 2;
-				} else {
-					return false;
-				}
-			} else {
-				if (x > width / 2) {
-					return true;
-				} else if (x == width / 2) {
-					return y >= height / 2;
-				} else {
-					return false;
-				}
-			}
-		}
 	}
 
 	public boolean executeBuilds() throws InvalidActionException {
 		if (buildActions.size() == 0)
 			return false;
-		BuildAction buildAction = buildActions.get(0);
+		BuildAction buildAction = null;
+		for (BuildAction action : buildActions) {
+			if (action.isPriorityBuild()) {
+				buildAction = action;
+				break;
+			}
+		}
+		if (buildAction == null) buildAction = buildActions.get(0);
 		buildActions.remove(buildAction);
 		build(buildAction.getPlayer(), buildAction.getX(), buildAction.getY(), buildAction.getType());
 		return true;
