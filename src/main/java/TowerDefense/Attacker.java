@@ -75,7 +75,7 @@ public class Attacker {
 	}
 
 	public void heal(int health) {
-		hitPoints = Math.max(hitPoints, maxHealth);
+		hitPoints = Math.min(hitPoints + health, maxHealth);
 	}
 
 	public void dealDamage(int damage) {
