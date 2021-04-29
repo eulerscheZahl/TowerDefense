@@ -266,6 +266,7 @@ public class Board {
 	}
 
 	private void build(Player player, int x, int y, String type) throws InvalidActionException {
+		if (x < 0 || x >= width || y < 0 || y >= height) throw new InvalidActionException("Tile (" + x + "/" + y + ") is outside of the map", true, player);
 		Tower tower = null;
 		switch (type.toUpperCase()) {
 		case "GUNTOWER":
